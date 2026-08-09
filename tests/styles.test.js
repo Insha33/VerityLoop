@@ -19,3 +19,11 @@ test('visual system includes accessibility and responsive contracts', async () =
   assert.match(css, /@media\s*\(max-width:/);
   assert.match(css, /prefers-reduced-motion/);
 });
+
+test('page rhythm orders product, how it works, then solutions', async () => {
+  const css = await readFile(cssPath, 'utf8');
+
+  assert.match(css, /\.product-section\s*\{\s*order:\s*2;/);
+  assert.match(css, /\.workflow-section\s*\{\s*order:\s*3;/);
+  assert.match(css, /\.solutions-section\s*\{\s*order:\s*4;/);
+});

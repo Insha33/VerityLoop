@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { getActiveSection, getJourneyContent, validateAudience, validateEmail } from '../app.js';
+import { getActiveSection, getJourneyContent, validateAudience, validateEmail, validateName } from '../app.js';
 
 test('journey content gives founders and product teams distinct decision contexts', () => {
   const opportunity = getJourneyContent('opportunity');
@@ -28,6 +28,13 @@ test('audience validation accepts only supported waitlist paths', () => {
   assert.equal(validateAudience('both'), true);
   assert.equal(validateAudience(''), false);
   assert.equal(validateAudience('investor'), false);
+});
+
+test('name validation rejects blank and single-character entries', () => {
+  assert.equal(validateName('Insha'), true);
+  assert.equal(validateName('  Product Lead  '), true);
+  assert.equal(validateName('A'), false);
+  assert.equal(validateName('   '), false);
 });
 
 test('active section returns the last section crossing the header threshold', () => {

@@ -41,6 +41,10 @@ export function validateAudience(value) {
   return ['founder', 'product-team', 'both'].includes(value);
 }
 
+export function validateName(value) {
+  return String(value).trim().length >= 2;
+}
+
 export function getActiveSection(scrollY, sections) {
   const threshold = scrollY + 120;
   let active = sections[0]?.id ?? '';
@@ -240,10 +244,16 @@ function initializeWaitlist() {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
     const email = String(data.get('email') ?? '').trim();
     const audience = String(data.get('audience') ?? '');
 
     status.classList.remove('is-success');
+    if (!validateName(name)) {
+      status.textContent = 'Enter your name to join the waitlist.';
+      form.elements.name.focus();
+      return;
+    }
     if (!validateEmail(email)) {
       status.textContent = 'Enter a valid work email to join the waitlist.';
       form.elements.email.focus();

@@ -22,15 +22,28 @@ test('page contains trust, FAQ, and repeated waitlist conversion points', async 
   assert.ok(waitlistCalls.length >= 3, 'expected at least three waitlist CTAs');
 });
 
-test('product workflow follows the two starting points and continues through reviewed tickets', async () => {
+test('product, how it works, and solutions are separate sections in that order', async () => {
   const html = await readFile(htmlPath, 'utf8');
   const productIndex = html.indexOf('id="product"');
+  const howItWorksIndex = html.indexOf('id="how-it-works"');
   const solutionsIndex = html.indexOf('id="solutions"');
 
   assert.ok(productIndex > -1, 'expected a product section');
-  assert.ok(solutionsIndex < productIndex, 'expected the two starting points before the product workflow');
+  assert.ok(howItWorksIndex > -1, 'expected a separate how it works section');
+  assert.ok(solutionsIndex > -1, 'expected a separate solutions section');
+  assert.match(html, /class="section product-section" id="product"/);
+  assert.match(html, /class="section workflow-section" id="how-it-works"/);
   assert.match(html, /Reviewed ticket drafts/);
   assert.match(html, /data-solution-card="opportunity"/);
   assert.match(html, /data-solution-card="roadmap"/);
   assert.ok(html.indexOf('class="journey-switch', productIndex) > productIndex, 'expected the journey selector inside the product section');
+});
+
+test('waitlist asks for name, email, and role of interest', async () => {
+  const html = await readFile(htmlPath, 'utf8');
+
+  assert.match(html, /name="name"/);
+  assert.match(html, /name="email"/);
+  assert.match(html, /name="audience"/);
+  assert.match(html, /Role you’re interested in/);
 });

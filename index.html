@@ -77,11 +77,12 @@
         </div>
       </section>
 
-      <section class="section product-section" id="product">
+      <div class="product-stack">
+      <section class="section workflow-section" id="how-it-works">
         <div class="shell">
-          <div class="section-heading product-heading" id="how-it-works" data-reveal>
+          <div class="section-heading product-heading" data-reveal>
             <p class="eyebrow light">Product</p>
-            <h2>Evidence before execution.</h2>
+            <h2>How GroundTruth moves from evidence to execution.</h2>
             <p>GroundTruth turns uncertainty into a governed path from signal to reviewed delivery work.</p>
           </div>
           <div class="workflow-grid product-workflow">
@@ -91,7 +92,12 @@
             <article data-reveal><span>04</span><div class="workflow-icon">✓</div><h3>Approve PRD</h3><p>Create a PRD only after a human chooses an eligible direction.</p></article>
             <article data-reveal><span>05</span><div class="workflow-icon">↗</div><h3>Review tickets</h3><p>Draft delivery work only after PRD approval and engineering review.</p></article>
           </div>
+        </div>
+      </section>
 
+      <section class="section product-section" id="product">
+        <div class="shell">
+          <div class="section-heading product-heading" data-reveal><p class="eyebrow light">Product</p><h2>See the decision system at work.</h2><p>Switch journeys, inspect evidence, and compare valid outcomes before anything becomes delivery work.</p></div>
           <div class="decision-system" data-reveal aria-label="Interactive GroundTruth decision flow">
             <div class="journey-switch product-switch" role="group" aria-label="Choose a GroundTruth journey">
               <button type="button" class="journey-tab is-active" aria-pressed="true" data-journey="opportunity"><span>For founders</span><strong>Opportunity Discovery</strong></button>
@@ -109,6 +115,7 @@
           </div>
         </div>
       </section>
+      </div>
 
       <section class="section trust-section shell" id="trust">
         <div class="trust-intro" data-reveal><p class="eyebrow">Trust is product infrastructure</p><h2>Built to show its work.</h2><p>GroundTruth keeps facts, inference, uncertainty, and human judgment visibly separate.</p><a class="button button-outline" href="#waitlist">Join the waitlist <span>→</span></a></div>
@@ -143,9 +150,11 @@
         <div class="shell waitlist-layout">
           <div data-reveal><p class="eyebrow light">Early access</p><h2>Make the next product decision with evidence.</h2><p>Join the waitlist for GroundTruth. Tell us where your product journey begins.</p><div class="mini-proof"><span>For founders</span><span>For product teams</span><span>No noise for noise’s sake</span></div></div>
           <form class="waitlist-form" id="waitlist-form" novalidate data-reveal>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
             <label for="email">Work email</label>
             <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
-            <fieldset><legend>I’m joining as</legend><label><input type="radio" name="audience" value="founder" required><span>Founder</span></label><label><input type="radio" name="audience" value="product-team"><span>Product team</span></label><label><input type="radio" name="audience" value="both"><span>Exploring both</span></label></fieldset>
+            <fieldset><legend>Role you’re interested in</legend><label><input type="radio" name="audience" value="founder" required><span>Founder</span></label><label><input type="radio" name="audience" value="product-team"><span>Product team</span></label><label><input type="radio" name="audience" value="both"><span>Exploring both</span></label></fieldset>
             <p class="form-status" aria-live="polite" data-form-status></p>
             <button class="button submit-button" type="submit">Join the waitlist <span aria-hidden="true">→</span></button>
             <small>We’ll only use your email for GroundTruth early-access updates.</small>
