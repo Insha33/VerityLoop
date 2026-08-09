@@ -63,6 +63,12 @@ function setJourney(journey) {
     tab.setAttribute('aria-pressed', String(active));
   });
 
+  document.querySelectorAll('[data-solution-card]').forEach((card) => {
+    const active = card.dataset.solutionCard === journey;
+    card.classList.toggle('is-selected', active);
+    card.setAttribute('aria-pressed', String(active));
+  });
+
   if (!panel) return;
   panel.classList.add('is-updating');
 
@@ -88,6 +94,19 @@ function initializeJourneys() {
     button.addEventListener('click', () => {
       setJourney(button.dataset.journeyLink);
       document.querySelector('#product')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  document.querySelectorAll('[data-solution-card]').forEach((card) => {
+    const select = () => setJourney(card.dataset.solutionCard);
+    card.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-journey-link]')) select();
+    });
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        select();
+      }
     });
   });
 

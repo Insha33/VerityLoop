@@ -21,3 +21,15 @@ test('page contains trust, FAQ, and repeated waitlist conversion points', async 
   assert.match(html, /id="faq"/);
   assert.ok(waitlistCalls.length >= 3, 'expected at least three waitlist CTAs');
 });
+
+test('product workflow appears before journeys and continues through reviewed tickets', async () => {
+  const html = await readFile(htmlPath, 'utf8');
+  const productIndex = html.indexOf('id="product"');
+  const solutionsIndex = html.indexOf('id="solutions"');
+
+  assert.ok(productIndex > -1, 'expected a product section');
+  assert.ok(productIndex < solutionsIndex, 'expected product workflow before audience journeys');
+  assert.match(html, /Reviewed ticket drafts/);
+  assert.match(html, /data-solution-card="opportunity"/);
+  assert.match(html, /data-solution-card="roadmap"/);
+});

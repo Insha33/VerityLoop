@@ -49,16 +49,24 @@
           <div class="trust-line"><span>Every claim cited</span><span>Uncertainty visible</span><span>Humans decide</span></div>
         </div>
 
-        <div class="decision-system" id="product" data-reveal aria-label="Interactive GroundTruth decision flow">
-          <div class="journey-switch" role="group" aria-label="Choose a GroundTruth journey">
-            <button type="button" class="journey-tab is-active" aria-pressed="true" data-journey="opportunity">
-              <span>For founders</span><strong>Opportunity Discovery</strong>
-            </button>
-            <button type="button" class="journey-tab" aria-pressed="false" data-journey="roadmap">
-              <span>For product teams</span><strong>Roadmap Impact</strong>
-            </button>
+      </section>
+
+      <section class="section product-section" id="product">
+        <div class="shell">
+          <div class="section-heading product-heading" id="how-it-works" data-reveal>
+            <p class="eyebrow light">Product</p>
+            <h2>Evidence before execution.</h2>
+            <p>GroundTruth turns uncertainty into a governed path from signal to reviewed delivery work.</p>
+          </div>
+          <div class="workflow-grid product-workflow">
+            <article data-reveal><span>01</span><div class="workflow-icon">⌁</div><h3>Frame or detect</h3><p>Begin with a founder’s question or a verified market change.</p></article>
+            <article data-reveal><span>02</span><div class="workflow-icon">◎</div><h3>Verify</h3><p>Check identity, freshness, before-and-after state, and source quality.</p></article>
+            <article data-reveal><span>03</span><div class="workflow-icon">✦</div><h3>Decide</h3><p>Review relevance, conflicts, unknowns, and response options.</p></article>
+            <article data-reveal><span>04</span><div class="workflow-icon">✓</div><h3>Approve PRD</h3><p>Create a PRD only after a human chooses an eligible direction.</p></article>
+            <article data-reveal><span>05</span><div class="workflow-icon">↗</div><h3>Review tickets</h3><p>Draft delivery work only after PRD approval and engineering review.</p></article>
           </div>
 
+        <div class="decision-system" data-reveal aria-label="Interactive GroundTruth decision flow">
           <div class="flow-canvas" data-journey-panel>
             <div class="flow-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
             <article class="flow-card signal-card">
@@ -110,18 +118,34 @@
               <ul class="prd-list"><li>Problem and outcome</li><li>Evidence and unknowns</li><li>Scope and non-goals</li><li>Success measures</li></ul>
               <span class="locked-label">Generated only when you choose</span>
             </article>
+            <article class="flow-card ticket-card">
+              <div class="card-top"><span class="step-number">05</span><span class="optional">Reviewed</span></div>
+              <p class="card-label">Approved PRD</p>
+              <h2>Reviewed ticket drafts</h2>
+              <ul class="prd-list"><li>Epic and stories</li><li>Acceptance criteria</li><li>Dependencies</li><li>Source links</li></ul>
+              <span class="locked-label">PM and engineering review before publishing</span>
+            </article>
           </div>
+        </div>
         </div>
       </section>
 
       <section class="section solutions-section shell" id="solutions">
-        <div class="section-heading" data-reveal>
+        <div class="section-heading compact-heading" data-reveal>
           <p class="eyebrow">Two starting points. One governed loop.</p>
-          <h2>Start where your product story actually begins.</h2>
+          <h2>Start with the journey that fits.</h2>
           <p>GroundTruth adapts to the context you have—not the paperwork you do not.</p>
         </div>
+        <div class="journey-switch solution-switch" role="group" aria-label="Choose a GroundTruth journey" data-reveal>
+          <button type="button" class="journey-tab is-active" aria-pressed="true" data-journey="opportunity">
+            <span>For founders</span><strong>Opportunity Discovery</strong>
+          </button>
+          <button type="button" class="journey-tab" aria-pressed="false" data-journey="roadmap">
+            <span>For product teams</span><strong>Roadmap Impact</strong>
+          </button>
+        </div>
         <div class="solution-grid">
-          <article class="solution-card opportunity" id="opportunity" data-reveal>
+          <article class="solution-card opportunity is-selected" id="opportunity" role="button" tabindex="0" aria-pressed="true" data-solution-card="opportunity" data-reveal>
             <div class="solution-orbit" aria-hidden="true"><span>✦</span></div>
             <p class="card-label">For founders</p>
             <h3>Opportunity Discovery</h3>
@@ -129,7 +153,7 @@
             <ol><li>Describe your starting point</li><li>Confirm the market boundary</li><li>Discover alternatives and entrants</li><li>Choose what to validate next</li></ol>
             <button class="solution-demo" type="button" data-journey-link="opportunity">Explore the founder journey <span>→</span></button>
           </article>
-          <article class="solution-card roadmap" id="roadmap" data-reveal>
+          <article class="solution-card roadmap" id="roadmap" role="button" tabindex="0" aria-pressed="false" data-solution-card="roadmap" data-reveal>
             <div class="solution-orbit" aria-hidden="true"><span>◇</span></div>
             <p class="card-label">For product teams</p>
             <h3>Roadmap Impact</h3>
@@ -137,18 +161,6 @@
             <ol><li>Detect a material change</li><li>Match permissioned context</li><li>Surface conflicts and prerequisites</li><li>Decide whether the roadmap moves</li></ol>
             <button class="solution-demo" type="button" data-journey-link="roadmap">Explore the product-team journey <span>→</span></button>
           </article>
-        </div>
-      </section>
-
-      <section class="section workflow-section" id="how-it-works">
-        <div class="shell">
-          <div class="section-heading centered" data-reveal><p class="eyebrow">How it works</p><h2>Evidence before artifacts.</h2><p>A deliberate path from uncertainty to a reviewable decision.</p></div>
-          <div class="workflow-grid">
-            <article data-reveal><span>01</span><div class="workflow-icon">⌁</div><h3>Frame or detect</h3><p>Begin with a founder’s question or a verified change in the market.</p></article>
-            <article data-reveal><span>02</span><div class="workflow-icon">◎</div><h3>Verify</h3><p>Check identity, freshness, before-and-after state, and source quality.</p></article>
-            <article data-reveal><span>03</span><div class="workflow-icon">✦</div><h3>Decide</h3><p>See relevance, conflicts, unknowns, prerequisites, and response options.</p></article>
-            <article data-reveal><span>04</span><div class="workflow-icon">✓</div><h3>Approve—or stop</h3><p>Create a PRD only after a human chooses an eligible direction.</p></article>
-          </div>
         </div>
       </section>
 
