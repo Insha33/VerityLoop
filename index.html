@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GroundTruth turns verified market evidence into clear, reviewable product decisions.">
+    <title>GroundTruth — Market evidence to product decisions</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" data-header>
+      <nav class="nav shell" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="GroundTruth home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>GroundTruth</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
+          <span class="sr-only">Open navigation</span><span></span><span></span>
+        </button>
+        <div class="nav-menu" id="nav-menu" data-nav-menu>
+          <a href="#product">Product</a>
+          <a href="#how-it-works">How it works</a>
+          <div class="nav-dropdown">
+            <button type="button" aria-expanded="false" data-solutions-toggle>Solutions <span aria-hidden="true">⌄</span></button>
+            <div class="solutions-menu" data-solutions-menu>
+              <a href="#opportunity"><span>For founders</span><strong>Opportunity Discovery</strong></a>
+              <a href="#roadmap"><span>For product teams</span><strong>Roadmap Impact</strong></a>
+            </div>
+          </div>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a class="button button-small nav-cta" href="#waitlist">Join the waitlist</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow"><span></span> Market-to-product decision intelligence</p>
+          <h1>Turn market change into your next product decision.</h1>
+          <p class="hero-subtitle">Find your next opportunity. Know when your roadmap should move.</p>
+          <div class="hero-actions">
+            <a class="button" href="#waitlist">Join the waitlist <span aria-hidden="true">→</span></a>
+            <a class="text-link" href="#product">See how it works <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="trust-line"><span>Every claim cited</span><span>Uncertainty visible</span><span>Humans decide</span></div>
+        </div>
+
+        <div class="decision-system" id="product" data-reveal aria-label="Interactive GroundTruth decision flow">
+          <div class="journey-switch" role="group" aria-label="Choose a GroundTruth journey">
+            <button type="button" class="journey-tab is-active" aria-pressed="true" data-journey="opportunity">
+              <span>For founders</span><strong>Opportunity Discovery</strong>
+            </button>
+            <button type="button" class="journey-tab" aria-pressed="false" data-journey="roadmap">
+              <span>For product teams</span><strong>Roadmap Impact</strong>
+            </button>
+          </div>
+
+          <div class="flow-canvas" data-journey-panel>
+            <div class="flow-lines" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <article class="flow-card signal-card">
+              <div class="card-top"><span class="step-number">01</span><span class="status-dot">Live context</span></div>
+              <p class="card-label" data-flow-kicker>Your starting point</p>
+              <h2 data-flow-title>A workflow teams still solve by hand</h2>
+              <ul class="signal-list" data-flow-signals>
+                <li><span class="signal-icon">✦</span><span>Natural-language idea</span></li>
+                <li><span class="signal-icon">◌</span><span>Target-user hypothesis</span></li>
+                <li><span class="signal-icon">↗</span><span>Observed market pattern</span></li>
+              </ul>
+            </article>
+
+            <article class="flow-card evidence-card">
+              <div class="card-top"><span class="step-number">02</span><span class="verified">Verified</span></div>
+              <p class="card-label">Cited evidence</p>
+              <h2>What the market supports</h2>
+              <div class="evidence-list" role="list">
+                <button type="button" class="evidence-node is-active" data-evidence-node="primary"><span>Primary sources</span><b>4</b></button>
+                <button type="button" class="evidence-node" data-evidence-node="context"><span>Context signals</span><b>3</b></button>
+                <button type="button" class="evidence-node" data-evidence-node="conflict"><span>Counter-evidence</span><b>1</b></button>
+              </div>
+              <p class="evidence-detail" data-evidence-detail>Direct product pages and release notes establish what changed.</p>
+              <div class="source-meta"><span>8 cited sources</span><span>Checked today</span></div>
+            </article>
+
+            <article class="flow-card brief-card">
+              <div class="card-top"><span class="step-number">03</span><span class="ai-badge">Decision brief</span></div>
+              <p class="card-label">GroundTruth recommendation</p>
+              <h2 data-brief-title>Validate the problem before defining a product</h2>
+              <p data-brief-copy>The market pattern is credible. Demand, urgency, and willingness to pay remain unknown.</p>
+              <div class="decision-options" aria-label="Possible decision outcomes">
+                <button class="is-selected" type="button" data-decision="validate">Validate</button>
+                <button type="button" data-decision="watch">Watch</button>
+                <button type="button" data-decision="ignore">Ignore</button>
+              </div>
+              <div class="confidence-row"><span>Confidence</span><div><i></i><i></i><i></i><i></i><i></i></div><strong>Measured</strong></div>
+            </article>
+
+            <div class="approval-gate">
+              <span class="gate-icon" aria-hidden="true">✓</span>
+              <div><strong>Human approval</strong><small>Required to continue</small></div>
+            </div>
+
+            <article class="flow-card prd-card">
+              <div class="card-top"><span class="step-number">04</span><span class="optional">Optional</span></div>
+              <p class="card-label">Approved direction</p>
+              <h2>PRD draft</h2>
+              <ul class="prd-list"><li>Problem and outcome</li><li>Evidence and unknowns</li><li>Scope and non-goals</li><li>Success measures</li></ul>
+              <span class="locked-label">Generated only when you choose</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section solutions-section shell" id="solutions">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Two starting points. One governed loop.</p>
+          <h2>Start where your product story actually begins.</h2>
+          <p>GroundTruth adapts to the context you have—not the paperwork you do not.</p>
+        </div>
+        <div class="solution-grid">
+          <article class="solution-card opportunity" id="opportunity" data-reveal>
+            <div class="solution-orbit" aria-hidden="true"><span>✦</span></div>
+            <p class="card-label">For founders</p>
+            <h3>Opportunity Discovery</h3>
+            <p>Turn an idea, problem, or market curiosity into a framed opportunity backed by evidence—not an empty feature gap.</p>
+            <ol><li>Describe your starting point</li><li>Confirm the market boundary</li><li>Discover alternatives and entrants</li><li>Choose what to validate next</li></ol>
+            <button class="solution-demo" type="button" data-journey-link="opportunity">Explore the founder journey <span>→</span></button>
+          </article>
+          <article class="solution-card roadmap" id="roadmap" data-reveal>
+            <div class="solution-orbit" aria-hidden="true"><span>◇</span></div>
+            <p class="card-label">For product teams</p>
+            <h3>Roadmap Impact</h3>
+            <p>Connect a verified market change to strategy, customers, PRDs, roadmap, and delivery work before reacting.</p>
+            <ol><li>Detect a material change</li><li>Match permissioned context</li><li>Surface conflicts and prerequisites</li><li>Decide whether the roadmap moves</li></ol>
+            <button class="solution-demo" type="button" data-journey-link="roadmap">Explore the product-team journey <span>→</span></button>
+          </article>
+        </div>
+      </section>
+
+      <section class="section workflow-section" id="how-it-works">
+        <div class="shell">
+          <div class="section-heading centered" data-reveal><p class="eyebrow">How it works</p><h2>Evidence before artifacts.</h2><p>A deliberate path from uncertainty to a reviewable decision.</p></div>
+          <div class="workflow-grid">
+            <article data-reveal><span>01</span><div class="workflow-icon">⌁</div><h3>Frame or detect</h3><p>Begin with a founder’s question or a verified change in the market.</p></article>
+            <article data-reveal><span>02</span><div class="workflow-icon">◎</div><h3>Verify</h3><p>Check identity, freshness, before-and-after state, and source quality.</p></article>
+            <article data-reveal><span>03</span><div class="workflow-icon">✦</div><h3>Decide</h3><p>See relevance, conflicts, unknowns, prerequisites, and response options.</p></article>
+            <article data-reveal><span>04</span><div class="workflow-icon">✓</div><h3>Approve—or stop</h3><p>Create a PRD only after a human chooses an eligible direction.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section trust-section shell" id="trust">
+        <div class="trust-intro" data-reveal><p class="eyebrow">Trust is product infrastructure</p><h2>Built to show its work.</h2><p>GroundTruth keeps facts, inference, uncertainty, and human judgment visibly separate.</p><a class="button button-outline" href="#waitlist">Join the waitlist <span>→</span></a></div>
+        <div class="trust-grid">
+          <article data-reveal><span class="trust-icon">↗</span><h3>Claim-level citations</h3><p>Every market fact stays connected to its source, type, and retrieval time.</p></article>
+          <article data-reveal><span class="trust-icon">?</span><h3>Unknown stays unknown</h3><p>Missing evidence appears as a gap to investigate—not plausible filler.</p></article>
+          <article data-reveal><span class="trust-icon">⊘</span><h3>Least privilege</h3><p>Read and write access remain separate, scoped, and revocable.</p></article>
+          <article data-reveal><span class="trust-icon">✓</span><h3>Human-gated action</h3><p>No roadmap change, PRD, or ticket is silently published on your behalf.</p></article>
+        </div>
+      </section>
+
+      <section class="section context-section">
+        <div class="shell context-layout">
+          <div data-reveal><p class="eyebrow">Bring the context you have</p><h2>Useful from a single sentence. Stronger with your product context.</h2><p>Founders can begin in natural language. Product teams can add selected strategy, product, and delivery sources without replacing the tools where work already lives.</p></div>
+          <div class="context-cloud" data-reveal aria-label="Supported context sources"><span>Natural language</span><span>PRDs</span><span>Strategy docs</span><span>Roadmap exports</span><span>Linear</span><span>Jira</span><span>Founder notes</span><span>Customer evidence</span><i>GroundTruth</i></div>
+        </div>
+      </section>
+
+      <section class="section faq-section shell" id="faq">
+        <div class="section-heading" data-reveal><p class="eyebrow">FAQ</p><h2>Questions worth answering.</h2></div>
+        <div class="faq-list" data-reveal>
+          <article><h3><button type="button" aria-expanded="true" aria-controls="faq-1">Is GroundTruth an autonomous product manager?<span>−</span></button></h3><div id="faq-1" class="faq-answer"><p>No. GroundTruth recommends and drafts. A human owns priorities, approval, and every external commitment.</p></div></article>
+          <article><h3><button type="button" aria-expanded="false" aria-controls="faq-2">Do founders need a product, roadmap, or competitor list?<span>+</span></button></h3><div id="faq-2" class="faq-answer" hidden><p>No. Opportunity Discovery can begin with one meaningful sentence about a problem, workflow, target user, idea, or market curiosity.</p></div></article>
+          <article><h3><button type="button" aria-expanded="false" aria-controls="faq-3">Does a competitor launch automatically become roadmap work?<span>+</span></button></h3><div id="faq-3" class="faq-answer" hidden><p>No. Competitor activity is one signal. GroundTruth also surfaces strategic fit, customer evidence, prerequisites, conflicts, and unknowns.</p></div></article>
+          <article><h3><button type="button" aria-expanded="false" aria-controls="faq-4">Can GroundTruth publish Jira or Linear tickets?<span>+</span></button></h3><div id="faq-4" class="faq-answer" hidden><p>Ticket publishing is a later, separately authorized workflow. Drafts require an approved PRD, PM review, engineering validation, and a final publish preview.</p></div></article>
+          <article><h3><button type="button" aria-expanded="false" aria-controls="faq-5">How does GroundTruth handle sensitive product context?<span>+</span></button></h3><div id="faq-5" class="faq-answer" hidden><p>Context is permission-scoped and tenant-private. Access checks happen before retrieval, and provider revocation stops future synchronization.</p></div></article>
+        </div>
+      </section>
+
+      <section class="waitlist-section" id="waitlist">
+        <div class="waitlist-glow" aria-hidden="true"></div>
+        <div class="shell waitlist-layout">
+          <div data-reveal><p class="eyebrow light">Early access</p><h2>Make the next product decision with evidence.</h2><p>Join the waitlist for GroundTruth. Tell us where your product journey begins.</p><div class="mini-proof"><span>For founders</span><span>For product teams</span><span>No noise for noise’s sake</span></div></div>
+          <form class="waitlist-form" id="waitlist-form" novalidate data-reveal>
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+            <fieldset><legend>I’m joining as</legend><label><input type="radio" name="audience" value="founder" required><span>Founder</span></label><label><input type="radio" name="audience" value="product-team"><span>Product team</span></label><label><input type="radio" name="audience" value="both"><span>Exploring both</span></label></fieldset>
+            <p class="form-status" aria-live="polite" data-form-status></p>
+            <button class="button submit-button" type="submit">Join the waitlist <span aria-hidden="true">→</span></button>
+            <small>We’ll only use your email for GroundTruth early-access updates.</small>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer><div class="shell"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>GroundTruth</span></a><p>Market evidence to product decisions.</p><p>© 2026 GroundTruth</p></div></footer>
+  </body>
+</html>
