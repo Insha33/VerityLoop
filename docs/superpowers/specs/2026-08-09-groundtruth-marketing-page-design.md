@@ -33,7 +33,7 @@ The hero must not imply that every market signal should become roadmap work or t
 
 ### 1. Navigation
 
-A compact sticky navigation contains the GroundTruth wordmark, Product, How it works, For founders, For product teams, Trust, and the primary waitlist action. Mobile navigation collapses into an accessible menu.
+A compact sticky navigation contains the GroundTruth wordmark, Product, How it works, Solution - dropdown under this - Opportunity Discovery - Roadmap Impact , FAQ and the primary waitlist action. Mobile navigation collapses into an accessible menu.
 
 ### 2. Interactive decision flow
 
