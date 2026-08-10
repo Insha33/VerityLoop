@@ -31,10 +31,10 @@ npm run build
 
 ## Cloudflare deployment
 
-The Cloudflare asset directory is `./out`, so dependencies and source files are never uploaded as static assets.
+The Cloudflare asset directory is `./out`, so dependencies and source files are never uploaded as static assets. Wrangler is configured to run `npm run build` before deployment, which creates `out/`.
 
 ```bash
 npm run deploy
 ```
 
-In the Cloudflare dashboard, use the repository root as the working directory, `npm run build` as the build command, and `npx wrangler deploy` as the deploy command.
+In the Cloudflare dashboard, use the repository root as the working directory and `npx wrangler deploy` as the deploy command.

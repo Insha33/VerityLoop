@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "verityloop",
   "compatibility_date": "2026-08-10",
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "directory": "./out",
     "html_handling": "auto-trailing-slash",

@@ -79,6 +79,19 @@ describe("supporting interactions", () => {
     expect(founders).toHaveAttribute("aria-expanded", "false");
   });
 
+  it("keeps a FAQ question horizontally stable while it opens", async () => {
+    const user = userEvent.setup();
+    render(<FAQ />);
+    const founders = screen.getByRole("button", {
+      name: "Do founders need a product, roadmap, or competitor list to get started?",
+    });
+    const closedPadding = getComputedStyle(founders).paddingLeft;
+
+    await user.click(founders);
+
+    expect(getComputedStyle(founders).paddingLeft).toBe(closedPadding);
+  });
+
   it("focuses the first invalid waitlist field and reports a useful error", async () => {
     const user = userEvent.setup();
     render(<Waitlist />);

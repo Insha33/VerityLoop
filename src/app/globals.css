@@ -224,13 +224,14 @@ h1, h2, h3 { line-height: 1.08; letter-spacing: -0.04em; }
 .faq-list article.is-open { border-color: rgba(39,104,255,.35); }
 .faq-list article:last-child { border-bottom: 1px solid var(--line-strong); }
 .faq-list h3 { margin: 0; }
-.faq-list button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 25px 0; border: 0; background: none; text-align: left; font-weight: 700; cursor: pointer; transition: color 180ms ease, padding-left 180ms ease; }
-.faq-list article.is-open button { color: var(--cobalt); padding-left: 8px; }
+.faq-list button { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 25px 0; border: 0; background: none; text-align: left; font-weight: 700; cursor: pointer; transition: color 200ms ease; }
+.faq-list article.is-open button { color: var(--cobalt); }
 .faq-list button span { width: 30px; height: 30px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: var(--coral-soft); color: var(--coral); font-size: 20px; line-height: 1; transition: transform 260ms ease, background 180ms ease; }
 .faq-list article.is-open button span { background: var(--blue-soft); color: var(--cobalt); transform: rotate(180deg); }
-.faq-answer { display: grid; grid-template-rows: 1fr; opacity: 1; padding: 0 50px 20px 8px; color: var(--muted); font-size: 14px; transition: grid-template-rows 320ms cubic-bezier(.2,.8,.2,1), opacity 220ms ease, padding-bottom 320ms ease; }
-.faq-answer > p { min-height: 0; margin: 0; overflow: hidden; }
-.faq-list article:not(.is-open) .faq-answer { grid-template-rows: 0fr; opacity: 0; padding-bottom: 0; }
+.faq-answer { display: grid; grid-template-rows: 1fr; opacity: 1; padding: 0 50px 0 0; color: var(--muted); font-size: 14px; transition: grid-template-rows 380ms cubic-bezier(.22,1,.36,1), opacity 240ms ease; will-change: grid-template-rows, opacity; }
+.faq-answer > p { min-height: 0; margin: 0; padding-bottom: 22px; overflow: hidden; transform: translateY(0); transition: transform 320ms cubic-bezier(.22,1,.36,1); }
+.faq-list article:not(.is-open) .faq-answer { grid-template-rows: 0fr; opacity: 0; }
+.faq-list article:not(.is-open) .faq-answer > p { transform: translateY(-6px); }
 
 .waitlist-section { position: relative; padding-block: 120px; background: #10182d; color: white; overflow: hidden; }
 .waitlist-glow { position: absolute; inset: -50% -10% auto 45%; height: 700px; background: radial-gradient(circle, rgba(39,104,255,.3), transparent 55%), radial-gradient(circle at 55% 55%, rgba(255,90,79,.22), transparent 38%); }
