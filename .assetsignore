@@ -1,0 +1,14 @@
+node_modules/
+.git/
+.github/
+.worktrees/
+.wrangler/
+.gitignore
+.assetsignore
+tests/
+docs/
+design-previews/
+package.json
+package-lock.json
+README.md
+wrangler.jsonc
