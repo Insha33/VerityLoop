@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "./shadcn.css";
 
 :root {
   --ink: #101623;
@@ -27,7 +27,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--ink); background: var(--pearl); font-family: Manrope, sans-serif; font-size: 16px; line-height: 1.6; font-feature-settings: "kern" 1, "liga" 1; text-rendering: optimizeLegibility; overflow-x: hidden; }
+body { margin: 0; color: var(--ink); background: var(--pearl); font-family: var(--font-manrope), Manrope, sans-serif; font-size: 16px; line-height: 1.6; font-feature-settings: "kern" 1, "liga" 1; text-rendering: optimizeLegibility; overflow-x: hidden; }
 main { display: flex; flex-direction: column; }
 .hero { order: 1; }
 .product-stack { display: contents; }
@@ -92,7 +92,7 @@ h1, h2, h3 { line-height: 1.08; letter-spacing: -0.04em; }
 .eyebrow span { display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 5px var(--coral-soft); }
 .eyebrow.light { color: #8bdcff; }
 .hero h1 { max-width: 820px; margin-inline: auto; margin-bottom: 22px; font-size: clamp(3rem, 6.3vw, 6rem); font-weight: 700; line-height: .98; }
-.hero-emphasis { display: inline-block; font-family: "DM Serif Display", Georgia, serif; font-size: 1.02em; font-weight: 400; letter-spacing: -.035em; white-space: nowrap; }
+.hero-emphasis { display: inline-block; font-family: var(--font-dm-serif), "DM Serif Display", Georgia, serif; font-size: 1.02em; font-weight: 400; letter-spacing: -.035em; white-space: nowrap; }
 .hero-emphasis-market { color: var(--coral-dark); }
 .hero-emphasis-decision { color: var(--coral-dark); }
 .hero-subtitle { margin-bottom: 30px; color: #4f5a6d; font-size: clamp(1.08rem, 2vw, 1.35rem); letter-spacing: -.02em; }

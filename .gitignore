@@ -1,4 +1,8 @@
 .worktrees/
 .superpowers/
 design-previews/
-tests/
+node_modules/
+.next/
+out/
+.wrangler/
+*.tsbuildinfo

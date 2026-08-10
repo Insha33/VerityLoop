@@ -1,0 +1,135 @@
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it, vi } from "vitest";
+
+import HomePage from "@/app/page";
+import { ContextOrbit } from "@/components/marketing/ContextOrbit";
+import { FAQ } from "@/components/marketing/FAQ";
+import { ProductWalkthrough } from "@/components/marketing/ProductWalkthrough";
+import { Waitlist } from "@/components/marketing/Waitlist";
+
+describe("product walkthrough", () => {
+  it("switches between the founder and product-team decision contexts", async () => {
+    const user = userEvent.setup();
+    render(<ProductWalkthrough />);
+
+    await user.click(screen.getByRole("button", { name: /For product teamsRoadmap Impact/i }));
+
+    expect(screen.getByText("A competitor changed how the category buys")).toBeInTheDocument();
+    expect(screen.getByText("Packaging and pricing shift")).toBeInTheDocument();
+    expect(screen.getByText("Watch the change; validate customer relevance")).toBeInTheDocument();
+  });
+
+  it("updates cited evidence and decision guidance from explicit user choices", async () => {
+    const user = userEvent.setup();
+    render(<ProductWalkthrough />);
+
+    await user.click(screen.getByRole("button", { name: /Counter-evidence/i }));
+    expect(screen.getByText(/Counter-evidence stays visible/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Watch" }));
+    expect(screen.getByText("Watch the signal, not the noise")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Watch" })).toHaveAttribute("aria-pressed", "true");
+  });
+
+  it("uses the human approval control to unlock PRD and ticket outputs", async () => {
+    const user = userEvent.setup();
+    const { container } = render(<ProductWalkthrough />);
+
+    await user.click(screen.getByRole("button", { name: /Human approval/i }));
+
+    expect(screen.getByRole("button", { name: /Direction approved/i })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(container.querySelector(".prd-card")).not.toHaveClass("is-locked");
+    expect(container.querySelector(".ticket-card")).not.toHaveClass("is-locked");
+    expect(screen.getByText("Ready")).toBeInTheDocument();
+    expect(screen.getByText("Reviewed")).toBeInTheDocument();
+  });
+});
+
+describe("supporting interactions", () => {
+  it("connects every context source, including Natural language, Roadmap exports, and Linear", async () => {
+    const user = userEvent.setup();
+    render(<ContextOrbit />);
+
+    for (const source of ["Natural language", "Roadmap exports", "Linear"]) {
+      await user.click(screen.getByRole("button", { name: source }));
+      expect(screen.getByText(`${source} connected`)).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: source })).toHaveAttribute("aria-pressed", "true");
+    }
+  });
+
+  it("opens one FAQ answer at a time and lets the active answer close", async () => {
+    const user = userEvent.setup();
+    render(<FAQ />);
+    const autonomous = screen.getByRole("button", {
+      name: "Is VerityLoop an autonomous product manager?",
+    });
+    const founders = screen.getByRole("button", {
+      name: "Do founders need a product, roadmap, or competitor list to get started?",
+    });
+
+    await user.click(founders);
+    expect(founders).toHaveAttribute("aria-expanded", "true");
+    expect(autonomous).toHaveAttribute("aria-expanded", "false");
+
+    await user.click(founders);
+    expect(founders).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("focuses the first invalid waitlist field and reports a useful error", async () => {
+    const user = userEvent.setup();
+    render(<Waitlist />);
+
+    await user.click(screen.getByRole("button", { name: "Join the waitlist" }));
+
+    expect(screen.getByLabelText("Name")).toHaveFocus();
+    expect(screen.getByText("Enter your name to join the waitlist.")).toBeInTheDocument();
+  });
+
+  it("sets the product-team journey from the Solutions journey action", async () => {
+    const user = userEvent.setup();
+    render(<HomePage />);
+
+    await user.click(screen.getByRole("link", { name: "Explore the product-team journey" }));
+
+    expect(screen.getByRole("button", { name: /For product teamsRoadmap Impact/i })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByText("A competitor changed how the category buys")).toBeInTheDocument();
+  });
+
+  it("highlights Solutions when the solutions section crosses the header marker", () => {
+    render(<HomePage />);
+    const sections = [...document.querySelectorAll<HTMLElement>("main section[id]")];
+    const bounds: Record<string, { top: number; bottom: number }> = {
+      top: { top: -1400, bottom: -700 },
+      product: { top: -700, bottom: -200 },
+      "how-it-works": { top: -200, bottom: 80 },
+      solutions: { top: 80, bottom: 900 },
+      faq: { top: 1500, bottom: 2200 },
+      waitlist: { top: 2200, bottom: 3000 },
+    };
+
+    sections.forEach((section) => {
+      vi.spyOn(section, "getBoundingClientRect").mockReturnValue({
+        ...bounds[section.id],
+        x: 0,
+        y: bounds[section.id]?.top ?? 0,
+        left: 0,
+        right: 100,
+        width: 100,
+        height: (bounds[section.id]?.bottom ?? 0) - (bounds[section.id]?.top ?? 0),
+        toJSON: () => ({}),
+      });
+    });
+
+    fireEvent.scroll(window);
+
+    const nav = screen.getByRole("navigation", { name: "Primary navigation" });
+    expect(within(nav).getByRole("button", { name: "Solutions" })).toHaveClass("is-active");
+  });
+});
