@@ -169,7 +169,7 @@ export const marketingCopy = {
   },
   waitlist: {
     eyebrow: "Early access",
-    title: "Give your agents product truth—not another prompt.",
+    title: "Give your agents product truth - not another prompt.",
     description:
       "Join the VerityLoop waitlist for MCP-ready context, agent-ready outputs, and decisions grounded in evidence.",
   },
