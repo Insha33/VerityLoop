@@ -112,8 +112,8 @@ export function Waitlist() {
             type="submit"
             disabled={submitting || success}
           >
-            {success ? "Waitlist joined" : submitting ? "Joining…" : "Join the waitlist"}{" "}
-            <span aria-hidden="true">{success ? "✓" : "→"}</span>
+            {success ? "Waitlist joined" : submitting ? "Joining…" : "Join the waitlist"}
+            {!success && <span aria-hidden="true">→</span>}
           </Button>
           <small>We’ll only use your email for VerityLoop early-access updates.</small>
         </form>

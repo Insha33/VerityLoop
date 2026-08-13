@@ -31,7 +31,7 @@ export function Workflow() {
     const interval = window.setInterval(() => {
       if (userSelected.current) return;
       setActiveStep((current) => (current + 1) % workflow.steps.length);
-    }, 2300);
+    }, 1500);
 
     return () => window.clearInterval(interval);
   }, [workflow.steps.length]);

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Serif_Display, Manrope } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { structuredData } from "@/lib/structured-data";
@@ -11,11 +11,13 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-const dmSerif = DM_Serif_Display({
+const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
-  variable: "--font-dm-serif",
+  weight: "variable",
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
 export const metadata: Metadata = {
@@ -56,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${dmSerif.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${fraunces.variable}`}>
       <body>
         {structuredData.map((entry) => (
           <script

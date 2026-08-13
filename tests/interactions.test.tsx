@@ -148,6 +148,7 @@ describe("supporting interactions", () => {
       }),
     );
     expect(await screen.findByText("You’re on the list. We’ll be in touch soon.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Waitlist joined" }).querySelector("span")).toBeNull();
   });
 
   it("sets the product-team journey from the Solutions journey action", async () => {
