@@ -2,11 +2,17 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "verityloop",
   "compatibility_date": "2026-08-10",
+  "main": "./worker/index.ts",
   "build": {
     "command": "npm run build"
   },
+  "vars": {
+    "WAITLIST_NOTIFICATION_EMAIL": "inshaaqib2001@gmail.com"
+  },
   "assets": {
     "directory": "./out",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   }

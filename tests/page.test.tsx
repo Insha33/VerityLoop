@@ -10,6 +10,7 @@ describe("VerityLoop marketing page", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Turn market change into your next product decision.",
     );
+    expect(container).not.toHaveTextContent("AI-native product decision intelligence");
     expect(container).toHaveTextContent("MCP-ready context");
     expect(container).toHaveTextContent("Agent-ready outputs");
     expect(container).toHaveTextContent("source-grounded retrieval");

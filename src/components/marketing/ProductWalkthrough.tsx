@@ -92,10 +92,7 @@ export function ProductWalkthrough() {
         <div className="section-heading product-heading" data-reveal>
           <p className="eyebrow">Product</p>
           <h2 id="product-title">See the decision system at work.</h2>
-          <p>
-            Switch journeys, inspect evidence, and compare valid outcomes before anything becomes
-            delivery work.
-          </p>
+          <p>Inspect the evidence. Choose the outcome. Approve what moves.</p>
         </div>
         <div className="decision-system" data-reveal aria-label="Interactive VerityLoop decision flow">
           <div className="journey-switch product-switch" role="group" aria-label="Choose a VerityLoop journey">
@@ -215,21 +212,21 @@ export function ProductWalkthrough() {
                   Ignore
                 </button>
               </div>
+              <button
+                className="approval-action"
+                type="button"
+                aria-pressed={approved}
+                onClick={() => setApproved((current) => !current)}
+              >
+                <span className="approval-action-copy" aria-live="polite">
+                  <small>{approved ? "Human approved" : "Human approval required"}</small>
+                  <strong>{approved ? "Direction approved" : "Approve this direction"}</strong>
+                </span>
+                <span className="approval-action-icon" aria-hidden="true">
+                  {approved ? "✓" : "→"}
+                </span>
+              </button>
             </article>
-            <button
-              className="approval-gate"
-              type="button"
-              aria-pressed={approved}
-              onClick={() => setApproved((current) => !current)}
-            >
-              <span className="gate-icon" aria-hidden="true">
-                {approved ? "✓" : "→"}
-              </span>
-              <span aria-live="polite">
-                <strong>{approved ? "Direction approved" : "Human approval"}</strong>
-                <small>{approved ? "PRD and tickets unlocked" : "Click to unlock PRD + tickets"}</small>
-              </span>
-            </button>
             <article className={`flow-card prd-card ${approved ? "" : "is-locked"}`}>
               <div className="card-top">
                 <span className="step-number">04</span>

@@ -17,7 +17,7 @@ export function Waitlist() {
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const submitWaitlist = (event: FormEvent<HTMLFormElement>) => {
+  const submitWaitlist = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
@@ -43,11 +43,28 @@ export function Waitlist() {
 
     setSubmitting(true);
     setStatus("Saving your early-access request…");
-    window.setTimeout(() => {
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email, audience }),
+      });
+      const result = (await response.json()) as { ok?: boolean; message?: string };
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "We couldn’t save your request. Please try again.");
+      }
+
       setSubmitting(false);
       setSuccess(true);
-      setStatus("You’re on the list. We’ll be in touch with VerityLoop early-access updates.");
-    }, 700);
+      setStatus(result.message || "You’re on the list. We’ll be in touch soon.");
+    } catch (error) {
+      setSubmitting(false);
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : "We couldn’t save your request. Please try again.",
+      );
+    }
   };
 
   return (

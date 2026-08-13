@@ -62,6 +62,11 @@ describe("marketing content", () => {
     expect(copy).toMatch(/human-in-the-loop/i);
   });
 
+  it("keeps a concise seven-source context orbit without Natural language", () => {
+    expect(marketingCopy.context.sources).toHaveLength(7);
+    expect(marketingCopy.context.sources).not.toContain("Natural language");
+  });
+
   it("keeps the approved FAQ answers", () => {
     const ticket = faqs.find((faq) => faq.question.includes("publish Jira"));
     const privacy = faqs.find((faq) => faq.question.includes("sensitive product context"));

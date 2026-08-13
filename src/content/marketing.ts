@@ -67,7 +67,6 @@ export const decisionContent = {
 
 export const marketingCopy = {
   hero: {
-    eyebrow: "AI-native product decision intelligence",
     titleBefore: "Turn",
     titleMarket: "market change",
     titleMiddle: "into your next",
@@ -78,55 +77,56 @@ export const marketingCopy = {
   product: {
     eyebrow: "Product",
     title: "See the decision system at work.",
-    description:
-      "Switch journeys, inspect evidence, and compare valid outcomes before anything becomes delivery work.",
+    description: "Inspect the evidence. Choose the outcome. Approve what moves forward.",
   },
   workflow: {
     eyebrow: "How it works",
-    title: "How VerityLoop moves from evidence to execution.",
-    description:
-      "Evidence agents turn uncertainty into a governed, human-in-the-loop path from signal to reviewed delivery work.",
+    title: "From signal to reviewed work.",
+    description: "Evidence agents verify. Humans decide. Delivery moves.",
+    capabilities: ["source-grounded retrieval", "human-in-the-loop", "agent-ready output"],
     steps: [
       {
-        title: "Frame or detect",
+        title: "Signal",
         icon: "⌁",
-        description: "Begin with a founder’s question or a verified market change.",
+        description: "Start with a question or verified market change.",
+        result: "A bounded signal",
       },
       {
         title: "Verify",
         icon: "◎",
-        description:
-          "Use source-grounded retrieval to check identity, freshness, before-and-after state, and source quality.",
+        description: "Use source-grounded retrieval to check what changed.",
+        result: "Cited evidence",
       },
       {
         title: "Decide",
         icon: "✦",
-        description: "Review relevance, conflicts, unknowns, and response options.",
+        description: "Compare relevance, conflicts, unknowns, and options.",
+        result: "A decision brief",
       },
       {
-        title: "Approve PRD",
+        title: "Approve",
         icon: "✓",
-        description: "Create an agent-ready PRD only after a human chooses an eligible direction.",
+        description: "A human chooses the direction before work moves.",
+        result: "Human-in-the-loop approval",
       },
       {
-        title: "Review tickets",
+        title: "Deliver",
         icon: "↗",
-        description: "Draft delivery work only after PRD approval and engineering review.",
+        description: "Generate an agent-ready PRD and reviewed ticket drafts.",
+        result: "Ready for delivery review",
       },
     ],
   },
   solutions: {
     eyebrow: "Two starting points. One governed loop.",
     title: "Start with the journey that fits.",
-    description:
-      "VerityLoop adapts its governed agent workflow to the context you have—not the paperwork you do not.",
+    description: "Two journeys. The same evidence-first decision loop.",
     cards: [
       {
         key: "opportunity" as const,
         audience: "For founders",
         title: "Opportunity Discovery",
-        description:
-          "Use evidence agents to turn an idea, problem, or market curiosity into a framed opportunity backed by cited market evidence.",
+        description: "Turn a question into a cited opportunity worth validating.",
         steps: [
           "Describe your starting point",
           "Confirm the market boundary",
@@ -139,8 +139,7 @@ export const marketingCopy = {
         key: "roadmap" as const,
         audience: "For product teams",
         title: "Roadmap Impact",
-        description:
-          "Connect a verified market change to strategy, customers, decision memory, PRDs, roadmap, and delivery work before reacting.",
+        description: "Connect a market change to strategy, decision memory, and delivery impact.",
         steps: [
           "Detect a material change",
           "Match permissioned context",
@@ -154,23 +153,20 @@ export const marketingCopy = {
   context: {
     eyebrow: "Bring the context you have",
     title: "An MCP-ready context layer for product decisions.",
-    description:
-      "Begin with one sentence or connect permission-scoped strategy, product, customer, and delivery sources. VerityLoop gives evidence agents grounded context without replacing the tools where work already lives.",
+    description: "Connect permission-scoped product sources. Keep the tools where work already lives.",
     sources: [
-      "Natural language",
+      "Customer evidence",
       "PRDs",
       "Strategy docs",
       "Roadmap exports",
       "Linear",
       "Jira",
       "Founder notes",
-      "Customer evidence",
     ],
   },
   waitlist: {
     eyebrow: "Early access",
     title: "Give your agents product truth - not another prompt.",
-    description:
-      "Join the VerityLoop waitlist for MCP-ready context, agent-ready outputs, and decisions grounded in evidence.",
+    description: "AI-native product context, grounded in evidence and governed by humans.",
   },
 } as const;

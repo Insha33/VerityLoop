@@ -7,6 +7,7 @@ import { ContextOrbit } from "@/components/marketing/ContextOrbit";
 import { FAQ } from "@/components/marketing/FAQ";
 import { ProductWalkthrough } from "@/components/marketing/ProductWalkthrough";
 import { Waitlist } from "@/components/marketing/Waitlist";
+import { Workflow } from "@/components/marketing/Workflow";
 
 describe("product walkthrough", () => {
   it("switches between the founder and product-team decision contexts", async () => {
@@ -50,18 +51,34 @@ describe("product walkthrough", () => {
 });
 
 describe("supporting interactions", () => {
-  it("connects every context source, including Natural language, Roadmap exports, and Linear", async () => {
+  it("lets users inspect each visual workflow stage", async () => {
+    const user = userEvent.setup();
+    render(<Workflow />);
+
+    const deliver = screen.getByRole("tab", { name: /Deliver/i });
+    await user.click(deliver);
+
+    expect(deliver).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("tabpanel")).toHaveTextContent(
+      "Generate an agent-ready PRD and reviewed ticket drafts.",
+    );
+    expect(screen.getByRole("tabpanel")).toHaveTextContent("Ready for delivery review");
+  });
+
+  it("connects the remaining context sources after Natural language is removed", async () => {
     const user = userEvent.setup();
     render(<ContextOrbit />);
 
-    for (const source of ["Natural language", "Roadmap exports", "Linear"]) {
+    expect(screen.queryByRole("button", { name: "Natural language" })).not.toBeInTheDocument();
+
+    for (const source of ["Customer evidence", "Roadmap exports", "Linear"]) {
       await user.click(screen.getByRole("button", { name: source }));
       expect(screen.getByText(`${source} connected`)).toBeInTheDocument();
       expect(screen.getByRole("button", { name: source })).toHaveAttribute("aria-pressed", "true");
     }
   });
 
-  it("opens one FAQ answer at a time and lets the active answer close", async () => {
+  it("keeps only one FAQ answer open and lets the active answer close", async () => {
     const user = userEvent.setup();
     render(<FAQ />);
     const autonomous = screen.getByRole("button", {
@@ -100,6 +117,37 @@ describe("supporting interactions", () => {
 
     expect(screen.getByLabelText("Name")).toHaveFocus();
     expect(screen.getByText("Enter your name to join the waitlist.")).toBeInTheDocument();
+  });
+
+  it("submits a valid waitlist request to the server and shows confirmation", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      Response.json({
+        ok: true,
+        duplicate: false,
+        message: "You’re on the list. We’ll be in touch soon.",
+      }),
+    );
+    render(<Waitlist />);
+
+    await user.type(screen.getByLabelText("Name"), "Insha Aqib");
+    await user.type(screen.getByLabelText("Work email"), "insha@example.com");
+    await user.click(screen.getByRole("radio", { name: "Founder" }));
+    await user.click(screen.getByRole("button", { name: "Join the waitlist" }));
+
+    expect(globalThis.fetch).toHaveBeenCalledWith(
+      "/api/waitlist",
+      expect.objectContaining({
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          name: "Insha Aqib",
+          email: "insha@example.com",
+          audience: "founder",
+        }),
+      }),
+    );
+    expect(await screen.findByText("You’re on the list. We’ll be in touch soon.")).toBeInTheDocument();
   });
 
   it("sets the product-team journey from the Solutions journey action", async () => {

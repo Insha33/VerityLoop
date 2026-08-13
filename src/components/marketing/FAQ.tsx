@@ -18,28 +18,34 @@ export function FAQ() {
         <h2 id="faq-title">Questions worth answering.</h2>
       </div>
       <div className="faq-list" data-reveal>
-        {faqs.map((faq, index) => (
-          <article className={openIndex === index ? "is-open" : undefined} key={faq.question}>
-            <h3>
-              <button
-                type="button"
-                aria-expanded={openIndex === index}
-                aria-controls={`faq-${index + 1}`}
-                onClick={() => setOpenIndex((current) => (current === index ? null : index))}
+        {faqs.map((faq, index) => {
+          const isOpen = openIndex === index;
+
+          return (
+            <article className={isOpen ? "is-open" : undefined} key={faq.question}>
+              <h3>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-${index + 1}`}
+                  onClick={() => setOpenIndex((current) => (current === index ? null : index))}
+                >
+                  {faq.question}
+                  <span aria-hidden="true">{isOpen ? "−" : "+"}</span>
+                </button>
+              </h3>
+              <div
+                id={`faq-${index + 1}`}
+                className="faq-answer"
+                aria-hidden={!isOpen}
               >
-                {faq.question}
-                <span aria-hidden="true">{openIndex === index ? "−" : "+"}</span>
-              </button>
-            </h3>
-            <div
-              id={`faq-${index + 1}`}
-              className="faq-answer"
-              aria-hidden={openIndex !== index}
-            >
-              <p>{faq.answer}</p>
-            </div>
-          </article>
-        ))}
+                <div className="faq-answer-inner">
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
