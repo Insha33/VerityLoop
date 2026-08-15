@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Manrope, Newsreader } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { structuredData } from "@/lib/structured-data";
@@ -11,13 +11,13 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-const fraunces = Fraunces({
+const newsreader = Newsreader({
   subsets: ["latin"],
   display: "swap",
   weight: "variable",
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
-  axes: ["SOFT", "WONK", "opsz"],
+  style: ["italic"],
+  variable: "--font-newsreader",
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${manrope.variable} ${newsreader.variable}`}>
       <body>
         {structuredData.map((entry) => (
           <script

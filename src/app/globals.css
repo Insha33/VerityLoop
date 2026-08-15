@@ -93,7 +93,7 @@ h1, h2, h3 { line-height: 1.08; letter-spacing: -0.04em; }
 .eyebrow.light { color: #8bdcff; }
 .hero .eyebrow { color: var(--cobalt); }
 .hero h1 { max-width: 1080px; margin-inline: auto; margin-bottom: 34px; color: var(--ink); font-family: var(--font-manrope), Manrope, sans-serif; font-size: clamp(3.5rem, 6.4vw, 5.9rem); font-weight: 720; line-height: .98; letter-spacing: -.04em; text-wrap: balance; }
-.hero-emphasis { display: inline; color: var(--coral); font-family: var(--font-fraunces), Fraunces, Georgia, serif; font-size: 1.09em; font-style: italic; font-weight: 560; letter-spacing: -.025em; }
+.hero-emphasis { display: inline; color: var(--coral); font-family: var(--font-newsreader), Newsreader, Georgia, serif; font-size: 1.09em; font-style: italic; font-weight: 560; letter-spacing: -.025em; }
 .hero-subtitle { max-width: 720px; margin: 0 auto 38px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.32rem); letter-spacing: -.02em; text-wrap: balance; }
 .hero-actions { display: flex; justify-content: center; align-items: center; gap: 28px; }
 .hero-actions .button span { display: inline-grid; place-items: center; line-height: 1; transition: transform 180ms ease; }
@@ -211,7 +211,7 @@ h1, h2, h3 { line-height: 1.08; letter-spacing: -0.04em; }
 .workflow-stages button { min-width: 0; display: grid; justify-items: center; gap: 8px; padding: 0 10px 14px; border: 0; background: transparent; color: #7d8799; cursor: pointer; }
 .workflow-step-number { font-size: 9px; font-weight: 800; letter-spacing: .1em; }
 .workflow-stage-icon { width: 54px; height: 54px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 17px; background: white; box-shadow: 0 8px 22px rgba(32,50,85,.07); transition: color 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(.2,.8,.2,1); }
-.workflow-stage-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.workflow-stage-icon svg { width: 23px; height: 23px; }
 .workflow-stages strong { color: var(--ink); font-size: 13px; letter-spacing: -.02em; }
 .workflow-stages button:hover .workflow-stage-icon, .workflow-stages button:focus-visible .workflow-stage-icon { border-color: rgba(255,90,79,.35); color: var(--coral); transform: translateY(-3px); }
 .workflow-stages button.is-active { color: var(--coral); }

@@ -65,6 +65,24 @@ describe("supporting interactions", () => {
     expect(screen.getByRole("tabpanel")).toHaveTextContent("Ready for delivery review");
   });
 
+  it("supports arrow, Home, and End navigation across workflow tabs", async () => {
+    const user = userEvent.setup();
+    render(<Workflow />);
+
+    const signal = screen.getByRole("tab", { name: /Signal/i });
+    signal.focus();
+    await user.keyboard("{ArrowRight}");
+    expect(screen.getByRole("tab", { name: /Verify/i })).toHaveFocus();
+    expect(screen.getByRole("tab", { name: /Verify/i })).toHaveAttribute("aria-selected", "true");
+
+    await user.keyboard("{End}");
+    expect(screen.getByRole("tab", { name: /Deliver/i })).toHaveFocus();
+
+    await user.keyboard("{Home}");
+    expect(signal).toHaveFocus();
+    expect(signal).toHaveAttribute("tabindex", "0");
+  });
+
   it("connects the remaining context sources after Natural language is removed", async () => {
     const user = userEvent.setup();
     render(<ContextOrbit />);
