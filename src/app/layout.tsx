@@ -21,11 +21,17 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://runverityloop.com"),
   title: "VerityLoop | AI Product Decision Platform",
   description:
     "VerityLoop is an AI product decision platform that uses evidence agents to turn market signals into cited decisions, agent-ready PRDs, and reviewed tickets.",
   applicationName: "VerityLoop",
   authors: [{ name: "VerityLoop" }],
+  creator: "VerityLoop",
+  publisher: "VerityLoop",
+  alternates: {
+    canonical: "/",
+  },
   robots: {
     index: true,
     follow: true,
@@ -38,6 +44,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
+    url: "/",
+    locale: "en_US",
     siteName: "VerityLoop",
     title: "VerityLoop | AI Product Decision Platform",
     description:

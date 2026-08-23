@@ -8,5 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
+    sitemap: "https://runverityloop.com/sitemap.xml",
+    host: "https://runverityloop.com",
   };
 }

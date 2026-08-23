@@ -1,5 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
+vi.mock("next/font/google", () => ({
+  Manrope: () => ({ variable: "font-manrope" }),
+  Newsreader: () => ({ variable: "font-newsreader" }),
+}));
+
+import { metadata } from "@/app/layout";
+import robots from "@/app/robots";
 import { faqs } from "@/content/faq";
 import { marketingCopy } from "@/content/marketing";
 import {
@@ -12,6 +19,24 @@ import {
 } from "@/lib/marketing";
 
 describe("marketing content", () => {
+  it("publishes one canonical homepage identity to search and social crawlers", () => {
+    expect(metadata.metadataBase?.toString()).toBe("https://runverityloop.com/");
+    expect(metadata.alternates?.canonical).toBe("/");
+    expect(metadata.openGraph).toMatchObject({
+      url: "/",
+      locale: "en_US",
+      siteName: "VerityLoop",
+    });
+  });
+
+  it("advertises the sitemap to allowed crawlers", () => {
+    expect(robots()).toMatchObject({
+      rules: { userAgent: "*", allow: "/" },
+      sitemap: "https://runverityloop.com/sitemap.xml",
+      host: "https://runverityloop.com",
+    });
+  });
+
   it("keeps founders and product teams as distinct, equally represented journeys", () => {
     const opportunity = getJourneyContent("opportunity");
     const roadmap = getJourneyContent("roadmap");
