@@ -5,6 +5,8 @@ export const structuredData = [
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "VerityLoop",
+    url: "https://runverityloop.com/",
+    logo: "https://runverityloop.com/verityloop-logo.svg",
     description: "VerityLoop builds evidence infrastructure for AI-native product decisions.",
   },
   {

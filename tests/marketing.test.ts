@@ -17,6 +17,7 @@ import {
   validateEmail,
   validateName,
 } from "@/lib/marketing";
+import { structuredData } from "@/lib/structured-data";
 
 describe("marketing content", () => {
   it("publishes one canonical homepage identity to search and social crawlers", () => {
@@ -34,6 +35,24 @@ describe("marketing content", () => {
       rules: { userAgent: "*", allow: "/" },
       sitemap: "https://runverityloop.com/sitemap.xml",
       host: "https://runverityloop.com",
+    });
+  });
+
+  it("publishes a stable VerityLoop logo for search engines", () => {
+    expect(metadata.icons).toMatchObject({
+      icon: [
+        {
+          url: "/verityloop-logo.svg",
+          type: "image/svg+xml",
+          sizes: "any",
+        },
+      ],
+    });
+
+    const organization = structuredData.find((entry) => entry["@type"] === "Organization");
+    expect(organization).toMatchObject({
+      url: "https://runverityloop.com/",
+      logo: "https://runverityloop.com/verityloop-logo.svg",
     });
   });
 

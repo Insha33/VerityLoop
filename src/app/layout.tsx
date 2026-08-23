@@ -29,6 +29,15 @@ export const metadata: Metadata = {
   authors: [{ name: "VerityLoop" }],
   creator: "VerityLoop",
   publisher: "VerityLoop",
+  icons: {
+    icon: [
+      {
+        url: "/verityloop-logo.svg",
+        type: "image/svg+xml",
+        sizes: "any",
+      },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
