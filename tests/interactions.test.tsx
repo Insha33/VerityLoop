@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -81,6 +81,47 @@ describe("supporting interactions", () => {
     await user.keyboard("{Home}");
     expect(signal).toHaveFocus();
     expect(signal).toHaveAttribute("tabindex", "0");
+  });
+
+  it("loops through workflow stages continuously while visible", async () => {
+    vi.useFakeTimers();
+    const originalObserver = window.IntersectionObserver;
+    class VisibleIntersectionObserver {
+      constructor(private callback: IntersectionObserverCallback) {}
+      observe(target: Element) {
+        this.callback([{ isIntersecting: true, target } as IntersectionObserverEntry], this as never);
+      }
+      disconnect() {}
+      unobserve() {}
+      takeRecords() { return []; }
+      readonly root = null;
+      readonly rootMargin = "0px";
+      readonly scrollMargin = "0px";
+      readonly thresholds = [0.35];
+    }
+    Object.defineProperty(window, "IntersectionObserver", {
+      configurable: true,
+      value: VisibleIntersectionObserver,
+    });
+
+    try {
+      render(<Workflow />);
+
+      for (let step = 0; step < 5; step += 1) {
+        await act(async () => vi.advanceTimersByTimeAsync(1800));
+      }
+
+      expect(screen.getByRole("tab", { name: /Signal/i })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      );
+    } finally {
+      Object.defineProperty(window, "IntersectionObserver", {
+        configurable: true,
+        value: originalObserver,
+      });
+      vi.useRealTimers();
+    }
   });
 
   it("connects the remaining context sources after Natural language is removed", async () => {

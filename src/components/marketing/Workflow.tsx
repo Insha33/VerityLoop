@@ -59,15 +59,14 @@ export function Workflow() {
       !isInView ||
       !isPageVisible ||
       isPaused ||
-      userSelected.current ||
-      activeStep === workflow.steps.length - 1
+      userSelected.current
     ) {
       return;
     }
 
     const timeout = window.setTimeout(() => {
-      setActiveStep((current) => current + 1);
-    }, 2800);
+      setActiveStep((current) => (current + 1) % workflow.steps.length);
+    }, 1800);
 
     return () => window.clearTimeout(timeout);
   }, [activeStep, isInView, isPageVisible, isPaused, prefersReducedMotion, workflow.steps.length]);

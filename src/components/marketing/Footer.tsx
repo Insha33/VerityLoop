@@ -7,7 +7,7 @@ export function Footer() {
         <a className="brand" href="#top">
           <Brand />
         </a>
-        <p>Evidence infrastructure for AI-native product decisions.</p>
+        <p className="footer-purpose"><span aria-hidden="true" />Evidence infrastructure for AI-native product decisions.</p>
         <p>© 2026 VerityLoop</p>
       </div>
     </footer>
