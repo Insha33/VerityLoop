@@ -155,6 +155,14 @@ describe("supporting interactions", () => {
     expect(founders).toHaveAttribute("aria-expanded", "false");
   });
 
+  it("starts with every FAQ answer collapsed", () => {
+    render(<FAQ />);
+
+    for (const question of screen.getAllByRole("button")) {
+      expect(question).toHaveAttribute("aria-expanded", "false");
+    }
+  });
+
   it("keeps a FAQ question horizontally stable while it opens", async () => {
     const user = userEvent.setup();
     render(<FAQ />);
