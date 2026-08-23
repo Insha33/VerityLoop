@@ -71,7 +71,7 @@ export const marketingCopy = {
     titleMarket: "market change",
     titleMiddle: "into your next",
     titleDecision: "product decision",
-    subtitle: "Find your next opportunity. Know when your roadmap should move.",
+    subtitle: "See what changed, why it matters, and what your team should do next — grounded in evidence, approved by humans.",
     proofs: ["MCP-ready context", "Agent-ready outputs", "Humans decide"],
   },
   product: {

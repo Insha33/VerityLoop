@@ -48,4 +48,15 @@ describe("VerityLoop marketing page", () => {
     expect(screen.getByRole("region", { name: "Frequently asked questions" })).toBeInTheDocument();
     expect(screen.getAllByText("Join the waitlist")).toHaveLength(3);
   });
+
+  it("explains the evidence-to-decision flow directly in the hero", () => {
+    render(<HomePage />);
+
+    expect(screen.getByRole("link", { name: "See how it works" })).toHaveAttribute(
+      "href",
+      "#product",
+    );
+    expect(screen.getByRole("region", { name: "From signal to decision" })).toBeInTheDocument();
+    expect(screen.getByText("Validate before the roadmap moves.")).toBeInTheDocument();
+  });
 });
