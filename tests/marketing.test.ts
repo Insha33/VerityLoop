@@ -77,12 +77,32 @@ describe("marketing content", () => {
   it("validates all waitlist fields at their public boundary", () => {
     expect(validateName("Insha")).toBe(true);
     expect(validateName("A")).toBe(false);
-    expect(validateEmail("person+pilot@company.co.in")).toBe(true);
-    expect(validateEmail("person@")).toBe(false);
     expect(validateAudience("founder")).toBe(true);
     expect(validateAudience("product-team")).toBe(true);
     expect(validateAudience("both")).toBe(true);
     expect(validateAudience("investor")).toBe(false);
+  });
+
+  it.each([
+    "person+pilot@company.co.in",
+    " first.last@sub-domain.example.com ",
+    "x@example.io",
+  ])("accepts a structurally valid email address: %s", (email) => {
+    expect(validateEmail(email)).toBe(true);
+  });
+
+  it.each([
+    "person@",
+    "person@@company.com",
+    ".person@company.com",
+    "person.@company.com",
+    "person..pilot@company.com",
+    "person@-company.com",
+    "person@company-.com",
+    "person@company..com",
+    "person@company.c",
+  ])("rejects a malformed email address: %s", (email) => {
+    expect(validateEmail(email)).toBe(false);
   });
 
   it("selects the section intersecting the fixed-header marker", () => {
@@ -106,16 +126,26 @@ describe("marketing content", () => {
     expect(copy).toMatch(/human-in-the-loop/i);
   });
 
-  it("keeps a concise seven-source context orbit without Natural language", () => {
-    expect(marketingCopy.context.sources).toHaveLength(7);
-    expect(marketingCopy.context.sources).not.toContain("Natural language");
+  it("keeps the approved eleven-source context radar without Natural language", () => {
+    expect(marketingCopy.context.sources).toHaveLength(11);
+    expect(marketingCopy.context.sources.map((source) => source.name)).not.toContain("Natural language");
   });
 
-  it("keeps the approved FAQ answers", () => {
+  it("uses dedicated App Store and Google Drive connector artwork", () => {
+    const sourceIcons = new Map(
+      marketingCopy.context.sources.map((source) => [source.name, source.icon]),
+    );
+
+    expect(sourceIcons.get("App Store")).toBe("/integrations/app-store.svg");
+    expect(sourceIcons.get("Google Drive")).toBe("/integrations/google-drive.svg");
+  });
+
+  it("explains PRD review gates and preserves privacy boundaries", () => {
     const ticket = faqs.find((faq) => faq.question.includes("publish Jira"));
     const privacy = faqs.find((faq) => faq.question.includes("sensitive product context"));
 
-    expect(ticket?.answer).toBe("Yes, with PMs approval");
+    expect(ticket?.answer).toContain("Standard ticket drafts follow PRD approval");
+    expect(ticket?.answer).toContain("separate publish approval");
     expect(privacy?.answer).toBe(
       "Context is permission-scoped and tenant-private. Access checks happen before retrieval.",
     );

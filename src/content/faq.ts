@@ -12,7 +12,7 @@ export const faqs: FAQItem[] = [
   {
     question: "Do founders need a product, roadmap, or competitor list to get started?",
     answer:
-      "No. Opportunity Discovery can begin with one meaningful sentence about a problem, workflow, target user, idea, or market curiosity.",
+      "No. Opportunity Discovery can begin with one meaningful sentence about a problem, workflow, target user, or idea. You confirm the market framing before discovery begins. Notes, interviews, and a product URL are optional.",
   },
   {
     question: "Does a competitor launch automatically become roadmap work?",
@@ -21,7 +21,7 @@ export const faqs: FAQItem[] = [
   },
   {
     question: "Can VerityLoop publish Jira or Linear tickets?",
-    answer: "Yes, with PMs approval",
+    answer: "Only after explicit review. A human approves the direction before PRD drafting. Standard ticket drafts follow PRD approval, and product and engineering review them before a separate publish approval creates Jira or Linear issues.",
   },
   {
     question: "How does VerityLoop handle sensitive product context?",

@@ -3,6 +3,7 @@
 import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { Activity, ListChecks, ScanSearch, Send, ShieldCheck } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { marketingCopy } from "@/content/marketing";
 
 const workflowIcons = [Activity, ScanSearch, ListChecks, ShieldCheck, Send] as const;
@@ -128,9 +129,10 @@ export function Workflow() {
               const state = index === activeStep ? "active" : index < activeStep ? "complete" : "upcoming";
 
               return (
-                <button
+                <Button
                   key={step.title}
                   type="button"
+                  variant="ghost"
                   role="tab"
                   id={`workflow-tab-${index}`}
                   aria-selected={activeStep === index}
@@ -146,7 +148,7 @@ export function Workflow() {
                     <WorkflowGlyph index={index} />
                   </span>
                   <strong>{step.title}</strong>
-                </button>
+                </Button>
               );
             })}
           </div>

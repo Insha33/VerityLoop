@@ -5,13 +5,8 @@ import { join } from "node:path";
 import { afterEach } from "vitest";
 
 const globalStyles = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
-const faqStyles = globalStyles.slice(
-  globalStyles.indexOf(".faq-section { display"),
-  globalStyles.indexOf(".waitlist-section { position"),
-);
-
 const productionStyles = document.createElement("style");
-productionStyles.textContent = faqStyles;
+productionStyles.textContent = globalStyles.replace(/^@import[^;]+;/gm, "");
 document.head.append(productionStyles);
 
 afterEach(() => cleanup());
@@ -34,6 +29,17 @@ class IntersectionObserverStub implements IntersectionObserver {
 Object.defineProperty(window, "IntersectionObserver", {
   configurable: true,
   value: IntersectionObserverStub,
+});
+
+class ResizeObserverStub implements ResizeObserver {
+  disconnect() {}
+  observe() {}
+  unobserve() {}
+}
+
+Object.defineProperty(window, "ResizeObserver", {
+  configurable: true,
+  value: ResizeObserverStub,
 });
 
 Object.defineProperty(window, "matchMedia", {
