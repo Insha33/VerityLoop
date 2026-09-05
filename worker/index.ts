@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { validateEmailSyntax } from "../src/lib/email";
 
 export type WaitlistEnv = {
   ASSETS?: { fetch(request: Request): Promise<Response> };
@@ -38,13 +39,11 @@ function normalizeSignup(value: unknown): WaitlistSignup | null {
   const body = value as Record<string, unknown>;
   const name = typeof body.name === "string" ? body.name.trim().replace(/\s+/g, " ") : "";
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (
     name.length < 2 ||
     name.length > 100 ||
-    email.length > 254 ||
-    !emailPattern.test(email) ||
+    !validateEmailSyntax(email) ||
     !isAudience(body.audience)
   ) {
     return null;

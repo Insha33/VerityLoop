@@ -5,6 +5,7 @@ import {
   type DecisionKey,
   type JourneyKey,
 } from "@/content/marketing";
+import { validateEmailSyntax } from "@/lib/email";
 
 export function getJourneyContent(journey: JourneyKey) {
   return journeyContent[journey];
@@ -15,7 +16,7 @@ export function getDecisionContent(decision: DecisionKey) {
 }
 
 export function validateEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+  return validateEmailSyntax(value);
 }
 
 export function validateAudience(value: string): value is Audience {
