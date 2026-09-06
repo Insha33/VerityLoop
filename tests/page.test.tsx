@@ -19,6 +19,7 @@ describe("VerityLoop marketing page", () => {
     }
     expect(container.querySelector("#product")).not.toContainElement(container.querySelector("#how-it-works") as HTMLElement);
     const nav = screen.getByRole("navigation", { name: "Primary navigation" });
+    expect(within(nav).getByRole("link", { name: "How it works" })).toHaveAttribute("href", "#product");
     expect(within(nav).getByRole("link", { name: "Solutions" })).toHaveAttribute("href", "#solutions");
     expect(within(container.querySelector("#solutions") as HTMLElement).getByRole("heading", { level: 2 })).toHaveTextContent(
       /Know what to validate first\.\s*Or what should change next\./,

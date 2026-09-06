@@ -17,7 +17,7 @@ import { Brand } from "./Brand";
 
 const links = [
   { href: "#product", label: "Product", section: "product" },
-  { href: "#how-it-works", label: "How it works", section: "how-it-works" },
+  { href: "#product", label: "How it works", section: "product" },
   { href: "#solutions", label: "Solutions", section: "solutions" },
   { href: "#faq", label: "FAQ", section: "faq" },
 ] as const;
