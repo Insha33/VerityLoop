@@ -16,7 +16,6 @@ import { getVisibleSection } from "@/lib/marketing";
 import { Brand } from "./Brand";
 
 const links = [
-  { href: "#product", label: "Product", section: "product" },
   { href: "#product", label: "How it works", section: "product" },
   { href: "#solutions", label: "Solutions", section: "solutions" },
   { href: "#faq", label: "FAQ", section: "faq" },

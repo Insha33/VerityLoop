@@ -420,6 +420,6 @@ describe("supporting interactions", () => {
     fireEvent.scroll(window);
 
     const nav = screen.getByRole("navigation", { name: "Primary navigation" });
-    expect(within(nav).getByRole("link", { name: "Product" })).toHaveClass("is-active");
+    expect(within(nav).getByRole("link", { name: "How it works" })).toHaveClass("is-active");
   });
 });
