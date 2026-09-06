@@ -6,7 +6,7 @@ import { ContextSources } from "./ContextSources";
 export function ProductDetails() {
   return (
     <>
-      <section className="audience-section section shell" aria-labelledby="audience-title">
+      <section className="audience-section section shell" id="solutions" aria-labelledby="audience-title">
         <div className="centered-intro"><h2 id="audience-title">Know what to validate first.<br />Or what should change next.</h2><p>Two starting points. A cited brief to help you make the call.</p></div>
         <div className="audience-grid">
           <article className="audience-card" id="opportunity">

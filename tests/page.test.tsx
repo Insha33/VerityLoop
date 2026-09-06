@@ -18,6 +18,11 @@ describe("VerityLoop marketing page", () => {
       if (href?.startsWith("#")) expect(container.querySelector(href)).not.toBeNull();
     }
     expect(container.querySelector("#product")).not.toContainElement(container.querySelector("#how-it-works") as HTMLElement);
+    const nav = screen.getByRole("navigation", { name: "Primary navigation" });
+    expect(within(nav).getByRole("link", { name: "Solutions" })).toHaveAttribute("href", "#solutions");
+    expect(within(container.querySelector("#solutions") as HTMLElement).getByRole("heading", { level: 2 })).toHaveTextContent(
+      /Know what to validate first\.\s*Or what should change next\./,
+    );
   });
 
   it("presents founder and product-team use cases together", () => {

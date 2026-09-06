@@ -1,15 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Sheet,
   SheetContent,
@@ -21,14 +15,10 @@ import {
 import { getVisibleSection } from "@/lib/marketing";
 import { Brand } from "./Brand";
 
-const solutions = [
-  { href: "#opportunity", audience: "For founders", title: "Opportunity Discovery" },
-  { href: "#roadmap", audience: "For product teams", title: "Roadmap Impact" },
-] as const;
-
 const links = [
   { href: "#product", label: "Product", section: "product" },
   { href: "#how-it-works", label: "How it works", section: "how-it-works" },
+  { href: "#solutions", label: "Solutions", section: "solutions" },
   { href: "#faq", label: "FAQ", section: "faq" },
 ] as const;
 
@@ -68,7 +58,7 @@ export function Header() {
         </a>
 
         <div className="nav-menu" id="nav-menu">
-          {links.slice(0, 2).map((link) => (
+          {links.map((link) => (
             <a
               className={activeSection === link.section ? "is-active" : undefined}
               href={link.href}
@@ -77,33 +67,6 @@ export function Header() {
               {link.label}
             </a>
           ))}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className={`nav-link ${activeSection === "solutions" ? "is-active" : ""}`}
-              >
-                Solutions
-                <ChevronDown className="nav-chevron" aria-hidden="true" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="solutions-menu" align="center" sideOffset={8}>
-              {solutions.map((solution) => (
-                <DropdownMenuItem key={solution.href} asChild>
-                  <a href={solution.href}>
-                    <span>{solution.audience}</span>
-                    <strong>{solution.title}</strong>
-                  </a>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <a
-            className={activeSection === links[2].section ? "is-active" : undefined}
-            href={links[2].href}
-          >
-            {links[2].label}
-          </a>
         </div>
 
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
@@ -130,15 +93,6 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
-              <div className="nav-sheet-solutions">
-                <span>Solutions</span>
-                {solutions.map((solution) => (
-                  <a href={solution.href} key={solution.href} onClick={closeMobile}>
-                    <small>{solution.audience}</small>
-                    <strong>{solution.title}</strong>
-                  </a>
-                ))}
-              </div>
             </div>
             <Button asChild className="button nav-sheet-cta">
               <a href="#waitlist" onClick={closeMobile}>
