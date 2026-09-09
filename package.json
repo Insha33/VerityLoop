@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "brand:assets": "node scripts/build-brand-assets.mjs && python3 scripts/build-product-assets.py",
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
@@ -46,7 +47,9 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
+    "fontkit": "^2.0.4",
     "jsdom": "^30.0.1",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10",
