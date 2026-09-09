@@ -57,23 +57,11 @@
 }
 
 .verityMark {
-  height: 40px;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-}
-
-.verityMark i {
+  width: 52px;
+  height: 52px;
   display: block;
-  width: 7px;
-  border-radius: 999px;
-  background: var(--cobalt);
+  color: var(--coral);
 }
-
-.verityMark i:nth-child(1) { height: 18px; }
-.verityMark i:nth-child(2) { height: 30px; }
-.verityMark i:nth-child(3) { height: 40px; }
-.verityMark i:nth-child(4) { height: 24px; background: var(--coral); }
 
 .radarNode {
   --tooltip-x: -50%;
@@ -280,12 +268,7 @@
 
   .radarStage { width: min(100%, 390px); }
   .radarHub { width: 74px; height: 74px; box-shadow: 0 0 0 9px rgba(255, 90, 79, 0.05); }
-  .verityMark { height: 31px; gap: 4px; }
-  .verityMark i { width: 5px; }
-  .verityMark i:nth-child(1) { height: 14px; }
-  .verityMark i:nth-child(2) { height: 23px; }
-  .verityMark i:nth-child(3) { height: 31px; }
-  .verityMark i:nth-child(4) { height: 19px; }
+  .verityMark { width: 40px; height: 40px; }
   .radarNode,
   .sourceIcon { width: 46px; height: 46px; }
   .sourceIcon { border-radius: 10px; }

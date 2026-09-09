@@ -4,6 +4,9 @@ No external assets, fonts, or services required.
 """
 from pathlib import Path
 from html import escape
+import json
+BRAND = json.loads((Path(__file__).resolve().parents[1] / 'src/content/brand.json').read_text())
+WORDMARK = json.loads((Path(__file__).resolve().parents[1] / 'scripts/brand/type-outlines.json').read_text())['wordmark']
 OUT = Path(__file__).resolve().parents[1] / 'public/product'
 OUT.mkdir(parents=True, exist_ok=True)
 INK='#101623'; MUTED='#646b76'; LINE='#ece7e1'; BLUE='#b93f35'; SOFT='#fff0ec'; GREEN='#28785c'
@@ -24,12 +27,17 @@ def pill(x,y,w,label,fill=SOFT,col=BLUE):
 def avatar(x,y,initials,fill='#e6e8f0'):
     return dot(x,y,fill,12)+text(x-8,y+4,initials,9,INK,600)
 def logo(x,y):
-    return ''.join(rect(x+i*5,y+20-h,3,h,'#2768ff' if i<3 else '#ff5a4f',1.5) for i,h in enumerate([8,14,20,12]))
+    d = BRAND['diamond']
+    return f'<g transform="translate({x+10} {y+10}) scale(0.12) rotate(-45)" fill="{BRAND["coral"]}"><path d="{BRAND["curve"]}"/><path d="{BRAND["curve"]}" transform="rotate(180)"/><rect x="{d["x"]}" y="{d["y"]}" width="{d["size"]}" height="{d["size"]}" rx="{d["radius"]}"/></g>'
+def wordmark(x,y,size=16):
+    scale=size/WORDMARK['units']
+    paths=''.join(f'<path transform="translate({p["x"]} {p["y"]})" d="{p["d"]}"/>' for p in WORDMARK['paths'])
+    return f'<g aria-label="VerityLoop" transform="translate({x} {y}) scale({scale} {-scale})" fill="{INK}">{paths}</g>'
 def lines(x,y,strings,size=13,col=MUTED,gap=21,weight=400):
     return ''.join(text(x,y+i*gap,s,size,col,weight) for i,s in enumerate(strings))
 def shell(title,active='Signals'):
     s=rect(0,0,1280,760,'#fff',12)+rect(0,0,196,760,'#f9fafb',12)+rect(185,0,11,760,'#f9fafb')+line(196,0,196,760)
-    s+=logo(22,24)+text(50,40,'VerityLoop',16,INK,650)+text(169,40,'⌄',14,MUTED)
+    s+=logo(22,24)+wordmark(50,40)+text(169,40,'⌄',14,MUTED)
     s+=rect(14,69,168,33,'#fff',5,LINE)+icon(25,78,'search')+text(50,91,'Search anything',11,MUTED)+text(157,91,'/',11,MUTED)
     for i,(name,ic) in enumerate([('Overview','grid'),('Signals','inbox'),('Evidence','search'),('Decisions','spark'),('Delivery','file')]):
         yy=125+i*38

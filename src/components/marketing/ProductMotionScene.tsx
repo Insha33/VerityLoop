@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { ArrowDown, ArrowUpRight, Check, CheckCheck, CircleHelp, FileText, GitBranch, Link2, LockKeyhole, MessageSquare, ScanLine, Search, Sparkles } from "lucide-react";
 import type { StoryAudience } from "./ProductStory";
+import { BrandMark } from "./BrandMark";
 import styles from "./ProductStory.module.css";
 
 const delay = (ms: number) => ({ "--delay": `${ms}ms` } as CSSProperties);
@@ -11,7 +12,7 @@ export function ProductMotionScene({ audience, step }: { audience: StoryAudience
   if (step === 0) return <div className={styles.composition}>
     <div className={`${styles.floatingLabel} ${styles.reveal}`}><span className={styles.liveDot} />{founder ? "Opportunity Discovery" : "Market signals"}</div>
     <div className={`${styles.window} ${styles.composer} ${styles.reveal}`} style={delay(100)}>
-      <div className={styles.windowBar}><span className={styles.appMark}>v</span><span>{founder ? "A starting point" : "A change worth checking"}</span><span className={styles.windowMeta}>VerityLoop</span></div>
+      <div className={styles.windowBar}><span className={styles.appMark}><BrandMark /></span><span>{founder ? "A starting point" : "A change worth checking"}</span><span className={styles.windowMeta}>VerityLoop</span></div>
       <div className={styles.windowBody}>
         <span className={styles.micro}>{founder ? "WHAT ARE YOU EXPLORING?" : "COMPETITOR UPDATE · TODAY"}</span>
         <p className={styles.idea}>{founder ? "Support teams lose ownership when a ticket changes hands." : "A competitor just introduced shared approval workflows."}</p>

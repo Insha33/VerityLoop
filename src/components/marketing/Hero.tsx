@@ -16,8 +16,8 @@ export function Hero() {
       <div className="hero-product-stage shell">
         <div className="product-window" role="region" aria-label="From signal to decision">
           <picture>
-            <source media="(max-width: 600px)" srcSet="/product/workspace-mobile.svg" />
-            <img src="/product/workspace.svg?v=row-centered" width="1280" height="760" alt="VerityLoop signal inbox: a pricing change is connected to customer calls, verified evidence, and a recommendation to validate before changing the roadmap." fetchPriority="high" />
+            <source media="(max-width: 600px)" srcSet="/product/workspace-mobile.svg?v=rhythm-v1" />
+            <img src="/product/workspace.svg?v=rhythm-v1" width="1280" height="760" alt="VerityLoop signal inbox: a pricing change is connected to customer calls, verified evidence, and a recommendation to validate before changing the roadmap." fetchPriority="high" />
           </picture>
         </div>
         <div className="product-caption"><span><span className="caption-dot" />A clearer picture of what comes next</span><span>Illustrative product preview</span></div>

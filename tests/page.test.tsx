@@ -50,7 +50,7 @@ describe("VerityLoop marketing page", () => {
     const { container } = render(<HomePage />);
     const preview = screen.getByRole("region", { name: "From signal to decision" });
     expect(within(preview).getByRole("img")).toHaveAttribute("alt", expect.stringContaining("verified evidence"));
-    expect(container.querySelector('picture source[media="(max-width: 600px)"]')).toHaveAttribute("srcset", "/product/workspace-mobile.svg");
+    expect(container.querySelector('picture source[media="(max-width: 600px)"]')).toHaveAttribute("srcset", "/product/workspace-mobile.svg?v=rhythm-v1");
     expect(screen.getByRole("link", { name: "Explore the product" })).toHaveAttribute("href", "#product");
   });
 });

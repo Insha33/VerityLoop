@@ -4,6 +4,7 @@ import { NotebookPen } from "lucide-react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import { marketingCopy } from "@/content/marketing";
+import { BrandMark } from "./BrandMark";
 
 import styles from "./ContextOrbit.module.css";
 
@@ -110,12 +111,7 @@ export function ContextOrbit() {
             </div>
 
             <div className={styles.radarHub} aria-label="VerityLoop context layer">
-              <span className={styles.verityMark} aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <i />
-              </span>
+              <BrandMark className={styles.verityMark} />
             </div>
 
             {radarSources.map((source) => {

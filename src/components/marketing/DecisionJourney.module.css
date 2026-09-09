@@ -60,12 +60,7 @@
 .cardChrome > span:nth-child(2) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cardChrome small { justify-self: end; color: #969ba4; font-size: 7px; letter-spacing: .09em; text-transform: uppercase; }
 .cardBrand { display: inline-flex; align-items: center; gap: 7px; color: #151922; font-size: 11px; font-weight: 800; }
-.cardBrand :global(.brand-mark) { height: 18px; gap: 2px; }
-.cardBrand :global(.brand-mark i) { width: 3px; }
-.cardBrand :global(.brand-mark i:nth-child(1)) { height: 7px; }
-.cardBrand :global(.brand-mark i:nth-child(2)) { height: 12px; }
-.cardBrand :global(.brand-mark i:nth-child(3)) { height: 17px; }
-.cardBrand :global(.brand-mark i:nth-child(4)) { height: 10px; }
+.cardBrand :global(.brand-mark) { width: 22px; height: 22px; }
 .surface { height: calc(100% - 50px); min-height: 0; }
 .surface h3 { margin: 15px 0 11px; font-size: clamp(1.15rem, 1.8vw, 1.75rem); font-weight: 650; line-height: 1.06; letter-spacing: -.035em; text-wrap: balance; }
 .surface footer { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: end; margin-top: auto; }

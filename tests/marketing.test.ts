@@ -42,11 +42,13 @@ describe("marketing content", () => {
     expect(metadata.icons).toMatchObject({
       icon: [
         {
-          url: "/verityloop-logo.svg",
+          url: "/brand/favicon.svg?v=rhythm-v1",
           type: "image/svg+xml",
           sizes: "any",
         },
       ],
+      shortcut: "/favicon.ico?v=rhythm-v1",
+      apple: [{ url: "/apple-touch-icon.png?v=rhythm-v1", sizes: "180x180", type: "image/png" }],
     });
 
     const organization = structuredData.find((entry) => entry["@type"] === "Organization");
