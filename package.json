@@ -23,7 +23,8 @@
     "deploy:check": "wrangler deploy --dry-run",
     "dev:product": "npm run dev --workspace=@verityloop/product",
     "build:product": "npm run build --workspace=@verityloop/product",
-    "start:product": "npm run start --workspace=@verityloop/product"
+    "start:product": "npm run start --workspace=@verityloop/product",
+    "brand:assets": "npm run brand:assets --workspace=@verityloop/marketing"
   },
   "devDependencies": {
     "wrangler": "^4.123.0"

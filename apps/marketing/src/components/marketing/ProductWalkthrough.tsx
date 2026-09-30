@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import {
   decisionContent,
   evidenceContent,
@@ -96,26 +97,28 @@ export function ProductWalkthrough() {
         </div>
         <div className="decision-system" data-reveal aria-label="Interactive VerityLoop decision flow">
           <div className="journey-switch product-switch" role="group" aria-label="Choose a VerityLoop journey">
-            <button
+            <Button
               id="product-opportunity"
               type="button"
+              variant="ghost"
               className={`journey-tab ${journeyKey === "opportunity" ? "is-active" : ""}`}
               aria-pressed={journeyKey === "opportunity"}
               onClick={() => selectJourney("opportunity")}
             >
               <span>For founders</span>
               <strong>Opportunity Discovery</strong>
-            </button>
-            <button
+            </Button>
+            <Button
               id="product-roadmap"
               type="button"
+              variant="ghost"
               className={`journey-tab ${journeyKey === "roadmap" ? "is-active" : ""}`}
               aria-pressed={journeyKey === "roadmap"}
               onClick={() => selectJourney("roadmap")}
             >
               <span>For product teams</span>
               <strong>Roadmap Impact</strong>
-            </button>
+            </Button>
           </div>
           <div className={`flow-canvas ${approved ? "is-approved" : ""}`}>
             <article className="flow-card signal-card">
@@ -144,33 +147,36 @@ export function ProductWalkthrough() {
               <p className="card-label">Cited evidence</p>
               <h2>What the market supports</h2>
               <div className="evidence-list" role="list">
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
                   className={`evidence-node ${evidenceKey === "primary" ? "is-active" : ""}`}
                   aria-pressed={evidenceKey === "primary"}
                   onClick={() => setEvidenceKey("primary")}
                 >
                   <span>Primary sources</span>
                   <b>4</b>
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
                   className={`evidence-node ${evidenceKey === "context" ? "is-active" : ""}`}
                   aria-pressed={evidenceKey === "context"}
                   onClick={() => setEvidenceKey("context")}
                 >
                   <span>Context signals</span>
                   <b>3</b>
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
+                  variant="ghost"
                   className={`evidence-node ${evidenceKey === "conflict" ? "is-active" : ""}`}
                   aria-pressed={evidenceKey === "conflict"}
                   onClick={() => setEvidenceKey("conflict")}
                 >
                   <span>Counter-evidence</span>
                   <b>1</b>
-                </button>
+                </Button>
               </div>
               <p className="evidence-detail">{evidenceContent[evidenceKey]}</p>
               <div className="source-meta">
@@ -187,34 +193,38 @@ export function ProductWalkthrough() {
               <h2>{recommendation?.title ?? journey.briefTitle}</h2>
               <p>{recommendation?.copy ?? journey.briefCopy}</p>
               <div className="decision-options" aria-label="Possible decision outcomes">
-                <button
+                <Button
                   className={decisionKey === "validate" || decisionKey === null ? "is-selected" : ""}
                   type="button"
+                  variant="ghost"
                   aria-pressed={decisionKey === "validate" || decisionKey === null}
                   onClick={() => setDecisionKey("validate")}
                 >
                   Validate
-                </button>
-                <button
+                </Button>
+                <Button
                   className={decisionKey === "watch" ? "is-selected" : ""}
                   type="button"
+                  variant="ghost"
                   aria-pressed={decisionKey === "watch"}
                   onClick={() => setDecisionKey("watch")}
                 >
                   Watch
-                </button>
-                <button
+                </Button>
+                <Button
                   className={decisionKey === "ignore" ? "is-selected" : ""}
                   type="button"
+                  variant="ghost"
                   aria-pressed={decisionKey === "ignore"}
                   onClick={() => setDecisionKey("ignore")}
                 >
                   Ignore
-                </button>
+                </Button>
               </div>
-              <button
+              <Button
                 className="approval-action"
                 type="button"
+                variant="ghost"
                 aria-pressed={approved}
                 onClick={() => setApproved((current) => !current)}
               >
@@ -225,7 +235,7 @@ export function ProductWalkthrough() {
                 <span className="approval-action-icon" aria-hidden="true">
                   {approved ? "✓" : "→"}
                 </span>
-              </button>
+              </Button>
             </article>
             <article className={`flow-card prd-card ${approved ? "" : "is-locked"}`}>
               <div className="card-top">

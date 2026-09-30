@@ -1,12 +1,9 @@
+import { BrandMark } from "./BrandMark";
+
 export function Brand() {
   return (
     <>
-      <span className="brand-mark" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-        <i />
-      </span>
+      <BrandMark className="brand-mark" />
       <span>VerityLoop</span>
     </>
   );

@@ -1,62 +1,56 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-
 import HomePage from "@/app/page";
 
 describe("VerityLoop marketing page", () => {
-  it("renders the approved hero and technical product language", () => {
-    const { container } = render(<HomePage />);
+  it("explains the product and makes illustrative imagery explicit", () => {
+    render(<HomePage />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Your next product move. Backed by evidence.");
+    expect(screen.getByText("Illustrative product preview")).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: /VerityLoop signal inbox/ })).toBeInTheDocument();
+    expect(screen.getByText("MCP-ready context")).toBeInTheDocument();
+  });
 
-    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Turn market change into your next product decision.",
+  it("provides valid destinations for every on-page navigation link", () => {
+    const { container } = render(<HomePage />);
+    for (const link of screen.getAllByRole("link")) {
+      const href = link.getAttribute("href");
+      if (href?.startsWith("#")) expect(container.querySelector(href)).not.toBeNull();
+    }
+    expect(container.querySelector("#product")).not.toContainElement(container.querySelector("#how-it-works") as HTMLElement);
+    const nav = screen.getByRole("navigation", { name: "Primary navigation" });
+    expect(within(nav).queryByRole("link", { name: "Product" })).not.toBeInTheDocument();
+    expect(within(nav).getByRole("link", { name: "How it works" })).toHaveAttribute("href", "#product");
+    expect(within(nav).getByRole("link", { name: "Solutions" })).toHaveAttribute("href", "#solutions");
+    expect(within(container.querySelector("#solutions") as HTMLElement).getByRole("heading", { level: 2 })).toHaveTextContent(
+      /Know what to validate first\.\s*Or what should change next\./,
     );
-    expect(container).not.toHaveTextContent("AI-native product decision intelligence");
-    expect(container).toHaveTextContent("MCP-ready context");
-    expect(container).toHaveTextContent("Agent-ready outputs");
-    expect(container).toHaveTextContent("source-grounded retrieval");
-    expect(container).toHaveTextContent("decision memory");
-    expect(container).toHaveTextContent("human-in-the-loop");
   });
 
-  it("places Product, How it works, and Solutions in semantic DOM order", () => {
+  it("presents founder and product-team use cases together", () => {
     const { container } = render(<HomePage />);
-    const product = container.querySelector("#product");
-    const workflow = container.querySelector("#how-it-works");
-    const solutions = container.querySelector("#solutions");
-
-    expect(product).not.toBeNull();
-    expect(workflow).not.toBeNull();
-    expect(solutions).not.toBeNull();
-    if (!product || !workflow || !solutions) throw new Error("Expected all primary sections");
-    expect(product.compareDocumentPosition(workflow) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(workflow.compareDocumentPosition(solutions) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    const founders = container.querySelector("#opportunity") as HTMLElement;
+    const teams = container.querySelector("#roadmap") as HTMLElement;
+    expect(founders.parentElement).toBe(teams.parentElement);
+    expect(within(founders).getByText("For founders")).toBeInTheDocument();
+    expect(within(teams).getByText("For product teams")).toBeInTheDocument();
+    expect(within(founders).getByText("Opportunity Brief")).toBeInTheDocument();
+    expect(within(teams).getByText("Roadmap Impact Brief")).toBeInTheDocument();
   });
 
-  it("gives both audiences equal prominence in the solutions section", () => {
+  it("retains FAQ and three waitlist conversion points without a modal", () => {
     render(<HomePage />);
-
-    const solutions = screen.getByRole("region", { name: "Solutions" });
-    expect(solutions).toHaveTextContent("For founders");
-    expect(solutions).toHaveTextContent("Opportunity Discovery");
-    expect(solutions).toHaveTextContent("For product teams");
-    expect(solutions).toHaveTextContent("Roadmap Impact");
-  });
-
-  it("renders FAQ and the three approved waitlist conversion points", () => {
-    render(<HomePage />);
-
     expect(screen.getByRole("region", { name: "Frequently asked questions" })).toBeInTheDocument();
     expect(screen.getAllByText("Join the waitlist")).toHaveLength(3);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    for (const link of screen.getAllByRole("link", { name: "Join the waitlist" })) expect(link).toHaveAttribute("href", "#waitlist");
   });
 
-  it("explains the evidence-to-decision flow directly in the hero", () => {
-    render(<HomePage />);
-
-    expect(screen.getByRole("link", { name: "See how it works" })).toHaveAttribute(
-      "href",
-      "#product",
-    );
-    expect(screen.getByRole("region", { name: "From signal to decision" })).toBeInTheDocument();
-    expect(screen.getByText("Validate before the roadmap moves.")).toBeInTheDocument();
+  it("offers a readable mobile hero asset with an accessible description", () => {
+    const { container } = render(<HomePage />);
+    const preview = screen.getByRole("region", { name: "From signal to decision" });
+    expect(within(preview).getByRole("img")).toHaveAttribute("alt", expect.stringContaining("verified evidence"));
+    expect(container.querySelector('picture source[media="(max-width: 600px)"]')).toHaveAttribute("srcset", "/product/workspace-mobile.svg?v=rhythm-v1");
+    expect(screen.getByRole("link", { name: "Explore the product" })).toHaveAttribute("href", "#product");
   });
 });

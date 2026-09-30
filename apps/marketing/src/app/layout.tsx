@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Newsreader } from "next/font/google";
+import { Manrope } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { structuredData } from "@/lib/structured-data";
@@ -11,32 +11,26 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  display: "swap",
-  weight: "variable",
-  style: ["italic"],
-  variable: "--font-newsreader",
-  axes: ["opsz"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://runverityloop.com"),
   title: "VerityLoop | AI Product Decision Platform",
   description:
-    "VerityLoop is an AI product decision platform that uses evidence agents to turn market signals into cited decisions, agent-ready PRDs, and reviewed tickets.",
+    "Turn verified market changes into cited Opportunity Briefs and Roadmap Impact Briefs. Decide what to validate, build, change, watch, or ignore.",
   applicationName: "VerityLoop",
   authors: [{ name: "VerityLoop" }],
   creator: "VerityLoop",
   publisher: "VerityLoop",
+  manifest: "/site.webmanifest",
   icons: {
     icon: [
       {
-        url: "/verityloop-logo.svg",
+        url: "/brand/favicon.svg?v=rhythm-v1",
         type: "image/svg+xml",
         sizes: "any",
       },
     ],
+    shortcut: "/favicon.ico?v=rhythm-v1",
+    apple: [{ url: "/apple-touch-icon.png?v=rhythm-v1", sizes: "180x180", type: "image/png" }],
   },
   alternates: {
     canonical: "/",
@@ -59,23 +53,25 @@ export const metadata: Metadata = {
     title: "VerityLoop | AI Product Decision Platform",
     description:
       "Source-grounded product intelligence for opportunity discovery and roadmap impact. Move from evidence to agent-ready delivery work with human approval.",
+    images: [{ url: "/brand/social-card.png?v=rhythm-v1", width: 1200, height: 630, alt: "VerityLoop — Your next product move. Backed by evidence." }],
   },
   twitter: {
     card: "summary_large_image",
     title: "VerityLoop | AI Product Decision Platform",
-    description: "Evidence agents, MCP-ready context, and human-approved product decisions.",
+    description: "Cited opportunity and roadmap impact briefs. Human decisions before PRDs and delivery work.",
+    images: [{ url: "/brand/social-card.png?v=rhythm-v1", alt: "VerityLoop — Your next product move. Backed by evidence." }],
   },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f7f8fb",
+  themeColor: "#faf9f6",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${newsreader.variable}`}>
+    <html lang="en" className={manrope.variable}>
       <body>
         {structuredData.map((entry) => (
           <script

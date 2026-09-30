@@ -7,7 +7,7 @@ export const structuredData = [
     name: "VerityLoop",
     url: "https://runverityloop.com/",
     logo: "https://runverityloop.com/verityloop-logo.svg",
-    description: "VerityLoop builds evidence infrastructure for AI-native product decisions.",
+    description: "VerityLoop connects verified market evidence and product context to human-owned product decisions.",
   },
   {
     "@context": "https://schema.org",
@@ -23,7 +23,7 @@ export const structuredData = [
     applicationSubCategory: "Product Management Software",
     operatingSystem: "Web",
     description:
-      "An AI product decision platform that connects source-grounded market evidence to opportunity discovery, roadmap impact, agent-ready PRDs, and reviewed ticket drafts.",
+      "A market-to-product decision system with cited Opportunity Briefs and Roadmap Impact Briefs, followed by optional PRD and ticket drafting through separate human review gates.",
     featureList: [
       "Evidence agents for source-grounded retrieval",
       "Opportunity discovery",

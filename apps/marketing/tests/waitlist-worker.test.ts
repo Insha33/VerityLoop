@@ -68,6 +68,23 @@ describe("waitlist Worker", () => {
     expect(providerFetch).not.toHaveBeenCalled();
   });
 
+  it.each([
+    "person..pilot@company.com",
+    "person@-company.com",
+    "person@company-.com",
+  ])("rejects malformed email syntax before calling providers: %s", async (email) => {
+    const providerFetch = vi.fn();
+
+    const response = await handleWaitlistRequest(
+      signupRequest({ name: "Syntax Test", email, audience: "founder" }),
+      env,
+      providerFetch,
+    );
+
+    expect(response.status).toBe(400);
+    expect(providerFetch).not.toHaveBeenCalled();
+  });
+
   it("stores a normalized signup before sending the team notification", async () => {
     const calls: string[] = [];
     const sendNotification = vi.fn(async () => {

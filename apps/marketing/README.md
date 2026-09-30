@@ -72,3 +72,18 @@ For a Git-connected deployment, open **Workers & Pages → verityloop → Settin
 - `RESEND_API_KEY`
 
 `WAITLIST_NOTIFICATION_EMAIL` is a non-secret Wrangler variable committed in `wrangler.jsonc`.
+
+## Landing-page product visuals
+
+The landing page uses lightweight SVG hero concepts and responsive React/CSS motion scenes with illustrative data. These are marketing product previews, not screenshots of a shipped internal application.
+
+- `apps/marketing/public/product/workspace.svg` — full signal inbox for the desktop hero.
+- `apps/marketing/public/product/workspace-mobile.svg` — focused signal brief for narrow screens.
+- `apps/marketing/public/product/signal-detail.svg`, `evidence-detail.svg`, and `decision-detail.svg` — reusable static detail crops.
+- `apps/marketing/public/product/evidence.svg` and `decision.svg` — matching full workspace assets for reuse.
+
+Regenerate the complete asset set with `python3 apps/marketing/scripts/build-product-assets.py`. The generator has no external dependencies. Page layout and responsive tokens live in `apps/marketing/src/app/globals.css`; the interactive story is `apps/marketing/src/components/marketing/ProductStory.tsx`.
+
+Product demonstrations progress with normal scrolling and retain manual desktop selection. Small/short viewports and reduced-motion preferences use a readable vertical sequence. The waitlist uses the existing Worker API; `next dev` alone previews the form but does not serve `/api/waitlist`.
+
+The second section uses `ProductMotionScene.tsx` and `ProductStory.module.css` for eight motion scenes (four steps for each audience). `ProductStory.tsx` coordinates the audience toggle, keyboard step navigation, offscreen animation pause, and replay. No video downloads or animation library are required. Sequences settle within 2.2 seconds and reduced motion shows completed static scenes.

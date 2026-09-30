@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 export function MotionEffects() {
   useEffect(() => {
+    document.documentElement.classList.remove("no-js");
     const revealItems = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const observer = new IntersectionObserver(
       (entries) => {

@@ -1,0 +1,10 @@
+{
+  "name": "VerityLoop",
+  "version": "rhythm-v1",
+  "coral": "#ff5a4f",
+  "ink": "#101623",
+  "paper": "#faf9f6",
+  "curve": "M 41 -70 H -38 A 32 32 0 0 0 -70 -38 V 8 Q -70 12 -66 12 H -42 Q -38 12 -38 8 V -15 A 23 23 0 0 1 -15 -38 H 41 Q 45 -38 45 -42 V -66 Q 45 -70 41 -70 Z",
+  "diamond": { "x": -20, "y": -20, "size": 40, "radius": 5 },
+  "innerClearance": 18
+}
