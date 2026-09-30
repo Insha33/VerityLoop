@@ -1,72 +1,56 @@
-# VerityLoop Marketing Site
+# VerityLoop
 
-The static marketing site for VerityLoop, an AI product decision system for founders and product teams.
+One repository for the public marketing site and the main product, managed with npm workspaces.
 
-## Stack
+```text
+apps/
+  marketing/            Existing Next.js static site and waitlist Worker
+    src/                Routes, marketing copy, components, and styles
+    public/             Public marketing assets
+    tests/              Marketing and waitlist tests
+    worker/             Cloudflare /api/waitlist endpoint
+  product/              Independent Next.js product starter
+    src/app/            Product routes, layout, and styles
+packages/               Reserved for libraries used by multiple apps
+docs/                   Architecture and deployment notes
+package.json            Workspace definitions and root commands
+package-lock.json       One dependency lockfile for the repository
+wrangler.jsonc          Existing marketing deployment entry point
+```
 
-- Next.js App Router with TypeScript
-- React Server Components with focused Client Components for interactions
-- Tailwind CSS v4 and selected shadcn/ui primitives
-- Vitest and React Testing Library
-- Static export deployed through Cloudflare Workers assets
+## Get started
 
-## Local development
+Run commands from the repository root. Use npm 11.16.0 (recorded in `packageManager`) and a Node version supported by the installed Next.js and Wrangler versions. This migration was verified with Node 26.3.1.
 
 ```bash
-npm install
-npm run dev
+npm ci
+npm run dev:marketing    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-The Next.js development server previews the marketing UI. To exercise the live waitlist Worker locally, copy `.dev.vars.example` to `.dev.vars`, add the provider credentials, then run:
+In another terminal:
 
 ```bash
-npx wrangler dev
+npm run dev:product      # http://localhost:3001
 ```
 
-Wrangler builds the static export and serves both the site and `/api/waitlist` on the URL printed in the terminal.
+`npm run dev` remains an alias for marketing. The product is a minimal runnable starter; authentication, persistence, and product features are not implemented yet.
 
-## Waitlist setup
+## Commands
 
-Waitlist submissions are stored in the existing private `public.waitlist` table before the notification email is sent. Repeated submissions use the table's unique email constraint and do not create duplicate rows or notifications.
+| Command | Purpose |
+| --- | --- |
+| `npm test` | Run existing workspace tests |
+| `npm run typecheck` | Check both applications |
+| `npm run build` | Build both applications |
+| `npm run build:marketing` | Export marketing to `apps/marketing/out/` |
+| `npm run build:product` | Build the product to `apps/product/.next/` |
+| `npm run start:product` | Serve a production product build on port 3001 |
+| `npm run preview:marketing` | Build and serve marketing plus the waitlist Worker locally |
+| `npm run deploy:check` | Build marketing and validate the Worker bundle without deploying |
+| `npm run deploy` | Deploy only marketing and its waitlist Worker |
 
-1. In **Supabase → Project Settings → API Keys**, copy the Project URL and a server-only `sb_secret_...` key. Never expose that key to the browser or commit it.
-2. In Resend, verify `runverityloop.com` so `Run Verity Loop <team@runverityloop.com>` is an authorized sender.
-3. For local Worker development, set the following in `.dev.vars`:
+Install app dependencies into their owning workspace, for example `npm install <package> --workspace=@verityloop/product`. Commit the root lockfile with dependency changes; do not create app-level lockfiles.
 
-```dotenv
-SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-SUPABASE_SECRET_KEY=sb_secret_YOUR_SERVER_ONLY_KEY
-RESEND_API_KEY=re_YOUR_RESEND_KEY
-```
+Next.js environment files belong inside the app that consumes them, such as `apps/product/.env.local`. Marketing Worker local credentials remain in root `.dev.vars` (copy `.dev.vars.example`) because its Wrangler config remains at the root. Existing ignored root environment files were left untouched. Avoid placing product credentials there.
 
-The notification recipient is configured in `wrangler.jsonc` as `inshaaqib2001@gmail.com`.
-
-## Quality checks
-
-```bash
-npm test
-npm run typecheck
-npm run build
-```
-
-`npm run build` writes the production site to `out/`.
-
-## Cloudflare deployment
-
-The Cloudflare asset directory is `./out`, so dependencies and source files are never uploaded as static assets. Wrangler is configured to run `npm run build` before deployment, which creates `out/`.
-
-```bash
-npm run deploy
-```
-
-In the Cloudflare dashboard, use the repository root as the working directory and `npx wrangler deploy` as the deploy command.
-
-For a Git-connected deployment, open **Workers & Pages → verityloop → Settings → Variables and Secrets** and add these encrypted secrets:
-
-- `SUPABASE_URL`
-- `SUPABASE_SECRET_KEY`
-- `RESEND_API_KEY`
-
-`WAITLIST_NOTIFICATION_EMAIL` is a non-secret Wrangler variable committed in `wrangler.jsonc`.
+See [the monorepo guide](docs/monorepo.md) for the decisions, boundaries, research sources, and deployment settings, and [marketing setup](apps/marketing/README.md) for waitlist configuration.

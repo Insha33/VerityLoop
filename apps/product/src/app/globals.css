@@ -1,0 +1,6 @@
+:root { color-scheme: light; font-family: system-ui, sans-serif; color: #101623; background: #f7f8fb; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 48rem; margin: 15vh auto; padding: 2rem; }
+h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
+p { line-height: 1.6; }
