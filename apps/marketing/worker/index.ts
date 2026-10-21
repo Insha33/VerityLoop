@@ -15,6 +15,7 @@ type WaitlistSignup = {
   name: string;
   email: string;
   audience: WaitlistAudience;
+  campaign?: string;
 };
 
 type StoredSignup = {
@@ -34,6 +35,13 @@ function isAudience(value: unknown): value is WaitlistAudience {
   return value === "founder" || value === "product-team" || value === "both";
 }
 
+// Campaign tags come from public URLs, so anything unexpected is dropped rather than stored.
+function normalizeCampaign(value: unknown) {
+  if (typeof value !== "string") return undefined;
+  const campaign = value.trim().toLowerCase();
+  return /^[a-z0-9][a-z0-9_-]{0,39}$/.test(campaign) ? campaign : undefined;
+}
+
 function normalizeSignup(value: unknown): WaitlistSignup | null {
   if (!value || typeof value !== "object") return null;
   const body = value as Record<string, unknown>;
@@ -49,7 +57,8 @@ function normalizeSignup(value: unknown): WaitlistSignup | null {
     return null;
   }
 
-  return { name, email, audience: body.audience };
+  const campaign = normalizeCampaign(body.source);
+  return { name, email, audience: body.audience, ...(campaign ? { campaign } : {}) };
 }
 
 function supabaseHeaders(env: WaitlistEnv, prefer?: string) {
@@ -94,7 +103,7 @@ async function storeSignup(
       name: signup.name,
       email: signup.email,
       interested_role: interestedRoles[signup.audience],
-      source: "marketing-site",
+      source: signup.campaign ? `marketing-site:${signup.campaign}` : "marketing-site",
     }),
   });
 
@@ -118,8 +127,21 @@ export function buildWaitlistNotification(
     from: "Run Verity Loop <team@runverityloop.com>",
     to: [recipient],
     subject: `New VerityLoop waitlist signup: ${signup.name}`,
-    html: `<h2>New waitlist signup</h2><p><strong>Name:</strong> ${escapeHtml(signup.name)}</p><p><strong>Email:</strong> ${escapeHtml(signup.email)}</p><p><strong>Role:</strong> ${audienceLabels[signup.audience]}</p>`,
-    text: `New VerityLoop waitlist signup\nName: ${signup.name}\nEmail: ${signup.email}\nRole: ${audienceLabels[signup.audience]}`,
+    html: `<h2>New waitlist signup</h2><p><strong>Name:</strong> ${escapeHtml(signup.name)}</p><p><strong>Email:</strong> ${escapeHtml(signup.email)}</p><p><strong>Role:</strong> ${audienceLabels[signup.audience]}</p><p><strong>Source:</strong> ${signup.campaign ?? "direct"}</p>`,
+    text: `New VerityLoop waitlist signup\nName: ${signup.name}\nEmail: ${signup.email}\nRole: ${audienceLabels[signup.audience]}\nSource: ${signup.campaign ?? "direct"}`,
+    replyTo: "team@runverityloop.com",
+  };
+}
+
+export function buildWaitlistWelcome(signup: WaitlistSignup) {
+  const firstName = signup.name.split(" ")[0];
+
+  return {
+    from: "Run Verity Loop <team@runverityloop.com>",
+    to: [signup.email],
+    subject: "You’re in: 2 months of VerityLoop on us",
+    html: `<p>Hi ${escapeHtml(firstName)},</p><p>Thanks for joining the VerityLoop waitlist. You’re now a founding member, which means:</p><ul><li>2 months free on any paid plan when we launch</li><li>Early access before the public launch</li><li>A direct line to the founders</li></ul><p>One question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.</p><p>The VerityLoop team</p>`,
+    text: `Hi ${firstName},\n\nThanks for joining the VerityLoop waitlist. You’re now a founding member, which means:\n\n- 2 months free on any paid plan when we launch\n- Early access before the public launch\n- A direct line to the founders\n\nOne question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.\n\nThe VerityLoop team`,
     replyTo: "team@runverityloop.com",
   };
 }
@@ -143,11 +165,24 @@ const sendNotification: NotificationSender = async (signup, signupId, env) => {
   return result.data.id;
 };
 
+const sendWelcome: NotificationSender = async (signup, signupId, env) => {
+  const resend = new Resend(env.RESEND_API_KEY);
+  const result = await resend.emails.send(buildWaitlistWelcome(signup), {
+    idempotencyKey: `waitlist-welcome/${signupId}`,
+  });
+
+  if (result.error || !result.data?.id) {
+    throw new Error(`Resend welcome failed: ${result.error?.message ?? "unknown error"}`);
+  }
+  return result.data.id;
+};
+
 export async function handleWaitlistRequest(
   request: Request,
   env: WaitlistEnv,
   providerFetch: typeof fetch = fetch,
   notificationSender: NotificationSender = sendNotification,
+  welcomeSender: NotificationSender = sendWelcome,
 ) {
   if (request.method !== "POST") {
     return jsonResponse({ ok: false, message: "Method not allowed." }, 405);
@@ -184,17 +219,24 @@ export async function handleWaitlistRequest(
       return jsonResponse({
         ok: true,
         duplicate: true,
-        message: "You’re already on the waitlist.",
+        message: "You’re already on the waitlist. Your founding-member offer is saved.",
       });
     }
 
     await notificationSender(signup, String(stored.signup.id), env);
 
+    // The signup is already stored, so a failed welcome email should not fail the request.
+    try {
+      await welcomeSender(signup, String(stored.signup.id), env);
+    } catch (error) {
+      console.error("Waitlist welcome email failed", error);
+    }
+
     return jsonResponse(
       {
         ok: true,
         duplicate: false,
-        message: "You’re on the list. We’ll be in touch soon.",
+        message: "You’re in. Your 2 free months are reserved. Check your inbox.",
       },
       201,
     );

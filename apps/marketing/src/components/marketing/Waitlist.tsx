@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type FormEvent } from "react";
-import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Mail, User } from "lucide-react";
+import { AlertCircle, ArrowRight, Check, CheckCircle2, Loader2, Mail, User } from "lucide-react";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,12 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { marketingCopy } from "@/content/marketing";
 import { validateAudience, validateEmail, validateName } from "@/lib/marketing";
+
+// Campaign links such as ?utm_source=x or ?ref=launch-thread attribute signups.
+function signupSource() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("utm_source") ?? params.get("ref") ?? undefined;
+}
 
 export function WaitlistForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -88,7 +94,7 @@ export function WaitlistForm() {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, audience }),
+        body: JSON.stringify({ name, email, audience, source: signupSource() }),
       });
       const result = (await response.json()) as { ok?: boolean; message?: string };
       if (!response.ok || !result.ok) {
@@ -98,7 +104,7 @@ export function WaitlistForm() {
       setSubmitting(false);
       setSuccess(true);
       setFieldError(null);
-      setStatus(result.message || "You’re on the list. We’ll be in touch soon.");
+      setStatus(result.message || "You’re in. Your 2 free months are reserved. Check your inbox.");
     } catch (error) {
       setSubmitting(false);
       setStatus(
@@ -224,7 +230,7 @@ export function WaitlistForm() {
           <ArrowRight aria-hidden="true" />
         )}
       </Button>
-      <small>We’ll only use your email for VerityLoop early-access updates.</small>
+      <small>No card required. We’ll only use your email for VerityLoop early-access updates.</small>
     </form>
   );
 }
@@ -236,9 +242,15 @@ export function Waitlist() {
     <section className="waitlist-section" id="waitlist" aria-labelledby="waitlist-title">
       <div className="shell waitlist-layout">
         <div className="waitlist-copy">
-          <h2 id="waitlist-title">Make your next product decision with evidence.</h2>
+          <span className="waitlist-eyebrow">{waitlist.eyebrow}</span>
+          <h2 id="waitlist-title">{waitlist.title}</h2>
           <p>{waitlist.description}</p>
-          <span className="quiet-label">Join the early-access waitlist.</span>
+          <ul className="waitlist-perks">
+            {waitlist.perks.map((perk) => (
+              <li key={perk}><Check aria-hidden="true" />{perk}</li>
+            ))}
+          </ul>
+          <span className="quiet-label">{waitlist.terms}</span>
         </div>
         <WaitlistForm />
       </div>

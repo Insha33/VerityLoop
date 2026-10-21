@@ -1,10 +1,12 @@
 import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { marketingCopy } from "@/content/marketing";
 
 export function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero-copy shell">
+        <a className="hero-offer" href="#waitlist"><span className="caption-dot" />{marketingCopy.offer.badge}<ArrowRight aria-hidden="true" /></a>
         <h1>Your next product move.<br />{" "}<span>Backed by evidence.</span></h1>
         <p className="hero-subtitle">Turn verified market changes and customer evidence into clear product direction. Know what to build, change, validate, watch, or ignore.</p>
         <div className="hero-actions">

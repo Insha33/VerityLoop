@@ -75,6 +75,7 @@ html { scrollbar-color: #b9bec7 #f8f8f8; }
 .hero-actions { display: flex; justify-content: center; align-items: center; gap: 25px; margin-top: 27px; }
 .hero-text-link { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; padding: 10px 0; }.hero-text-link svg { width: 14px; height: 14px; }.hero-text-link:hover { color: var(--cobalt); }
 .hero-note { color: var(--muted); font-size: 10px; margin-top: 20px; }
+.hero-offer { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; margin-bottom: 22px; padding: 6px 14px; border: 1px solid #ffd3ce; border-radius: 999px; background: var(--coral-soft); color: var(--coral-dark); font-size: 11px; font-weight: 600; transition: border-color 160ms ease, background-color 160ms ease; }.hero-offer .caption-dot { background: var(--coral); }.hero-offer svg { width: 12px; height: 12px; }.hero-offer:hover { border-color: var(--coral); }.hero-offer:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .hero-product-stage { padding: 30px 30px 0; margin-top: 48px; background: #e9e5df; border-radius: var(--radius-panel); }
 .product-window { overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-product); background: white; }
 .product-window img { width: 100%; height: auto; }
@@ -158,6 +159,8 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .waitlist-copy > p, .waitlist-copy .quiet-label { color: #b9bfcc; }
 .waitlist-form { color: var(--ink); }
 .waitlist-form .submit-button.is-complete { color: white; }
+.waitlist-eyebrow { display: block; margin-bottom: 14px; color: #ff8178; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.waitlist-perks { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 12px; }.waitlist-perks li { display: flex; align-items: center; gap: 10px; color: #faf9f6; font-size: 13px; }.waitlist-perks svg { flex: 0 0 14px; width: 14px; height: 14px; color: #ff8178; }
 .entry-preview { background: #fffdfa; border: 1px solid #e3ded6; border-radius: 8px; padding: 22px; margin-top: 25px; text-align: left; }
 .entry-preview .preview-label { display: block; font-size: 9px; letter-spacing: .08em; color: #716d66; }
 .entry-prompt { display: flex; align-items: flex-start; gap: 10px; padding: 16px 0; }
