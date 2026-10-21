@@ -140,8 +140,8 @@ export function buildWaitlistWelcome(signup: WaitlistSignup) {
     from: "Run Verity Loop <team@runverityloop.com>",
     to: [signup.email],
     subject: "You’re in: 2 months of VerityLoop on us",
-    html: `<p>Hi ${escapeHtml(firstName)},</p><p>Thanks for joining the VerityLoop waitlist. You’re now a founding member, which means:</p><ul><li>2 months free on any paid plan when we launch</li><li>Early access before the public launch</li><li>A direct line to the founders</li></ul><p>One question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.</p><p>The VerityLoop team</p>`,
-    text: `Hi ${firstName},\n\nThanks for joining the VerityLoop waitlist. You’re now a founding member, which means:\n\n- 2 months free on any paid plan when we launch\n- Early access before the public launch\n- A direct line to the founders\n\nOne question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.\n\nThe VerityLoop team`,
+    html: `<p>Hi ${escapeHtml(firstName)},</p><p>Thanks for joining the VerityLoop waitlist. You’re now a founding member, which means:</p><ul><li>2 months free on your first paid plan when we launch</li><li>Priority early access as we invite members in batches</li><li>A direct line to the founders</li></ul><p>One question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.</p><p>The VerityLoop team</p>`,
+    text: `Hi ${firstName},\n\nThanks for joining the VerityLoop waitlist. You’re now a founding member, which means:\n\n- 2 months free on your first paid plan when we launch\n- Priority early access as we invite members in batches\n- A direct line to the founders\n\nOne question while we build: what product decision are you wrestling with right now? Just hit reply. We read every message, and your answer shapes what we build first.\n\nThe VerityLoop team`,
     replyTo: "team@runverityloop.com",
   };
 }

@@ -2,83 +2,99 @@
 
 Use `https://runverityloop.com/?utm_source=x#waitlist` for every X link. Signups from that link are stored with source `marketing-site:x`. For one-off campaigns use `?ref=<tag>` (lowercase letters, digits, `-`, `_`, up to 40 characters), for example `?ref=launch-thread`.
 
-Put the link in the first reply, not the main post, because X shows posts with external links to fewer people.
+Put the link in the first reply, not the main post. X is widely reported to show posts with external links to fewer people; X hasn't confirmed this, so compare reach on your own posts.
 
 ## Offer (keep every post consistent with the site)
 
-- 2 months free on any paid plan at launch
-- Early access before the public launch
+- 2 months free on your first paid plan (one workspace)
+- Priority early access, invited in batches
 - A direct line to the founders
-- For everyone who joins before public launch; no card required
+- For everyone who joins before public launch; no card required to join
 
-## Option A: single post (fits 280 characters)
+Don't shorten this to "free early access for everyone" or "2 months free on any plan". The site, FAQ and welcome email all use the wording above.
 
-> Competitor ships a feature. Your team asks: does this matter to us? Should the roadmap move?
+## Option A: single post (279 characters, fits without Premium)
+
+Human-score check: 92.5 PASS (local li-human heuristics; not a third-party AI detector).
+
+> A competitor ships a feature Tuesday. By Thursday there's a 40-message Slack thread: does this matter? Should the roadmap move?
 >
-> I'm building VerityLoop to answer that with evidence: cited sources, explicit unknowns, and a human making the call.
+> I'm building VerityLoop to answer with cited evidence and honest unknowns. A human decides.
 >
-> Building it in public from today. Waitlist gets 2 months free 👇
+> Building in public. Waitlist members get 2 months free 👇
 
 First reply:
 
-> Join here. Everyone who joins before launch is a founding member: 2 months free, early access, and a direct line to us.
+> Join here. Sign up before launch and you're a founding member: 2 months free on your first paid plan, priority early access, and a direct line to us.
 >
 > https://runverityloop.com/?utm_source=x#waitlist
 
 ## Option B: launch thread
 
+Human-score check: 77.8 PASS (same heuristics). Every post is under 280 characters.
+
 1/
 > I'm building VerityLoop in public, starting today.
 >
-> It's an AI system for one question every product team gets wrong at some point:
+> It answers one question product teams get wrong more often than they admit:
 >
 > "A competitor just shipped X. Should our roadmap change?"
 >
-> Here's the problem, how I'm building it, and what I'll share 🧵
+> What it is, how I'm building it, and what I'll share 🧵
 
 2/
-> Today that question is answered with gut feel, a Slack thread, and a screenshot of a changelog.
+> Today that call gets made from a changelog screenshot, a #product Slack thread and gut feel.
 >
-> Nobody checks whether customers actually asked for it, whether we already built half of it, or whether we rejected it last quarter for a good reason.
+> Nobody checks if customers asked for it, whether it's half-built in a Linear or Jira epic, or whether you killed the same idea in Q2 for a good reason.
 
 3/
-> The obvious fix is "ask an LLM". That's the trap.
+> The obvious fix is "just ask an LLM". That's the trap.
 >
-> LLMs will happily tell you a competitor launched something they didn't, cite a page that says something else, and sound sure about things nobody knows.
+> Ask a model what a competitor launched and you can get a confident answer, a citation that says something else, and no hint of what it doesn't know.
 >
-> For roadmap decisions, a confident wrong answer is worse than no answer.
+> For a roadmap call, confident and wrong is worse than "I don't know".
 
 4/
-> So VerityLoop is built around a few rules:
+> So VerityLoop has 5 hard rules:
 >
-> - every claim links to its source and retrieval time
-> - verified facts, vendor claims, and inferences stay separate
-> - "unknown" is a valid answer
-> - conflicting evidence stays visible
-> - a human makes the decision, always
+> - every claim links to its source and fetch time
+> - facts, vendor claims and model guesses get different labels
+> - "unknown" is allowed
+> - if your docs disagree, you see both
+> - a human decides: ignore, watch, validate, accelerate or reconsider
 
 5/
-> As an ML engineer, I'm starting with evals, not features.
+> I'm an ML engineer, so I'm starting with evals, not features.
 >
-> Before shipping, the system has to hit targets like:
-> - ≥95% of cited sources actually support the claim
-> - 100% of conflicting internal docs surfaced
-> - zero unauthorized actions from prompt-injected web pages
+> Step 1: a test set of 25 real changelog entries and a fake roadmap.
+>
+> Release targets:
+> - 95%+ of citations support their claim
+> - 100% of conflicting docs surfaced
+> - 0 actions triggered by prompt-injected web pages
 
 6/
-> What I'll share here:
+> What I'll post here:
 >
-> - weekly build logs with real eval numbers
-> - architecture decisions and the tradeoffs
-> - what broke and what I cut
-> - what I learn talking to product teams
+> - a build log every Friday, with eval numbers even when they're bad
+> - architecture calls and what they cost me
+> - what I cut. My PRD hit 80k characters; v1 fits on 1 page
+> - what product teams tell me on calls
 
 7/
-> Waitlist is open. Everyone who joins before launch becomes a founding member: 2 months free, early access, and a direct line to me.
+> Waitlist is open. Join before launch and you're a founding member: 2 months free on your first paid plan, priority early access, and a direct line to me.
 >
-> And if you're wrestling with a product decision right now, reply. I'd love to hear it.
+> Stuck on a product call right now? Reply. I'd like to hear it.
 >
 > https://runverityloop.com/?utm_source=x#waitlist
+
+## Commitments these posts make
+
+Only post them if these are true or will be:
+
+- A build log goes out every Friday (post 6).
+- The release targets in post 5 are goals, not results. Report the real numbers when you have them.
+- A founder replies to welcome-email and X replies (the "direct line").
 
 ## After posting
 

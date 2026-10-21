@@ -173,11 +173,11 @@ export const marketingCopy = {
     title: "Join before launch. Get 2 months free.",
     description: "Everyone on the waitlist becomes a founding member. Get early access to Opportunity Discovery and Roadmap Impact, and help shape what we build.",
     perks: [
-      "2 months free on any paid plan at launch",
-      "Early access before the public launch",
+      "2 months free on your first paid plan",
+      "Priority early access, invited in batches",
       "A direct line to the founders",
     ],
-    terms: "For everyone who joins before public launch. No card required.",
+    terms: "For everyone who joins before public launch. Covers the first 2 months of one workspace’s paid plan. No card required to join.",
   },
   offer: {
     badge: "Founding members get 2 months free",

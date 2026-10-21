@@ -54,7 +54,7 @@ describe("waitlist Worker", () => {
       }),
     );
     expect(welcome.text).toContain("Hi Insha,");
-    expect(welcome.text).toContain("2 months free on any paid plan when we launch");
+    expect(welcome.text).toContain("2 months free on your first paid plan when we launch");
   });
 
   it("fails safely before calling providers when notification configuration is missing", async () => {

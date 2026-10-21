@@ -7,7 +7,7 @@ export const faqs: FAQItem[] = [
   {
     question: "What do I get for joining the waitlist now?",
     answer:
-      "Everyone who joins before public launch becomes a founding member: 2 months free on any paid plan when VerityLoop launches, early access before the public launch, and a direct line to the founders. No card is required to join.",
+      "Everyone who joins before public launch becomes a founding member: the first 2 months free on one workspace’s first paid plan, priority early access as we invite members in batches, and a direct line to the founders. No card is required to join.",
   },
   {
     question: "Is VerityLoop an autonomous product manager?",
