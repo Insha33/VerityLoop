@@ -268,7 +268,7 @@ describe("supporting interactions", () => {
   it("keeps the complete waitlist form embedded in the section", () => {
     const { container } = render(<Waitlist />);
     const heading = screen.getByRole("heading", {
-      name: "Join before launch. Get 2 months free.",
+      name: "Get early access. 2 months free at launch.",
     });
 
     expect(getComputedStyle(heading.parentElement as HTMLElement).opacity).toBe("1");

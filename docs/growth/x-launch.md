@@ -1,4 +1,4 @@
-# X launch posts: founding-member waitlist
+# X launch posts: early-access waitlist
 
 Use `https://runverityloop.com/?utm_source=x#waitlist` for every X link. Signups from that link are stored with source `marketing-site:x`. For one-off campaigns use `?ref=<tag>` (lowercase letters, digits, `-`, `_`, up to 40 characters), for example `?ref=launch-thread`.
 
@@ -7,15 +7,15 @@ Put the link in the first reply, not the main post. X is widely reported to show
 ## Offer (keep every post consistent with the site)
 
 - 2 months free on your first paid plan (one workspace)
-- Priority early access, invited in batches
+- Priority invites as we open access in batches
 - A direct line to the founders
 - For everyone who joins before public launch; no card required to join
 
-Don't shorten this to "free early access for everyone" or "2 months free on any plan". The site, FAQ and welcome email all use the wording above.
+Call it "early access", not "founding member". Don't shorten it to "2 months free on any plan" or promise everyone access before launch. The site, FAQ and welcome email all use the wording above.
 
 ## Option A: single post (279 characters, fits without Premium)
 
-Human-score check: 92.5 PASS (local li-human heuristics; not a third-party AI detector).
+Human-score check: 87.9 PASS (local li-human heuristics; not a third-party AI detector).
 
 > A competitor ships a feature Tuesday. By Thursday there's a 40-message Slack thread: does this matter? Should the roadmap move?
 >
@@ -25,13 +25,13 @@ Human-score check: 92.5 PASS (local li-human heuristics; not a third-party AI de
 
 First reply:
 
-> Join here. Sign up before launch and you're a founding member: 2 months free on your first paid plan, priority early access, and a direct line to us.
+> Join the early-access list. Sign up before launch for 2 months free on your first paid plan, priority invites, and a direct line to us.
 >
 > https://runverityloop.com/?utm_source=x#waitlist
 
 ## Option B: launch thread
 
-Human-score check: 77.8 PASS (same heuristics). Every post is under 280 characters.
+Human-score check: 77.1 PASS (same heuristics). Every post is under 280 characters.
 
 1/
 > I'm building VerityLoop in public, starting today.
@@ -82,7 +82,7 @@ Human-score check: 77.8 PASS (same heuristics). Every post is under 280 characte
 > - what product teams tell me on calls
 
 7/
-> Waitlist is open. Join before launch and you're a founding member: 2 months free on your first paid plan, priority early access, and a direct line to me.
+> The early-access list is open. Join before launch for 2 months free on your first paid plan, priority invites, and a direct line to me.
 >
 > Stuck on a product call right now? Reply. I'd like to hear it.
 >

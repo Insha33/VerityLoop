@@ -39,7 +39,7 @@ describe("waitlist Worker", () => {
     );
   });
 
-  it("builds a founding-member welcome email for the person who signed up", () => {
+  it("builds an early-access welcome email for the person who signed up", () => {
     const welcome = buildWaitlistWelcome({
       name: "Insha Aqib",
       email: "insha@example.com",
@@ -216,7 +216,7 @@ describe("waitlist Worker", () => {
     expect(await response.json()).toEqual({
       ok: true,
       duplicate: true,
-      message: "You’re already on the waitlist. Your founding-member offer is saved.",
+      message: "You’re already on the waitlist. Your early-access offer is saved.",
     });
     expect(providerFetch).toHaveBeenCalledTimes(1);
   });

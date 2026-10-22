@@ -169,17 +169,17 @@ export const marketingCopy = {
     ],
   },
   waitlist: {
-    eyebrow: "Founding member offer",
-    title: "Join before launch. Get 2 months free.",
-    description: "Everyone on the waitlist becomes a founding member. Get early access to Opportunity Discovery and Roadmap Impact, and help shape what we build.",
+    eyebrow: "Early access",
+    title: "Get early access. 2 months free at launch.",
+    description: "Join the early-access list for Opportunity Discovery and Roadmap Impact, and help shape what we build.",
     perks: [
       "2 months free on your first paid plan",
-      "Priority early access, invited in batches",
+      "Priority invites as we open access in batches",
       "A direct line to the founders",
     ],
     terms: "For everyone who joins before public launch. Covers the first 2 months of one workspace’s paid plan. No card required to join.",
   },
   offer: {
-    badge: "Founding members get 2 months free",
+    badge: "Early access: 2 months free at launch",
   },
 } as const;
