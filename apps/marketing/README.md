@@ -33,6 +33,8 @@ Wrangler builds the static export and serves both the site and `/api/waitlist` o
 
 Waitlist submissions are stored in the existing private `public.waitlist` table before the notification email is sent. Repeated submissions use the table's unique email constraint and do not create duplicate rows or notifications.
 
+After the team notification, the Worker sends the new member an early-access welcome email (2 months free at launch). A failed welcome email is logged and does not fail the signup. A `utm_source` or `ref` query parameter on the page URL is stored in `source` as `marketing-site:<tag>`; invalid tags fall back to `marketing-site`.
+
 1. In **Supabase → Project Settings → API Keys**, copy the Project URL and a server-only `sb_secret_...` key. Never expose that key to the browser or commit it.
 2. In Resend, verify `runverityloop.com` so `Run Verity Loop <team@runverityloop.com>` is an authorized sender.
 3. For local Worker development, set the following in `.dev.vars`:

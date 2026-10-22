@@ -170,7 +170,16 @@ export const marketingCopy = {
   },
   waitlist: {
     eyebrow: "Early access",
-    title: "Give your agents product truth - not another prompt.",
-    description: "Get early access to Opportunity Discovery and Roadmap Impact. Turn evidence into a decision your team can explain.",
+    title: "Get early access. 2 months free at launch.",
+    description: "Join the early-access list for Opportunity Discovery and Roadmap Impact, and help shape what we build.",
+    perks: [
+      "2 months free on your first paid plan",
+      "Priority invites as we open access in batches",
+      "A direct line to the founders",
+    ],
+    terms: "For everyone who joins before public launch. Covers the first 2 months of one workspace’s paid plan. No card required to join.",
+  },
+  offer: {
+    badge: "Early access: 2 months free at launch",
   },
 } as const;

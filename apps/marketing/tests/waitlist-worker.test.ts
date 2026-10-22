@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import {
   buildWaitlistNotification,
+  buildWaitlistWelcome,
   handleWaitlistRequest,
   type WaitlistEnv,
 } from "../worker/index";
@@ -36,6 +37,24 @@ describe("waitlist Worker", () => {
         subject: "New VerityLoop waitlist signup: Insha Aqib",
       }),
     );
+  });
+
+  it("builds an early-access welcome email for the person who signed up", () => {
+    const welcome = buildWaitlistWelcome({
+      name: "Insha Aqib",
+      email: "insha@example.com",
+      audience: "founder",
+    });
+
+    expect(welcome).toEqual(
+      expect.objectContaining({
+        to: ["insha@example.com"],
+        replyTo: "team@runverityloop.com",
+        subject: "You’re in: 2 months of VerityLoop on us",
+      }),
+    );
+    expect(welcome.text).toContain("Hi Insha,");
+    expect(welcome.text).toContain("2 months free on your first paid plan when we launch");
   });
 
   it("fails safely before calling providers when notification configuration is missing", async () => {
@@ -85,11 +104,15 @@ describe("waitlist Worker", () => {
     expect(providerFetch).not.toHaveBeenCalled();
   });
 
-  it("stores a normalized signup before sending the team notification", async () => {
+  it("stores a normalized signup before sending the team notification and welcome", async () => {
     const calls: string[] = [];
     const sendNotification = vi.fn(async () => {
       calls.push("resend");
       return "email-1";
+    });
+    const sendWelcome = vi.fn(async () => {
+      calls.push("welcome");
+      return "email-2";
     });
     const providerFetch = vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
       const url = String(input);
@@ -117,22 +140,64 @@ describe("waitlist Worker", () => {
       env,
       providerFetch,
       sendNotification,
+      sendWelcome,
     );
 
     expect(response.status).toBe(201);
     expect(await response.json()).toEqual({
       ok: true,
       duplicate: false,
-      message: "You’re on the list. We’ll be in touch soon.",
+      message: "You’re in. Your 2 free months are reserved. Check your inbox.",
     });
-    expect(calls).toHaveLength(2);
+    expect(calls).toHaveLength(3);
     expect(calls[0]).toContain("supabase.co/rest/v1/waitlist");
     expect(calls[1]).toBe("resend");
+    expect(calls[2]).toBe("welcome");
     expect(sendNotification).toHaveBeenCalledWith(
       { name: "Insha Aqib", email: "insha@example.com", audience: "founder" },
       "42",
       env,
     );
+  });
+
+  it("keeps a stored signup successful when the welcome email fails", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const providerFetch = vi.fn(async () => Response.json([{ id: 7 }], { status: 201 }));
+
+    const response = await handleWaitlistRequest(
+      signupRequest({ name: "Insha Aqib", email: "insha@example.com", audience: "founder" }),
+      env,
+      providerFetch,
+      vi.fn(async () => "email-1"),
+      vi.fn(async () => {
+        throw new Error("Resend unavailable");
+      }),
+    );
+
+    expect(response.status).toBe(201);
+  });
+
+  it("stores a valid campaign tag and drops an unsafe one", async () => {
+    const sources: unknown[] = [];
+    const providerFetch = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
+      sources.push(JSON.parse(String(init?.body)).source);
+      return Response.json([], { status: 200 });
+    });
+
+    for (const source of ["X", "launch-thread", "<script>", "a".repeat(41)]) {
+      await handleWaitlistRequest(
+        signupRequest({ name: "Campaign Test", email: "campaign@example.com", audience: "founder", source }),
+        env,
+        providerFetch,
+      );
+    }
+
+    expect(sources).toEqual([
+      "marketing-site:x",
+      "marketing-site:launch-thread",
+      "marketing-site",
+      "marketing-site",
+    ]);
   });
 
   it("returns an existing signup without sending another notification", async () => {
@@ -151,7 +216,7 @@ describe("waitlist Worker", () => {
     expect(await response.json()).toEqual({
       ok: true,
       duplicate: true,
-      message: "You’re already on the waitlist.",
+      message: "You’re already on the waitlist. Your early-access offer is saved.",
     });
     expect(providerFetch).toHaveBeenCalledTimes(1);
   });
