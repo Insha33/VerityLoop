@@ -44,7 +44,7 @@ A returning user lands on Home. Editing the profile, competitors, or roadmap cre
 
 ## Screens
 
-The screen designs live on the linked Design canvas. Each screen below lists its job, its content, and its edge states.
+The screen designs are a clickable prototype at https://claude.ai/artifact/S3t8e2eqLAc5zbdxU45PsE (private until shared). Each screen below lists its job, its content, and its edge states.
 
 ### 0. Sign in
 
