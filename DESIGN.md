@@ -108,7 +108,7 @@ This current specification replaces the September ivory page and navy walkthroug
 **Key Characteristics:**
 
 - Pure-white page, navigation, and walkthrough with light cool framing.
-- Coral primary actions and selected journey controls; cobalt keyboard focus and secondary accents.
+- Coral primary actions, selected controls, link hover and keyboard focus; cobalt survives only as a faint decorative tint.
 - Readable marketing controls, thin neutral dividers, modest corners, and selective shadows.
 - The approved Rhythm mark, a restrained signal-grid background, a prominent framed hero product with evidence callouts, and clearly labeled illustrative product concepts.
 
@@ -126,7 +126,7 @@ White and dark ink establish readable structure. Coral draws attention to action
 
 ### Secondary
 
-- **Cobalt:** visible keyboard focus, link hover, and field focus borders.
+- **Cobalt:** decorative only, in signal-grid cells and the frame rings. Link hover, keyboard focus, field focus and text selection use deep coral and soft coral (Nov 2026 request: no blue interaction states).
 - **Success green:** reviewed/on-track examples and successful waitlist submission.
 - **Light blue / mint / peach:** walkthrough stages; the first and final steps share the blue stage.
 - **Soft coral:** signup panel, hero offer chip, primary-source callout quote, and context tile accent.
@@ -197,6 +197,7 @@ Middle sections share one rhythm and vocabulary, after a Linear-style review:
 - **Delivery:** three numbered approval gates (title plus one-line explanation) sit beside the framed PRD, top-aligned.
 - **Context:** sources sit in a wide 6-column grid (4 at tablet, 3 on mobile, 2 at (420px)) of large tiles with (30px) icons.
 - **Signup card:** solid soft coral; no background animation inside it.
+- **Audience cards:** feature tiles. A pearl stage with a static hairline grid shows the illustrative input window, a dashed coral connector and the output brief; the audience pill, title, copy and link sit below. Subgrid keeps both cards' stages and copy on shared rows, and the connector stretches so both outputs align. Hover lifts the input window and turns the border coral.
 
 ### Buttons and links
 
@@ -204,7 +205,7 @@ Primary actions use coral with white text, a small arrow where appropriate, and 
 
 ### Forms and audience controls
 
-The white form sits inside a soft-coral signup panel. Labels are explicit; leading icons receive reserved inset space. Inputs are (48px) high with (16px) text. Focus changes the border to cobalt with a soft-blue outline; invalid fields use deep coral. The three-choice waitlist selector has a pale track and coral sliding segment with white selected text; each choice has a (44px) minimum height. Pending submission dims the action and completion uses green. Preserve the existing validation and submission contract.
+The white form sits inside a soft-coral signup panel. Labels are explicit; leading icons receive reserved inset space. Inputs are (48px) high with (16px) text. Focus changes the border to deep coral with a soft-coral outline; invalid fields use deep coral. The three-choice waitlist selector has a pale track and coral sliding segment with white selected text; each choice has a (44px) minimum height. Pending submission dims the action and completion uses green. Preserve the existing validation and submission contract.
 
 ### Cards, context sources, and product concepts
 

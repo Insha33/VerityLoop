@@ -60,7 +60,7 @@ export function HeroShowcase() {
       <div className="hero-callout" data-side="right" aria-hidden="true">
         <div className="hero-callout-card">
           <div className="callout-head">
-            <span className="callout-icon" data-tone="cobalt"><MessagesSquare /></span>
+            <span className="callout-icon"><MessagesSquare /></span>
             <span>Customer context</span>
             <span className="callout-count">Source 2 of 4</span>
           </div>
