@@ -41,14 +41,32 @@ export function ProductDetails() {
         </div>
       </section>
       <section className="delivery-section section" id="how-it-works" aria-labelledby="delivery-title">
+        <div className="shell section-head">
+          <h2 id="delivery-title">Your decision first.<br />{" "}The delivery plan follows.</h2>
+          <div><p>Approve the direction, then draft a PRD with the evidence, scope, assumptions, and success criteria attached. Product and engineering review the plan before delivery work is drafted.</p></div>
+        </div>
         <div className="shell delivery-layout">
-          <div className="delivery-copy"><h2 id="delivery-title">Your decision first.<br />{" "}The delivery plan follows.</h2><p>Approve the direction, then draft a PRD with the evidence, scope, assumptions, and success criteria attached. Product and engineering review the plan before delivery work is drafted.</p><ul><li><Check aria-hidden="true" />PRD drafting after a human decision</li><li><Check aria-hidden="true" />Optional ticket drafts after PRD approval</li><li><Check aria-hidden="true" />Separate review before Jira or Linear publishing</li></ul><span className="quiet-label">Agent-ready outputs. Human-owned decisions.</span></div>
-          <div className="delivery-preview" aria-label="Illustrative PRD awaiting review"><div className="document-toolbar"><FileText aria-hidden="true" /><span>Product requirements</span><span className="approval-label"><LockKeyhole aria-hidden="true" />Draft for review</span></div><div className="document-body"><span className="document-meta">PRD-014 · Shared approvals</span><h3>Validate demand.<br />{" "}Review the prerequisites.</h3><p>Test whether a shared approval queue solves a recurring customer problem before accelerating the initiative.</p><div className="document-rule" /><h4>Acceptance criteria</h4><div className="criteria-row"><span /><p>Confirm approval bottlenecks with five customers</p></div><div className="criteria-row"><span /><p>Ask engineering to review audit-history prerequisites</p></div><div className="criteria-row"><span /><p>Record scope, exclusions, and unresolved questions</p></div><div className="document-footer"><Link2 aria-hidden="true" /><span>4 sources attached</span><span>Decision DEC-014</span></div></div><div className="document-destination"><img src="/integrations/linear.png" alt="" width="20" height="20" /><img src="/integrations/jira.png" alt="" width="20" height="20" /><span>Ticket drafts follow PRD approval</span></div><small>Illustrative workflow · Demo data</small></div>
+          <div className="delivery-copy">
+            <ol className="delivery-gates">
+              <li><span className="gate-number">01</span><div><strong>PRD drafting after a human decision</strong><p>Nothing is written until the decision owner approves a direction.</p></div></li>
+              <li><span className="gate-number">02</span><div><strong>Optional ticket drafts after PRD approval</strong><p>Engineering reviews scope and prerequisites before any ticket exists.</p></div></li>
+              <li><span className="gate-number">03</span><div><strong>Separate review before Jira or Linear publishing</strong><p>Publishing is its own step, with its own approval.</p></div></li>
+            </ol>
+            <span className="quiet-label">Agent-ready outputs. Human-owned decisions.</span>
+          </div>
+          <div className="delivery-preview product-frame" aria-label="Illustrative PRD awaiting review"><div className="document-toolbar"><FileText aria-hidden="true" /><span>Product requirements</span><span className="approval-label"><LockKeyhole aria-hidden="true" />Draft for review</span></div><div className="document-body"><span className="document-meta">PRD-014 · Shared approvals</span><h3>Validate demand.<br />{" "}Review the prerequisites.</h3><p>Test whether a shared approval queue solves a recurring customer problem before accelerating the initiative.</p><div className="document-rule" /><h4>Acceptance criteria</h4><div className="criteria-row"><span /><p>Confirm approval bottlenecks with five customers</p></div><div className="criteria-row"><span /><p>Ask engineering to review audit-history prerequisites</p></div><div className="criteria-row"><span /><p>Record scope, exclusions, and unresolved questions</p></div><div className="document-footer"><Link2 aria-hidden="true" /><span>4 sources attached</span><span>Decision DEC-014</span></div></div><div className="document-destination"><img src="/integrations/linear.png" alt="" width="20" height="20" /><img src="/integrations/jira.png" alt="" width="20" height="20" /><span>Ticket drafts follow PRD approval</span></div><small>Illustrative workflow · Demo data</small></div>
         </div>
       </section>
-      <section className="context-section section shell" aria-labelledby="context-title">
-        <div className="context-copy"><h2 id="context-title">Bring the context<br />{" "}behind the decision.</h2><p>Connect the documents, customer evidence, and delivery work your team chooses to share. Every internal match keeps its source; missing or conflicting context stays visible.</p><span className="context-assurance"><LockKeyhole aria-hidden="true" />Permission-scoped context. Your team stays in control.</span><span className="quiet-label">MCP-ready context</span></div>
-        <ContextSources />
+      <section className="context-section section" aria-labelledby="context-title">
+        <div className="shell section-head">
+          <h2 id="context-title">Bring the context<br />{" "}behind the decision.</h2>
+          <div className="context-copy">
+            <p>Connect the documents, customer evidence, and delivery work your team chooses to share. Every internal match keeps its source; missing or conflicting context stays visible.</p>
+            <span className="context-assurance"><LockKeyhole aria-hidden="true" />Permission-scoped context. Your team stays in control.</span>
+            <span className="quiet-label">MCP-ready context</span>
+          </div>
+        </div>
+        <div className="shell"><ContextSources /></div>
       </section>
     </>
   );

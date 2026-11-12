@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { SignalGrid } from "./SignalGrid";
 import { marketingCopy } from "@/content/marketing";
 import { validateAudience, validateEmail, validateName } from "@/lib/marketing";
 
@@ -242,7 +241,6 @@ export function Waitlist() {
   return (
     <section className="waitlist-section" id="waitlist" aria-labelledby="waitlist-title">
       <div className="shell waitlist-layout">
-        <SignalGrid variant="panel" cell={24} density={0.4} />
         <div className="waitlist-copy">
           <h2 id="waitlist-title">{waitlist.title}</h2>
           <p>{waitlist.description}</p>

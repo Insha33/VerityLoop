@@ -185,6 +185,19 @@ Preserve the exact headline: “Your next product move. Backed by evidence.” T
 
 **Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring, coral crosshair marks at the top corners, and a soft glow. At (768px) and wider it starts slightly tilted (6deg, 95% scale) and settles flat over the first (560px) of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From (1024px), two callout cards overlap the frame's edges: a verified primary source (competitor pricing page) and customer context (discovery call). Both repeat evidence already in the illustrations and are hidden from assistive technology; they fade in with a short stagger and drift gently on scroll. Reduced motion shows the frame flat with static callouts. The walkthrough stage shares the hairline grid (static) and a ring shadow.
 
+### Mid-page system (Nov 2026 audit)
+
+Middle sections share one rhythm and vocabulary, after a Linear-style review:
+
+- **Section rhythm:** (120px) vertical padding, (96px) at (1024px) and below, (72px) at (767px); no divider lines between sections.
+- **Section header:** a two-column head (`.section-head`) with the title left at `clamp(36px, 4vw, 52px)` and supporting copy right at (17px). Delivery and Context use it; Solutions keeps a centered head of the same size over its signal band; FAQ keeps its side heading at the same size.
+- **Product frame:** `.product-frame` reuses the hero bezel: (8px) white padding, (18px) radius, a coral-to-cobalt hairline ring and a soft shadow. Used for the PRD preview; the sources grid uses the same ring on a pearl fill.
+- **One nesting level:** audience cards are white with a hairline border and a single pearl inner surface; they lift (2px) and pick up a coral border on hover.
+- **Type floor:** marketing meta text is at least (12px), copy (14–17px); only text inside product illustrations goes smaller.
+- **Delivery:** three numbered approval gates (title plus one-line explanation) sit beside the framed PRD, top-aligned.
+- **Context:** sources sit in a wide 6-column grid (4 at tablet, 3 on mobile, 2 at (420px)) of large tiles with (30px) icons.
+- **Signup card:** solid soft coral; no background animation inside it.
+
 ### Buttons and links
 
 Primary actions use coral with white text, a small arrow where appropriate, and (7px) corners. Standard minimum height is (46px), compact navigation actions are (40px), and mobile main actions are (44px). Hover darkens the fill; pressing moves the control down (1px). Unboxed secondary links turn cobalt on hover. Preserve visible keyboard focus.

@@ -274,3 +274,111 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 
 /* Page end: the footer grid sits behind the signup section and footer, adding no height. */
 .page-frame { position: relative; isolation: isolate; }
+
+/* ------------------------------------------------------------------
+   Mid-page system (Nov 2026 audit). Appended last so it overrides the
+   compact legacy rules above; carries its own breakpoints.
+   - One section rhythm, no divider lines between sections.
+   - One section header: big title left, supporting copy right.
+   - One product frame: white bezel + brand hairline ring (matches hero).
+   - Readable type floor: 12px for meta, 14-17px for copy.
+   ------------------------------------------------------------------ */
+.section { padding-block: 120px; }
+.audience-section, .context-section { border: 0; }
+.delivery-section { border-block: 0; background: transparent; }
+
+.section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: end; gap: 64px; margin-bottom: 56px; }
+.section-head h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; }
+.section-head p { max-width: 460px; color: var(--muted); font-size: 17px; line-height: 1.65; }
+
+.product-frame { position: relative; padding: 8px; border: 1px solid transparent; border-radius: 18px; background: linear-gradient(#fff, #fff) padding-box, linear-gradient(135deg, rgb(255 90 79 / 45%), rgb(255 90 79 / 10%) 30%, rgb(16 22 35 / 8%) 55%, rgb(39 104 255 / 28%)) border-box; box-shadow: 0 40px 80px -48px rgb(32 45 67 / 34%), 0 10px 24px -16px rgb(32 45 67 / 12%); }
+
+/* Readable meta text everywhere outside the illustrations. */
+.product-caption, .hero-principles { font-size: 13px; }
+.hero-principles svg { width: 14px; height: 14px; }
+.entry-caption, .delivery-preview > small, .waitlist-copy .quiet-label, .quiet-label, .context-assurance { font-size: 12px; }
+.inline-link { font-size: 14px; }
+
+/* Solutions: a bigger centred heading, then two calm white cards with one inner surface each. */
+.centered-intro h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; }
+.centered-intro > p { font-size: 17px; margin-top: 20px; }
+.audience-grid { gap: 28px; }
+.audience-card { padding: 36px; background: #fff; border: 1px solid var(--line); border-radius: 18px; transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease; }
+@media (hover: hover) { .audience-card:hover { background: #fff; border-color: #ffc9c3; box-shadow: 0 30px 60px -40px rgb(32 45 67 / 30%); transform: translateY(-2px); } }
+.audience-card:focus-within { background: #fff; border-color: #ffc9c3; }
+.audience-title { font-size: 13px; font-weight: 600; }
+.audience-card h3 { font-size: clamp(26px, 2.4vw, 32px); line-height: 1.12; letter-spacing: -.035em; }
+.audience-card > p { font-size: 16px; line-height: 1.65; }
+.entry-preview { margin-top: 28px; padding: 24px; border: 0; border-radius: 14px; background: var(--pearl); }
+.entry-preview .preview-label { font-size: 11px; letter-spacing: .06em; font-weight: 600; }
+.entry-prompt p { font-size: 15px; }
+.entry-optional, .entry-boundary > span, .entry-context > span { font-size: 12px; }
+.entry-boundary { background: #fff; border-radius: 10px; padding: 14px 16px; }
+.entry-boundary strong { font-size: 14px; }
+.entry-context > div { font-size: 13px; padding: 7px 0; }
+.entry-context > div > span { font-size: 12px; }
+.waitlist-form .waitlist-option { font-size: 12px; }
+.entry-output { border-color: var(--line); }
+.entry-output strong { font-size: 15px; }.entry-output p { font-size: 13px; }
+
+/* Delivery: header above, gates as a numbered list beside a framed PRD. */
+.delivery-layout { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 72px; padding: 0; border-radius: 0; background: transparent; align-items: start; }
+.delivery-gates { list-style: none; margin: 0 0 28px; padding: 0; display: grid; }
+.delivery-gates li { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-top: 1px solid var(--line); font-size: inherit; }
+.delivery-gates li:last-child { border-bottom: 1px solid var(--line); }
+.gate-number { flex: 0 0 auto; padding-top: 2px; color: var(--coral-dark); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.delivery-gates strong { display: block; font-size: 17px; font-weight: 550; letter-spacing: -.015em; }
+.delivery-gates p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.delivery-preview { box-shadow: 0 40px 80px -48px rgb(32 45 67 / 34%), 0 10px 24px -16px rgb(32 45 67 / 12%); border-radius: 18px; }
+.document-toolbar { font-size: 13px; padding: 18px 24px; }.approval-label { font-size: 12px; }
+.document-body { padding: 32px; }.document-meta { font-size: 12px; }.document-body h3 { font-size: 28px; }
+.document-body > p { font-size: 15px; max-width: 420px; }.document-body h4 { font-size: 14px; }
+.criteria-row p { font-size: 14px; }.document-footer, .document-destination { font-size: 12px; }
+.document-destination span { font-size: 12px; }
+
+/* Context: header above, a wide framed grid of large source tiles. */
+.context-section { display: block; }
+.context-copy p { font-size: 17px; color: var(--muted); max-width: 460px; line-height: 1.65; }
+.context-assurance { margin: 18px 0 8px; }
+.sources-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; padding: 10px; border: 1px solid transparent; border-radius: 18px; background: linear-gradient(var(--pearl), var(--pearl)) padding-box, linear-gradient(135deg, rgb(255 90 79 / 40%), rgb(16 22 35 / 7%) 45%, rgb(39 104 255 / 26%)) border-box; }
+.source-item { flex-direction: column; align-items: flex-start; gap: 22px; padding: 22px 20px; border-radius: 12px; background: #fff; font-size: 14px; font-weight: 550; box-shadow: 0 1px 2px rgb(16 22 35 / 5%); }
+.source-item img, .source-item svg { width: 30px; height: 30px; }
+.source-context { background: var(--coral-soft); }
+
+/* FAQ: larger, calmer type. */
+.section-heading h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; }
+.section-heading p { font-size: 17px; max-width: 300px; margin-top: 20px; }
+.faq-list [data-slot="accordion-trigger"] { font-size: 17px; font-weight: 500; padding: 26px 0; }
+.faq-list [data-slot="accordion-content"] { font-size: 16px; line-height: 1.7; }
+
+/* Walkthrough: readable step copy beside the stage. */
+.waitlist-copy > p { font-size: 16px; }
+
+@media (max-width: 1024px) {
+  .section { padding-block: 96px; }
+  .section-head { gap: 40px; }
+  .sources-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .delivery-layout { gap: 48px; }
+}
+@media (max-width: 767px) {
+  .section { padding-block: 72px; }
+  .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 36px; }
+  .section-head h2, .centered-intro h2, .section-heading h2 { font-size: 34px; }
+  .section-head p, .context-copy p, .centered-intro > p, .section-heading p { font-size: 15px; }
+  .delivery-layout { grid-template-columns: 1fr; gap: 36px; }
+  .delivery-gates strong { font-size: 16px; }.delivery-gates p { font-size: 14px; }
+  .audience-card { padding: 24px; }.audience-card > p { font-size: 15px; }
+  .entry-preview { padding: 18px; }.entry-prompt p { font-size: 14px; }
+  .document-body { padding: 24px; }.document-body h3 { font-size: 24px; }
+  .sources-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .source-item { gap: 14px; padding: 16px 14px; font-size: 13px; }
+  .source-item img, .source-item svg { width: 24px; height: 24px; }
+  .faq-list [data-slot="accordion-trigger"] { font-size: 15px; padding: 22px 0; }
+  .faq-list [data-slot="accordion-content"] { font-size: 15px; }
+  .product-caption, .hero-principles, .hero-principles span, .hero-note { font-size: 12px; }
+}
+@media (max-width: 420px) {
+  .sources-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .waitlist-form .waitlist-option { font-size: 11px; }
+  .entry-context > div > span { font-size: 11px; }
+}

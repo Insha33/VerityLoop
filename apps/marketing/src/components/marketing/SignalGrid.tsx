@@ -4,7 +4,7 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { usePrefersReducedMotion } from "./backgroundMotion";
 import styles from "./SignalGrid.module.css";
 
-type Variant = "hero" | "band" | "panel" | "footer";
+type Variant = "hero" | "band" | "footer";
 
 type SignalGridProps = {
   variant: Variant;

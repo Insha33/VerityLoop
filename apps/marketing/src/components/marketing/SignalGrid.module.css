@@ -38,14 +38,6 @@
     linear-gradient(to right, #000 0%, #000 12%, transparent 34%, transparent 66%, #000 88%, #000 100%);
 }
 
-/* Panel: fills a coloured container, strongest along the right edge so it frames the form, clear of the copy. */
-.root[data-variant=panel] {
-  --grid-line: rgb(189 60 51 / 7%);
-  inset: 0;
-  -webkit-mask-image: radial-gradient(ellipse 58% 95% at 100% 50%, #000 0%, transparent 100%);
-  mask-image: radial-gradient(ellipse 58% 95% at 100% 50%, #000 0%, transparent 100%);
-}
-
 /* Footer: mirrors the hero from the bottom of the page, rising behind the signup panel and footer row.
    Softer under the footer text so it stays readable; full strength just above it. */
 .root[data-variant=footer] {

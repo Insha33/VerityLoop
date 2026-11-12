@@ -139,3 +139,8 @@ section.section { width: 100%; background: var(--paper); color: var(--ink); padd
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 85%);
 }
 @media (min-width: 900px) { .composition { max-width: 530px; } }
+
+/* Readable step copy and captions (audit, Nov 2026). */
+@media (min-width: 900px) { .description p { font-size: 15px; line-height: 1.7; }.description span { font-size: 13px; }.step button { font-size: 19px; }.number { font-size: 12px; } }
+.scrollHint { font-size: 12px; }.caption { font-size: 12px; }
+@media (min-width: 768px) { .heading h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; } }
