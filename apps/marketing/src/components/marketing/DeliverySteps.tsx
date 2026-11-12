@@ -191,7 +191,6 @@ export function DeliverySteps() {
             <div className="delivery-scene" data-active={active === index} aria-hidden={active !== index} inert={active !== index} key={index}>{scene}</div>
           ))}
         </div>
-        <small>Illustrative workflow · Demo data</small>
       </div>
     </div>
   );

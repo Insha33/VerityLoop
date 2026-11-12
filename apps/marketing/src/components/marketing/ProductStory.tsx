@@ -129,7 +129,6 @@ export function ProductStory() {
             <div className={`${styles.scene} ${styles.mobileScene}`} data-active={active === index}><ProductMotionScene key={`${audience}-${replay}`} audience={audience} step={index} /></div>
           </div>
         </article>)}
-        <p className={styles.caption}>Illustrative workflows · Demo data</p>
       </div> : <div className={styles.layout}>
         <div className={styles.steps} role="tablist" aria-label={`${journey.name} steps`} aria-orientation="vertical">
           {journey.steps.map((step, index) => <div className={styles.step} key={index} data-active={active === index}>
@@ -146,7 +145,7 @@ export function ProductStory() {
               <span className="sr-only">{step.copy}</span>
             </div>)}
           </div>
-          <div className={styles.caption}><span>Illustrative workflow · Demo data</span><button type="button" onClick={() => setReplay(value => value + 1)} aria-label="Replay product animation"><RotateCcw aria-hidden="true" />Replay</button></div>
+          <div className={styles.caption}><button type="button" onClick={() => setReplay(value => value + 1)} aria-label="Replay product animation"><RotateCcw aria-hidden="true" />Replay</button></div>
         </div>
       </div>}
       </div>
