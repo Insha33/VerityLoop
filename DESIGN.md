@@ -108,7 +108,7 @@ This current specification replaces the September ivory page and navy walkthroug
 **Key Characteristics:**
 
 - Pure-white page, navigation, and walkthrough with light cool framing.
-- Coral primary actions, selected controls, link hover and keyboard focus; cobalt survives only as a faint decorative tint.
+- Coral primary actions, selected controls, link hover and keyboard focus; cobalt survives only as a faint decorative tint in frame rings.
 - Readable marketing controls, thin neutral dividers, modest corners, and selective shadows.
 - The approved Rhythm mark, a restrained signal-grid background, a prominent framed hero product with evidence callouts, and clearly labeled illustrative product concepts.
 
@@ -126,7 +126,7 @@ White and dark ink establish readable structure. Coral draws attention to action
 
 ### Secondary
 
-- **Cobalt:** decorative only, in signal-grid cells and the frame rings. Link hover, keyboard focus, field focus and text selection use deep coral and soft coral (Nov 2026 request: no blue interaction states).
+- **Cobalt:** decorative only, in the frame rings and hero glow (not in the signal grid). Link hover, keyboard focus, field focus and text selection use deep coral and soft coral (Nov 2026 request: no blue interaction states).
 - **Success green:** reviewed/on-track examples and successful waitlist submission.
 - **Light blue / mint / peach:** walkthrough stages; the first and final steps share the blue stage.
 - **Soft coral:** signup panel, hero offer chip, primary-source callout quote, and context tile accent.
@@ -141,7 +141,7 @@ White and dark ink establish readable structure. Coral draws attention to action
 - **Delivery frame:** pale blue framing around delivery copy and the white document preview.
 - **Audience surface / hover:** matching cool backgrounds for both audience cards, including focus-within feedback.
 
-The signal grid draws ink hairlines at (5.5%) and lights cells in coral (up to 55%), pale coral (40%), cobalt (22%) and ink (8%). The hero frame ring runs coral to cobalt; a blurred coral/cobalt glow sits behind it. These are decorative colors, not new semantic product states.
+The signal grid draws ink hairlines at (5.5%) and lights cells only in coral shades: coral (up to 55%), pale coral (42%), deep coral (30%) and peach (50%). No blue or grey cells. The hero frame ring runs coral to cobalt; a blurred coral/cobalt glow sits behind it. These are decorative colors, not new semantic product states.
 
 ## Typography
 
@@ -181,7 +181,7 @@ Navigation puts the brand left, links in the center, and the waitlist action rig
 
 Preserve the exact headline: “Your next product move” over “Backed by evidence.” The first line has no visible period (a visually hidden one keeps the sentence pause for screen readers); the second line is coral. The hero offer, primary CTA, secondary link, and product illustration remain the foreground.
 
-**Signal grid.** A canvas of square cells on a CSS hairline grid (visible without JavaScript). Short coral, pale-coral, cobalt and ink "drops" fall two to five cells and fade over about (1.5s), echoing evidence settling into place. The hero band (28px cells, 720px tall) clears an ellipse for the headline and fades before the product; a mouse pointer gently lights nearby hero cells. The Solutions heading uses a band (24px cells) visible only either side of the copy, the signup panel uses a field that frames the form's right edge, and the page ends the way it begins: a footer grid sits behind the last (620px) of the page (420px on mobile), layered under the signup panel and footer without adding height. It is dense at the bottom, fades upward, softens under the footer text, and its drops rise instead of fall. Grids render at (30fps), cap device pixel ratio at (2), and run only while on screen, the tab is visible, and reduced motion is off; reduced motion leaves a static frame. There is no pause control by product decision (2026-11-13): the motion is slow, low-contrast and confined to white space, and reduced-motion users get a static grid. Grids are hidden from assistive technology and carry no information. Line-based evidence trails were rejected for this background.
+**Signal grid.** A canvas of square cells on a CSS hairline grid (visible without JavaScript). Short coral, pale-coral, deep-coral and peach "drops" fall two to five cells and fade over about (1.5s), echoing evidence settling into place. The hero band (28px cells, 720px tall) clears an ellipse for the headline and fades before the product; a mouse pointer gently lights nearby hero cells. The Solutions heading uses a band (24px cells) visible only either side of the copy, the signup panel uses a field that frames the form's right edge, and the page ends the way it begins: a footer grid sits behind the last (620px) of the page (420px on mobile), layered under the signup panel and footer without adding height. It is dense at the bottom, fades upward, softens under the footer text, and its drops rise instead of fall. Grids render at (30fps), cap device pixel ratio at (2), and run only while on screen, the tab is visible, and reduced motion is off; reduced motion leaves a static frame. There is no pause control by product decision (2026-11-13): the motion is slow, low-contrast and confined to white space, and reduced-motion users get a static grid. Grids are hidden from assistive technology and carry no information. Line-based evidence trails were rejected for this background.
 
 **Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring, and a soft glow. At (768px) and wider it starts slightly tilted (6deg, 95% scale) and settles flat over the first (560px) of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From (1024px), two callout cards overlap the frame's edges: a verified primary source (competitor pricing page) and customer context (discovery call). Both repeat evidence already in the illustrations and are hidden from assistive technology; they fade in with a short stagger and drift gently on scroll. Reduced motion shows the frame flat with static callouts. The walkthrough stage shares the hairline grid (static) and a ring shadow.
 
