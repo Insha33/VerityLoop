@@ -115,7 +115,7 @@ export function ProductStory() {
       <div ref={trackRef} className={compact ? styles.flowTrack : styles.scrollTrack}>
       <div ref={pinnedRef} className={compact ? styles.flowContent : styles.pinned}>
       <div className={styles.heading}>
-        <div><h2>From market evidence<br />to product direction.</h2></div>
+        <div><h2>From market &amp; customer evidence<br />to product direction.</h2></div>
         <div className={styles.audiences} role="group" aria-label="Choose your product journey">
           <span className={styles.selector} style={{ transform: `translateX(${audience === "team" ? "100%" : "0"})` }} aria-hidden="true" />
           {(Object.keys(journeys) as StoryAudience[]).map(key => <button type="button" key={key} aria-pressed={audience === key} onClick={() => setAudience(key)}>{journeys[key].label}</button>)}

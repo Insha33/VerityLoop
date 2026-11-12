@@ -47,7 +47,7 @@ function TicketScene() {
           <div className="scene-ticket scene-in" style={at(320 + index * 140)} key={ticket.title}>
             <span className="ticket-id">DRAFT-{index + 1}</span>
             <strong>{ticket.title}</strong>
-            <span className="ticket-tags"><em>{ticket.tag}</em><em data-tone="draft">Draft</em></span>
+            <span className="ticket-tags"><em>{ticket.tag}</em></span>
           </div>
         ))}
         <div className="scene-note scene-in" style={at(800)}><LockKeyhole aria-hidden="true" />Nothing is created in Jira or Linear yet.</div>

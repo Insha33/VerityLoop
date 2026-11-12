@@ -549,3 +549,16 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .delivery-scene { position: relative; inset: auto; grid-area: 1 / 1; }
 .delivery-layout { width: var(--shell); }
 @media (max-width: 767px) { .delivery-scenes { height: auto; } }
+
+/* Ticket drafts as single rows (Linear issue-list style): ID, title, category pinned right,
+   all on one centre line. The two-row grid read as misaligned. */
+.scene-ticket { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.scene-ticket .ticket-id { grid-row: auto; align-self: center; flex: 0 0 auto; }
+.scene-ticket strong { flex: 1 1 auto; min-width: 0; line-height: 1.4; }
+.scene-ticket .ticket-tags { flex: 0 0 auto; margin-left: auto; }
+/* Narrow screens: ID and category share the top line; the title gets the full width below. */
+@media (max-width: 600px) {
+  .scene-ticket { flex-wrap: wrap; row-gap: 8px; }
+  .scene-ticket .ticket-tags { order: 2; }
+  .scene-ticket strong { order: 3; flex-basis: 100%; }
+}
