@@ -167,7 +167,7 @@ Most surfaces use pale fills and thin borders for separation. Product windows, t
 
 ## Shapes
 
-Every corner is sharp (Nov 2026): buttons, inputs, chips, cards, frames, panels, tooltips and the shadcn/Radix primitives all use a (0px) radius, enforced by one page-wide rule at the end of `globals.css`. Only true dots (caption dots, live dots, the journey connector dot) and avatars stay circular. Dividers and field outlines are (1px). There are no corner registration marks; the earlier hero and delivery “+” marks were removed by request. Rounded shapes drawn inside the product SVG illustrations are part of those images.
+Every corner is sharp (Nov 2026): buttons, inputs, chips, cards, frames, panels, tooltips and the shadcn/Radix primitives all use a (0px) radius, enforced by one page-wide rule at the end of `globals.css`. Only true dots (caption dots, live dots, the journey connector dot) and avatars stay circular. Dividers and field outlines are (1px). One exception: the hero product showcase keeps rounded corners (frame (18px), product window (11px), callout cards (12px)) and its two coral “+” marks at the frame's top corners. The delivery-section “+” marks were removed. Rounded shapes drawn inside the product SVG illustrations are part of those images.
 
 ## Components
 

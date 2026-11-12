@@ -520,3 +520,23 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
    utility classes, and this is one page-wide rule. Only true dots and avatars stay round. */
 *, *::before, *::after { border-radius: 0 !important; }
 .caption-dot, .callout-avatar, .journey-connector::after, [class*="__liveDot"], [class*="__avatar"] { border-radius: 50% !important; }
+
+/* Exception to the sharp rule: the hero product showcase keeps its rounded frame, cards and
+   coral "+" marks at the frame's top corners (Nov 2026 request). */
+.hero-showcase .hero-frame { border-radius: 18px !important; }
+.hero-showcase .hero-frame .product-window { border-radius: 11px !important; }
+.hero-showcase .hero-callout-card { border-radius: 12px !important; }
+.hero-showcase .callout-icon { border-radius: 7px !important; }
+.hero-showcase .callout-quote { border-radius: 8px !important; }
+.hero-showcase::before { border-radius: 40px !important; }
+.frame-mark { position: absolute; top: -9px; width: 17px; height: 17px; pointer-events: none; }
+.frame-mark[data-corner=tl] { left: -9px; }
+.frame-mark[data-corner=tr] { right: -9px; }
+.frame-mark::before, .frame-mark::after { content: ""; position: absolute; background: var(--coral); }
+.frame-mark::before { left: 8px; top: 0; width: 1px; height: 17px; }
+.frame-mark::after { top: 8px; left: 0; width: 17px; height: 1px; }
+@media (max-width: 767px) {
+  .hero-showcase .hero-frame { border-radius: 14px !important; }
+  .hero-showcase .hero-frame .product-window { border-radius: 9px !important; }
+  .frame-mark { display: none; }
+}

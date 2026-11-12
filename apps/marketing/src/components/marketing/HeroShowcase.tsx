@@ -42,6 +42,8 @@ export function HeroShowcase() {
             <img src="/product/workspace.svg?v=rhythm-v1" width="1280" height="760" alt="VerityLoop signal inbox: a pricing change is connected to customer calls, verified evidence, and a recommendation to validate before changing the roadmap." fetchPriority="high" />
           </picture>
         </div>
+        <span className="frame-mark" data-corner="tl" aria-hidden="true" />
+        <span className="frame-mark" data-corner="tr" aria-hidden="true" />
       </div>
       {/* Callouts repeat evidence already shown in the product illustrations; the image alt carries the meaning. */}
       <div className="hero-callout" data-side="left" aria-hidden="true">
