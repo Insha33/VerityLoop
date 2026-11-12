@@ -518,3 +518,19 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
   .delivery-scene .check-mark, .delivery-scene[data-active=true] .check-mark { animation: none !important; background: var(--success); border-color: var(--success); color: #fff; }
   .delivery-scene .publish-button, .delivery-scene[data-active=true] .publish-button { animation: none !important; background: var(--coral); color: #fff; }
 }
+
+/* Delivery section: square corners throughout, with coral "+" marks on the stage and the active step.
+   Doubled class outranks the component rules (which go up to class + element) without !important. */
+.delivery-layout.delivery-layout, .delivery-layout.delivery-layout * { border-radius: 0; }
+.gate { position: relative; }
+.corner-mark { position: absolute; z-index: 1; width: 13px; height: 13px; pointer-events: none; }
+.corner-mark::before, .corner-mark::after { content: ""; position: absolute; background: var(--coral); }
+.corner-mark::before { left: 6px; top: 0; width: 1px; height: 13px; }
+.corner-mark::after { top: 6px; left: 0; width: 13px; height: 1px; }
+.corner-mark[data-corner=tl] { top: -7px; left: -7px; }
+.corner-mark[data-corner=tr] { top: -7px; right: -7px; }
+.corner-mark[data-corner=bl] { bottom: -7px; left: -7px; }
+.corner-mark[data-corner=br] { bottom: -7px; right: -7px; }
+.gate .corner-mark { opacity: 0; transform: scale(.6); transition: opacity 240ms ease, transform 280ms cubic-bezier(.22, 1, .36, 1); }
+.gate[aria-pressed=true] .corner-mark { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .gate .corner-mark { transition: none; } }

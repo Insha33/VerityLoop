@@ -10,7 +10,7 @@ export function Hero() {
       <SignalGrid variant="hero" interactive />
       <div className="hero-copy shell">
         <a className="hero-offer" href="#waitlist"><span className="caption-dot" />{marketingCopy.offer.badge}<ArrowRight aria-hidden="true" /></a>
-        <h1>Your next product move.<br />{" "}<span>Backed by evidence.</span></h1>
+        <h1>Your next product move<span className="sr-only">.</span><br />{" "}<span>Backed by evidence.</span></h1>
         <p className="hero-subtitle">Turn verified market changes and customer evidence into clear product direction. Know what to build, change, validate, watch, or ignore.</p>
         <div className="hero-actions">
           <Button asChild className="button"><a href="#waitlist">Join the waitlist <ArrowRight aria-hidden="true" /></a></Button>
