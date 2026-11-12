@@ -242,7 +242,6 @@ export function Waitlist() {
     <section className="waitlist-section" id="waitlist" aria-labelledby="waitlist-title">
       <div className="shell waitlist-layout">
         <div className="waitlist-copy">
-          <span className="waitlist-eyebrow">{waitlist.eyebrow}</span>
           <h2 id="waitlist-title">{waitlist.title}</h2>
           <p>{waitlist.description}</p>
           <ul className="waitlist-perks">

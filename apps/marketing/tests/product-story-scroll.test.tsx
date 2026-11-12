@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { ProductStory } from "@/components/marketing/ProductStory";
 import { ProductDetails } from "@/components/marketing/ProductDetails";
@@ -26,6 +26,24 @@ describe("scroll-driven product story", () => {
     expect(screen.getByRole("heading", { name: "Start with an idea" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Give the decision a plan" })).toBeInTheDocument();
     expect(screen.getByText("PRD review and approval required")).toBeInTheDocument();
+  });
+
+  it("drops the desktop scroll-track height when it switches to the stacked flow", async () => {
+    // Regression: the desktop pass sized the track, and the stacked flow kept that height as blank space.
+    let compact = false;
+    const listeners = new Set<() => void>();
+    vi.spyOn(window, "matchMedia").mockImplementation((query: string) => ({
+      get matches() { return query.includes("max-width: 899px") ? compact : false; },
+      media: query,
+      addEventListener: (_: string, listener: () => void) => listeners.add(listener),
+      removeEventListener: (_: string, listener: () => void) => listeners.delete(listener),
+    }) as unknown as MediaQueryList);
+    const { container } = render(<ProductStory />);
+    const track = container.querySelector("#product > div") as HTMLElement;
+    await waitFor(() => expect(track.style.height).not.toBe(""));
+    compact = true;
+    act(() => listeners.forEach((listener) => listener()));
+    await waitFor(() => expect(track.style.height).toBe(""));
   });
 
   it("opens the matching journey from a section-three example", async () => {
