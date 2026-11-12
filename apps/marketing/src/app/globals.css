@@ -283,11 +283,13 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
    - One product frame: white bezel + brand hairline ring (matches hero).
    - Readable type floor: 12px for meta, 14-17px for copy.
    ------------------------------------------------------------------ */
-.section { padding-block: 120px; }
+.section { padding-block: 72px; }
 .audience-section, .context-section { border: 0; }
+/* The walkthrough already ends with its own padding; don't stack a full section gap on top of it. */
+.audience-section { padding-top: 24px; }
 .delivery-section { border-block: 0; background: transparent; }
 
-.section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: end; gap: 64px; margin-bottom: 56px; }
+.section-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: start; gap: 64px; margin-bottom: 48px; }
 .section-head h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; }
 .section-head p { max-width: 460px; color: var(--muted); font-size: 17px; line-height: 1.65; }
 
@@ -355,15 +357,16 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .waitlist-copy > p { font-size: 16px; }
 
 @media (max-width: 1024px) {
-  .section { padding-block: 96px; }
+  .section { padding-block: 64px; }
   .section-head { gap: 40px; }
   .sources-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .delivery-layout { gap: 48px; }
 }
 @media (max-width: 767px) {
-  .section { padding-block: 72px; }
+  .section { padding-block: 52px; }
   .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 36px; }
   .section-head h2, .centered-intro h2, .section-heading h2 { font-size: 34px; }
+  .audience-section { padding-top: 8px; }
   .section-head p, .context-copy p, .centered-intro > p, .section-heading p { font-size: 15px; }
   .delivery-layout { grid-template-columns: 1fr; gap: 36px; }
   .delivery-gates strong { font-size: 16px; }.delivery-gates p { font-size: 14px; }

@@ -189,8 +189,8 @@ Preserve the exact headline: “Your next product move. Backed by evidence.” T
 
 Middle sections share one rhythm and vocabulary, after a Linear-style review:
 
-- **Section rhythm:** (120px) vertical padding, (96px) at (1024px) and below, (72px) at (767px); no divider lines between sections.
-- **Section header:** a two-column head (`.section-head`) with the title left at `clamp(36px, 4vw, 52px)` and supporting copy right at (17px). Delivery and Context use it; Solutions keeps a centered head of the same size over its signal band; FAQ keeps its side heading at the same size.
+- **Section rhythm:** (72px) vertical padding, (64px) at (1024px) and below, (52px) at (767px), so sections sit about (144px) apart on desktop; Solutions trims its top to (24px) because the walkthrough already ends with its own padding. No divider lines between sections.
+- **Section header:** a two-column head (`.section-head`) with the title left at `clamp(36px, 4vw, 52px)` and supporting copy right at (17px), both top-aligned. Delivery and Context use it; Solutions keeps a centered head of the same size over its signal band; FAQ keeps its side heading at the same size.
 - **Product frame:** `.product-frame` reuses the hero bezel: (8px) white padding, (18px) radius, a coral-to-cobalt hairline ring and a soft shadow. Used for the PRD preview; the sources grid uses the same ring on a pearl fill.
 - **One nesting level:** audience cards are white with a hairline border and a single pearl inner surface; they lift (2px) and pick up a coral border on hover.
 - **Type floor:** marketing meta text is at least (12px), copy (14–17px); only text inside product illustrations goes smaller.

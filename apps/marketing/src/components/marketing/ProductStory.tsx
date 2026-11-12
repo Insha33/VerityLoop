@@ -54,6 +54,8 @@ export function ProductStory() {
     const update = () => {
       frame = 0;
       if (compact) {
+        // The first (desktop) pass may have sized the scroll track; stacked scenes size themselves.
+        if (trackRef.current) trackRef.current.style.height = "";
         const marker = window.innerHeight * 0.45;
         let next = 0;
         mobileRefs.current.forEach((item, index) => {
