@@ -146,3 +146,16 @@ section.section { width: 100%; background: var(--paper); color: var(--ink); padd
 @media (min-width: 768px) { .heading h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.08; letter-spacing: -.04em; } }
 /* The caption row now holds only Replay; keep it on the right. */
 .caption > button { margin-left: auto; }
+
+/* Scene changes crossfade instead of blinking (Nov 2026). Before: the old scene faded out while every
+   piece of the new one waited 100-1500ms at opacity 0, so the stage went empty for a moment.
+   Now old and new cross-fade over the same 360ms (their opacities sum to ~1, so the stage never
+   empties), the main window only rises into place, and secondary pieces stagger at half length. */
+.scene { transform: translateY(8px); filter: none; transition: opacity 360ms ease, transform 360ms ease, visibility 0s linear 360ms; }
+.scene[data-active=true] { transform: none; filter: none; transition: opacity 360ms ease, transform 640ms var(--motion-ease), visibility 0s; }
+.scene[data-active=true] .reveal { animation: settle 520ms var(--motion-ease) calc(var(--delay, 0ms) * .5) both; }
+.scene[data-active=true] .window.reveal, .scene[data-active=true] .reveal .reveal { animation-name: rise; animation-delay: 0ms; }
+@keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+.mobileScene { filter: none; transform: none; }
+@media (prefers-reduced-motion: reduce) { .scene, .scene[data-active=true] { filter: none; transform: none; } }

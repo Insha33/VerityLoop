@@ -215,7 +215,7 @@ Illustrative product concepts use synthetic examples. The walkthrough and delive
 
 ### Product story and FAQ
 
-Founders and Product teams use native audience buttons with pressed state. Four vertical ARIA tabs support arrows, Home, and End; only the selected desktop panel is exposed to assistive technology. Narrative and preview change together. Scenes crossfade, finite UI sequences settle within (2.2s), pause offscreen, and can be replayed. Reduced motion shows completed static scenes in the stacked flow. Normal browser scrolling remains in control: no wheel interception, scroll snapping, or forced programmatic scrolling.
+Founders and Product teams use native audience buttons with pressed state. Four vertical ARIA tabs support arrows, Home, and End; only the selected desktop panel is exposed to assistive technology. Narrative and preview change together. Scenes cross-fade over (360ms) (outgoing and incoming together, so the stage never empties), the main window rises into place, and secondary pieces stagger at half length, settling within about (1.3s), pause offscreen, and can be replayed. Reduced motion shows completed static scenes in the stacked flow. Normal browser scrolling remains in control: no wheel interception, scroll snapping, or forced programmatic scrolling.
 
 FAQ rows use thin separators, readable text, and restrained plus/minus indicators. Global reduced-motion styles make transitions effectively immediate.
 
