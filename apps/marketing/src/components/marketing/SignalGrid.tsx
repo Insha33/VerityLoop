@@ -17,12 +17,12 @@ type SignalGridProps = {
   className?: string;
 };
 
-// Tints are brand colours at low strength: coral leads, cobalt and ink stay faint.
+// Coral family only (coral, pale coral, deep coral, peach): no blue or grey cells.
 const TINTS: Array<{ rgb: string; max: number; weight: number }> = [
-  { rgb: "255 90 79", max: 0.55, weight: 0.48 },
-  { rgb: "255 150 138", max: 0.4, weight: 0.24 },
-  { rgb: "39 104 255", max: 0.22, weight: 0.14 },
-  { rgb: "16 22 35", max: 0.08, weight: 0.14 },
+  { rgb: "255 90 79", max: 0.55, weight: 0.44 },
+  { rgb: "255 150 138", max: 0.42, weight: 0.26 },
+  { rgb: "189 60 51", max: 0.3, weight: 0.14 },
+  { rgb: "255 190 160", max: 0.5, weight: 0.16 },
 ];
 const ALPHA_STEPS = 24;
 const PALETTE = TINTS.map(({ rgb, max }) =>

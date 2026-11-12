@@ -21,7 +21,7 @@ export function ProductDetails() {
               </div>
               <div className="journey-connector" aria-hidden="true" />
               <div className="journey-output"><span className="journey-output-icon"><FileText aria-hidden="true" /></span><div><strong>Opportunity Brief</strong><p>Alternatives, evidence gaps, and what to validate first.</p></div></div>
-              <span className="journey-caption">Illustrative input and output · No roadmap required</span>
+              <span className="journey-caption">No roadmap required</span>
             </div>
             <div className="journey-body">
               <span className="journey-audience">For founders</span>
@@ -45,7 +45,7 @@ export function ProductDetails() {
               </div>
               <div className="journey-connector" aria-hidden="true" />
               <div className="journey-output"><span className="journey-output-icon"><FileText aria-hidden="true" /></span><div><strong>Roadmap Impact Brief</strong><p>Customer relevance, existing work, prerequisites, and options.</p></div></div>
-              <span className="journey-caption">Illustrative input and output · Permission-scoped context</span>
+              <span className="journey-caption">Permission-scoped context</span>
             </div>
             <div className="journey-body">
               <span className="journey-audience">For product teams</span>

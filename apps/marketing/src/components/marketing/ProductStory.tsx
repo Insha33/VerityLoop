@@ -115,7 +115,7 @@ export function ProductStory() {
       <div ref={trackRef} className={compact ? styles.flowTrack : styles.scrollTrack}>
       <div ref={pinnedRef} className={compact ? styles.flowContent : styles.pinned}>
       <div className={styles.heading}>
-        <div><h2>From market evidence<br />to product direction.</h2></div>
+        <div><h2>From market &amp; customer<br />evidence to product direction.</h2></div>
         <div className={styles.audiences} role="group" aria-label="Choose your product journey">
           <span className={styles.selector} style={{ transform: `translateX(${audience === "team" ? "100%" : "0"})` }} aria-hidden="true" />
           {(Object.keys(journeys) as StoryAudience[]).map(key => <button type="button" key={key} aria-pressed={audience === key} onClick={() => setAudience(key)}>{journeys[key].label}</button>)}
@@ -129,7 +129,6 @@ export function ProductStory() {
             <div className={`${styles.scene} ${styles.mobileScene}`} data-active={active === index}><ProductMotionScene key={`${audience}-${replay}`} audience={audience} step={index} /></div>
           </div>
         </article>)}
-        <p className={styles.caption}>Illustrative workflows · Demo data</p>
       </div> : <div className={styles.layout}>
         <div className={styles.steps} role="tablist" aria-label={`${journey.name} steps`} aria-orientation="vertical">
           {journey.steps.map((step, index) => <div className={styles.step} key={index} data-active={active === index}>
@@ -146,7 +145,7 @@ export function ProductStory() {
               <span className="sr-only">{step.copy}</span>
             </div>)}
           </div>
-          <div className={styles.caption}><span>Illustrative workflow · Demo data</span><button type="button" onClick={() => setReplay(value => value + 1)} aria-label="Replay product animation"><RotateCcw aria-hidden="true" />Replay</button></div>
+          <div className={styles.caption}><button type="button" onClick={() => setReplay(value => value + 1)} aria-label="Replay product animation"><RotateCcw aria-hidden="true" />Replay</button></div>
         </div>
       </div>}
       </div>

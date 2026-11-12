@@ -19,7 +19,7 @@ export function Hero() {
         <p className="hero-note">Find an opportunity to validate. Understand what should change on your roadmap.</p>
       </div>
       <HeroShowcase />
-      <div className="product-caption shell"><span><span className="caption-dot" />A clearer picture of what comes next</span><span>Illustrative product preview</span></div>
+      <div className="product-caption shell"><span><span className="caption-dot" />A clearer picture of what comes next</span></div>
       <div className="hero-principles shell">
         <span><Check aria-hidden="true" />Evidence you can trace</span>
         <span><Check aria-hidden="true" />Facts and unknowns kept distinct</span>

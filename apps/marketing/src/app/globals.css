@@ -496,7 +496,7 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .publish-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; background: #eef0f3; color: var(--muted); font-size: 13px; font-weight: 600; }
 .publish-button svg { width: 14px; height: 14px; }
 .delivery-scene[data-active=true] .publish-button { animation: publish-on 380ms ease 1250ms both; }
-@keyframes publish-on { from { background: #eef0f3; color: var(--muted); } to { background: var(--coral); color: #fff; } }
+@keyframes publish-on { from { background-color: #eef0f3; color: var(--muted); } to { background-color: var(--coral); color: #fff; } }
 
 @media (max-width: 767px) {
   .gate { padding: 16px; gap: 14px; }
@@ -549,3 +549,45 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .delivery-scene { position: relative; inset: auto; grid-area: 1 / 1; }
 .delivery-layout { width: var(--shell); }
 @media (max-width: 767px) { .delivery-scenes { height: auto; } }
+
+/* Ticket drafts as single rows (Linear issue-list style): ID, title, category pinned right,
+   all on one centre line. The two-row grid read as misaligned. */
+.scene-ticket { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.scene-ticket .ticket-id { grid-row: auto; align-self: center; flex: 0 0 auto; }
+.scene-ticket strong { flex: 1 1 auto; min-width: 0; line-height: 1.4; }
+.scene-ticket .ticket-tags { flex: 0 0 auto; margin-left: auto; }
+/* Narrow screens: ID and category share the top line; the title gets the full width below. */
+@media (max-width: 600px) {
+  .scene-ticket { flex-wrap: wrap; row-gap: 8px; }
+  .scene-ticket .ticket-tags { order: 2; }
+  .scene-ticket strong { order: 3; flex-basis: 100%; }
+}
+
+/* Publish scene as a working demo: selectable destination, clickable publish, created-ticket result. */
+.scene-destinations button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--line); background: #fff; color: var(--ink); font: inherit; font-size: 14px; font-weight: 550; cursor: pointer; transition: border-color 180ms ease, background-color 180ms ease; }
+.scene-destinations button:hover { border-color: #ffc9c3; }
+.scene-destinations button[data-selected=true] { border-color: #ffc9c3; background: var(--coral-soft); }
+.scene-destinations button:disabled { cursor: default; }
+.scene-destinations button:focus-visible, .publish-button:focus-visible, .publish-reset:focus-visible { outline: 2px solid var(--coral-dark); outline-offset: 2px; }
+.publish-button { border: 0; font-family: inherit; cursor: pointer; transition: background-color 200ms ease, transform 120ms ease; }
+/* The entrance animation holds the background, so hover darkens with a filter instead. */
+.publish-button[data-state=ready]:hover { filter: brightness(.93); }
+.publish-button[data-state=ready]:active { transform: translateY(1px); }
+/* State colours sit in background-image, above the entrance animation's background-color, so the
+   animation never has to be removed (removing and re-adding it replayed the grey start for 1.25s). */
+.publish-button[data-state=publishing], .publish-button[data-state=published] { cursor: default; }
+.publish-button[data-state=publishing] { background-image: linear-gradient(var(--coral), var(--coral)); color: #fff; opacity: .8; }
+.publish-button[data-state=published] { background-image: linear-gradient(var(--success), var(--success)); color: #fff; }
+.publish-spinner { animation: publish-spin 800ms linear infinite; }
+@keyframes publish-spin { to { transform: rotate(360deg); } }
+.publish-reset { display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+.publish-reset:hover { color: var(--coral-dark); }
+.publish-reset svg { width: 13px; height: 13px; }
+.scene-status[data-tone=done] { background: #eaf5ef; color: var(--success); }
+.publish-created { display: flex; align-items: center; gap: 12px; margin-top: 8px; padding: 10px 14px; border: 1px solid #d6e9df; background: #f6fbf8; animation: scene-in 480ms cubic-bezier(.22, 1, .36, 1) var(--delay, 0ms) both; }
+.publish-created strong { flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 550; line-height: 1.4; }
+.publish-created svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--success); }
+.publish-created .ticket-id { background: #fff; color: var(--success); }
+@media (prefers-reduced-motion: reduce) {
+  .publish-spinner, .publish-created { animation: none !important; }
+}
