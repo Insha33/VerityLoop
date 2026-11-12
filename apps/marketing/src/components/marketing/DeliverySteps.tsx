@@ -70,6 +70,8 @@ function PublishScene({ active }: { active: boolean }) {
   const [destination, setDestination] = useState<Destination>("linear");
   const [status, setStatus] = useState<PublishStatus>("ready");
   const timer = useRef<number | undefined>(undefined);
+  const publishButton = useRef<HTMLButtonElement>(null);
+  const refocusPublish = useRef(false);
   const target = destinations[destination];
 
   // Leaving the step resets the demo so it replays from the review state next time.
@@ -79,6 +81,17 @@ function PublishScene({ active }: { active: boolean }) {
     setStatus("ready");
   }, [active]);
   useEffect(() => () => window.clearTimeout(timer.current), []);
+  // "Reset demo" unmounts itself, so hand keyboard focus back to the Publish button.
+  useEffect(() => {
+    if (status !== "ready" || !refocusPublish.current) return;
+    refocusPublish.current = false;
+    publishButton.current?.focus();
+  }, [status]);
+
+  function reset() {
+    refocusPublish.current = true;
+    setStatus("ready");
+  }
 
   function choose(next: Destination) {
     window.clearTimeout(timer.current);
@@ -105,7 +118,7 @@ function PublishScene({ active }: { active: boolean }) {
           ))}
         </div>
         {status === "published" ? (
-          <div className="publish-result" role="status">
+          <div className="publish-result">
             <span className="scene-subhead">Created in {target.name}</span>
             {tickets.map((ticket, index) => (
               <div className="publish-created" style={at(index * 90)} key={ticket.title}>
@@ -127,15 +140,18 @@ function PublishScene({ active }: { active: boolean }) {
         )}
         <div className="scene-publish scene-in" style={at(1100)}>
           {status === "published" ? (
-            <button type="button" className="publish-reset" onClick={() => setStatus("ready")}><RotateCcw aria-hidden="true" />Reset demo</button>
+            <button type="button" className="publish-reset" onClick={reset}><RotateCcw aria-hidden="true" />Reset demo</button>
           ) : (
             <span>3 ticket drafts ready</span>
           )}
-          <button type="button" className="publish-button" data-state={status} onClick={publish} disabled={status !== "ready"}>
+          {/* aria-disabled (not disabled) keeps keyboard focus on the button through the whole flow. */}
+          <button ref={publishButton} type="button" className="publish-button" data-state={status} onClick={publish} aria-disabled={status !== "ready"}>
             {status === "publishing" ? <LoaderCircle className="publish-spinner" aria-hidden="true" /> : status === "published" ? <Check aria-hidden="true" /> : <Send aria-hidden="true" />}
             {status === "publishing" ? "Publishing…" : status === "published" ? `Published to ${target.name}` : "Publish 3 drafts"}
           </button>
         </div>
+        {/* Always mounted so screen readers announce the result when it changes. */}
+        <span className="sr-only" role="status">{status === "published" ? `Published 3 drafts to ${target.name}: ${tickets.map((_, index) => `${target.prefix}-${142 + index}`).join(", ")}.` : ""}</span>
       </div>
     </>
   );

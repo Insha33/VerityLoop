@@ -57,12 +57,17 @@ describe("interactive delivery steps", () => {
     fireEvent.click(screen.getByRole("button", { name: "Jira" }));
     expect(screen.getByRole("button", { name: "Jira" })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: /Publish 3 drafts/ }));
-    expect(screen.getByRole("button", { name: "Publishing…" })).toBeDisabled();
+    // aria-disabled, not disabled, so keyboard focus stays on the button.
+    expect(screen.getByRole("button", { name: "Publishing…" })).toHaveAttribute("aria-disabled", "true");
     act(() => { vi.advanceTimersByTime(700); });
     expect(screen.getByRole("button", { name: /Published to Jira/ })).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("VL-142");
     fireEvent.click(screen.getByRole("button", { name: /Reset demo/ }));
-    expect(screen.getByRole("button", { name: /Publish 3 drafts/ })).toBeEnabled();
+    const publishAgain = screen.getByRole("button", { name: /Publish 3 drafts/ });
+    expect(publishAgain).toHaveAttribute("aria-disabled", "false");
+    // Reset unmounts itself; focus goes back to Publish instead of being dropped.
+    expect(publishAgain).toHaveFocus();
+    expect(screen.getByRole("status")).toBeEmptyDOMElement();
   });
 
   it("resets the publish demo when you leave the step", () => {
@@ -73,6 +78,6 @@ describe("interactive delivery steps", () => {
     act(() => { vi.advanceTimersByTime(700); });
     fireEvent.click(steps()[0]);
     fireEvent.click(steps()[2]);
-    expect(screen.getByRole("button", { name: /Publish 3 drafts/ })).toBeEnabled();
+    expect(screen.getByRole("button", { name: /Publish 3 drafts/ })).toHaveAttribute("aria-disabled", "false");
   });
 });

@@ -496,7 +496,7 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .publish-button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; background: #eef0f3; color: var(--muted); font-size: 13px; font-weight: 600; }
 .publish-button svg { width: 14px; height: 14px; }
 .delivery-scene[data-active=true] .publish-button { animation: publish-on 380ms ease 1250ms both; }
-@keyframes publish-on { from { background: #eef0f3; color: var(--muted); } to { background: var(--coral); color: #fff; } }
+@keyframes publish-on { from { background-color: #eef0f3; color: var(--muted); } to { background-color: var(--coral); color: #fff; } }
 
 @media (max-width: 767px) {
   .gate { padding: 16px; gap: 14px; }
@@ -573,9 +573,11 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 /* The entrance animation holds the background, so hover darkens with a filter instead. */
 .publish-button[data-state=ready]:hover { filter: brightness(.93); }
 .publish-button[data-state=ready]:active { transform: translateY(1px); }
-.delivery-scene[data-active=true] .publish-button[data-state=publishing], .delivery-scene[data-active=true] .publish-button[data-state=published] { animation: none; cursor: default; }
-.publish-button[data-state=publishing] { background: var(--coral); color: #fff; opacity: .8; }
-.publish-button[data-state=published] { background: var(--success); color: #fff; }
+/* State colours sit in background-image, above the entrance animation's background-color, so the
+   animation never has to be removed (removing and re-adding it replayed the grey start for 1.25s). */
+.publish-button[data-state=publishing], .publish-button[data-state=published] { cursor: default; }
+.publish-button[data-state=publishing] { background-image: linear-gradient(var(--coral), var(--coral)); color: #fff; opacity: .8; }
+.publish-button[data-state=published] { background-image: linear-gradient(var(--success), var(--success)); color: #fff; }
 .publish-spinner { animation: publish-spin 800ms linear infinite; }
 @keyframes publish-spin { to { transform: rotate(360deg); } }
 .publish-reset { display: inline-flex; align-items: center; gap: 6px; padding: 6px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
@@ -588,6 +590,4 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 .publish-created .ticket-id { background: #fff; color: var(--success); }
 @media (prefers-reduced-motion: reduce) {
   .publish-spinner, .publish-created { animation: none !important; }
-  .delivery-scene[data-active=true] .publish-button[data-state=published] { background: var(--success); }
-  .delivery-scene[data-active=true] .publish-button[data-state=publishing] { background: var(--coral); opacity: .8; }
 }
