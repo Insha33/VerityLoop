@@ -84,11 +84,6 @@ function PublishScene() {
 
 const scenes = [DraftScene, TicketScene, PublishScene];
 
-/** Coral "+" registration marks at a box's four corners (Firecrawl-style). */
-function CornerMarks() {
-  return <>{(["tl", "tr", "bl", "br"] as const).map((corner) => <span key={corner} className="corner-mark" data-corner={corner} aria-hidden="true" />)}</>;
-}
-
 /**
  * Delivery gates as an interactive list: hovering, focusing or tapping a step highlights it
  * and swaps in an illustrative scene that plays that step. Scenes are decorative (the step
@@ -125,7 +120,6 @@ export function DeliverySteps() {
               >
                 <span className="gate-number">0{index + 1}</span>
                 <span className="gate-text"><strong>{step.title}</strong><span>{step.copy}</span></span>
-                <CornerMarks />
               </button>
             </li>
           ))}
@@ -133,7 +127,6 @@ export function DeliverySteps() {
         <span className="quiet-label">Agent-ready outputs. Human-owned decisions.</span>
       </div>
       <div className="delivery-stage product-frame">
-        <CornerMarks />
         <div className="delivery-scenes" aria-hidden="true">
           {scenes.map((Scene, index) => (
             <div className="delivery-scene" data-active={active === index} key={index}><Scene /></div>

@@ -51,12 +51,12 @@ typography:
   product:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif"
 rounded:
-  control: "7px"
-  panel: "12px"
-  field: "6px"
-  window: "8px"
-  form: "9px"
-  frame: "16px"
+  control: "0px"
+  panel: "0px"
+  field: "0px"
+  window: "0px"
+  form: "0px"
+  frame: "0px"
 spacing:
   compact: "8px"
   small: "12px"
@@ -167,7 +167,7 @@ Most surfaces use pale fills and thin borders for separation. Product windows, t
 
 ## Shapes
 
-Controls and panels use modest rounding, with fields, product windows, and forms using the intermediate radii recorded in frontmatter. Delivery and context frames use (16px) corners. Dividers and field outlines are (1px). Primary buttons are gently rounded rectangles; the hero offer chip is a pill. Signal-grid cells are square and share the grid's hairlines; they are not connected evidence trails. The hero product frame uses an (8px) white bezel and (18px) outer radius; callout cards use (12px).
+Every corner is sharp (Nov 2026): buttons, inputs, chips, cards, frames, panels, tooltips and the shadcn/Radix primitives all use a (0px) radius, enforced by one page-wide rule at the end of `globals.css`. Only true dots (caption dots, live dots, the journey connector dot) and avatars stay circular. Dividers and field outlines are (1px). There are no corner registration marks; the earlier hero and delivery “+” marks were removed by request. Rounded shapes drawn inside the product SVG illustrations are part of those images.
 
 ## Components
 
@@ -183,7 +183,7 @@ Preserve the exact headline: “Your next product move” over “Backed by evid
 
 **Signal grid.** A canvas of square cells on a CSS hairline grid (visible without JavaScript). Short coral, pale-coral, cobalt and ink "drops" fall two to five cells and fade over about (1.5s), echoing evidence settling into place. The hero band (28px cells, 720px tall) clears an ellipse for the headline and fades before the product; a mouse pointer gently lights nearby hero cells. The Solutions heading uses a band (24px cells) visible only either side of the copy, the signup panel uses a field that frames the form's right edge, and the page ends the way it begins: a footer grid sits behind the last (620px) of the page (420px on mobile), layered under the signup panel and footer without adding height. It is dense at the bottom, fades upward, softens under the footer text, and its drops rise instead of fall. Grids render at (30fps), cap device pixel ratio at (2), and run only while on screen, the tab is visible, and reduced motion is off; reduced motion leaves a static frame. There is no pause control by product decision (2026-11-13): the motion is slow, low-contrast and confined to white space, and reduced-motion users get a static grid. Grids are hidden from assistive technology and carry no information. Line-based evidence trails were rejected for this background.
 
-**Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring, coral crosshair marks at the top corners, and a soft glow. At (768px) and wider it starts slightly tilted (6deg, 95% scale) and settles flat over the first (560px) of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From (1024px), two callout cards overlap the frame's edges: a verified primary source (competitor pricing page) and customer context (discovery call). Both repeat evidence already in the illustrations and are hidden from assistive technology; they fade in with a short stagger and drift gently on scroll. Reduced motion shows the frame flat with static callouts. The walkthrough stage shares the hairline grid (static) and a ring shadow.
+**Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring, and a soft glow. At (768px) and wider it starts slightly tilted (6deg, 95% scale) and settles flat over the first (560px) of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From (1024px), two callout cards overlap the frame's edges: a verified primary source (competitor pricing page) and customer context (discovery call). Both repeat evidence already in the illustrations and are hidden from assistive technology; they fade in with a short stagger and drift gently on scroll. Reduced motion shows the frame flat with static callouts. The walkthrough stage shares the hairline grid (static) and a ring shadow.
 
 ### Mid-page system (Nov 2026 audit)
 
@@ -194,7 +194,7 @@ Middle sections share one rhythm and vocabulary, after a Linear-style review:
 - **Product frame:** `.product-frame` reuses the hero bezel: (8px) white padding, (18px) radius, a coral-to-cobalt hairline ring and a soft shadow. Used for the PRD preview; the sources grid uses the same ring on a pearl fill.
 - **One nesting level:** audience cards are white with a hairline border and a single pearl inner surface; they lift (2px) and pick up a coral border on hover.
 - **Type floor:** marketing meta text is at least (12px), copy (14–17px); only text inside product illustrations goes smaller.
-- **Delivery:** three numbered approval gates beside a framed scene stage, Linear-style. Hovering (mouse only), focusing or tapping a gate gives it a soft-coral highlight and plays its live HTML scene: an approved decision then the PRD draft; the approved PRD then three ticket drafts; review checks ticking then the publish action unlocking. The outgoing scene fades out in (240–300ms); the incoming one rises from a (6px) blur over about (640ms) and its contents stagger in. Arrow keys move between gates. The whole delivery section has square corners (no radius), with coral “+” registration marks at the stage's four corners and on the active gate (they fade in with the highlight). Scenes are decorative (`aria-hidden`); reduced motion swaps instantly and shows finished states. Implemented in `DeliverySteps.tsx`.
+- **Delivery:** three numbered approval gates beside a framed scene stage, Linear-style. Hovering (mouse only), focusing or tapping a gate gives it a soft-coral highlight and plays its live HTML scene: an approved decision then the PRD draft; the approved PRD then three ticket drafts; review checks ticking then the publish action unlocking. The outgoing scene fades out in (240–300ms); the incoming one rises from a (6px) blur over about (640ms) and its contents stagger in. Arrow keys move between gates. Scenes are decorative (`aria-hidden`); reduced motion swaps instantly and shows finished states. Implemented in `DeliverySteps.tsx`.
 - **Context:** sources sit in a wide 6-column grid (4 at tablet, 3 on mobile, 2 at (420px)) of large tiles with (30px) icons.
 - **Signup card:** solid soft coral; no background animation inside it.
 - **Audience cards:** feature tiles. A pearl stage with a static hairline grid shows the illustrative input window, a dashed coral connector and the output brief; the audience pill, title, copy and link sit below. Subgrid keeps both cards' stages and copy on shared rows, and the connector stretches so both outputs align. Hover only turns the card border coral; nothing inside moves.
