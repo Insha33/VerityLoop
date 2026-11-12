@@ -2,12 +2,13 @@
 
 import { ArrowUpRight, Check, FileText, GitBranch, Link2, LockKeyhole, MessageSquare } from "lucide-react";
 import { ContextSources } from "./ContextSources";
+import { SignalGrid } from "./SignalGrid";
 
 export function ProductDetails() {
   return (
     <>
       <section className="audience-section section shell" id="solutions" aria-labelledby="audience-title">
-        <div className="centered-intro"><h2 id="audience-title">Know what to validate first.<br />Or what should change next.</h2><p>Two starting points. A cited brief to help you make the call.</p></div>
+        <div className="centered-intro"><SignalGrid variant="band" cell={24} density={0.45} /><h2 id="audience-title">Know what to validate first.<br />Or what should change next.</h2><p>Two starting points. A cited brief to help you make the call.</p></div>
         <div className="audience-grid">
           <article className="audience-card" id="opportunity">
             <div className="audience-title"><span>For founders</span><ArrowUpRight aria-hidden="true" /></div>
