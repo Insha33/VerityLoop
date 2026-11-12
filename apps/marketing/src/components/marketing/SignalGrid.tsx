@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, type CSSProperties } from "react";
-import { useBackgroundMotionPaused, usePrefersReducedMotion } from "./backgroundMotion";
+import { usePrefersReducedMotion } from "./backgroundMotion";
 import styles from "./SignalGrid.module.css";
 
-type Variant = "hero" | "band" | "panel";
+type Variant = "hero" | "band" | "panel" | "footer";
 
 type SignalGridProps = {
   variant: Variant;
@@ -44,15 +44,16 @@ function pickTint() {
 
 /**
  * Decorative canvas of hairline cells that light up like signals arriving.
- * Short "drops" fall a few cells and fade, echoing evidence settling into place.
- * Runs only while on screen, the tab is visible, motion is allowed and not paused.
+ * Short "drops" fall a few cells and fade, echoing evidence settling into place;
+ * the footer variant rises instead, so the page ends the way it began.
+ * Runs only while on screen, the tab is visible and motion is allowed.
  */
 export function SignalGrid({ variant, cell = 28, density = 1, interactive = false, className }: SignalGridProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const paused = useBackgroundMotionPaused();
   const reduced = usePrefersReducedMotion();
-  const stateRef = useRef({ paused, reduced });
+  const reducedRef = useRef(reduced);
+  const rises = variant === "footer";
   const startRef = useRef<() => void>(() => {});
 
   useEffect(() => {
@@ -114,7 +115,8 @@ export function SignalGrid({ variant, cell = 28, density = 1, interactive = fals
       const left = 2 + Math.floor(Math.random() * 4);
       drops.push({
         col: Math.floor(Math.random() * cols),
-        row: Math.floor(Math.random() * Math.max(1, rows - left)),
+        // Start where the drop has room to travel: above the bottom when falling, below the top when rising.
+        row: rises ? Math.min(rows - 1, left + Math.floor(Math.random() * Math.max(1, rows - left))) : Math.floor(Math.random() * Math.max(1, rows - left)),
         left,
         tint: pickTint(),
         stepMs: 120 + Math.random() * 110,
@@ -133,10 +135,10 @@ export function SignalGrid({ variant, cell = 28, density = 1, interactive = fals
         drop.wait -= elapsed;
         if (drop.wait > 0) return true;
         light(drop.col, drop.row, 0.55 + Math.random() * 0.45, drop.tint);
-        drop.row += 1;
+        drop.row += rises ? -1 : 1;
         drop.left -= 1;
         drop.wait = drop.stepMs;
-        return drop.left > 0 && drop.row < rows;
+        return drop.left > 0 && drop.row >= 0 && drop.row < rows;
       });
 
       if (pointer) {
@@ -173,7 +175,7 @@ export function SignalGrid({ variant, cell = 28, density = 1, interactive = fals
       draw();
     };
 
-    const shouldRun = () => onScreen && !document.hidden && !stateRef.current.paused && !stateRef.current.reduced;
+    const shouldRun = () => onScreen && !document.hidden && !reducedRef.current;
     const start = () => {
       if (frame || !shouldRun()) return;
       last = performance.now();
@@ -214,13 +216,13 @@ export function SignalGrid({ variant, cell = 28, density = 1, interactive = fals
       host?.removeEventListener("pointerleave", leave);
       startRef.current = () => {};
     };
-  }, [cell, density, interactive]);
+  }, [cell, density, interactive, rises]);
 
-  // Pause and reduced-motion changes start or freeze the loop without rebuilding the grid.
+  // A reduced-motion change starts or freezes the loop without rebuilding the grid.
   useEffect(() => {
-    stateRef.current = { paused, reduced };
+    reducedRef.current = reduced;
     startRef.current();
-  }, [paused, reduced]);
+  }, [reduced]);
 
   return (
     <div ref={rootRef} className={`${styles.root} ${className ?? ""}`} data-variant={variant} style={{ "--cell": `${cell}px` } as CSSProperties} aria-hidden="true">

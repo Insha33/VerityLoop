@@ -267,11 +267,10 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
   .frame-mark { display: none; }
 }
 
-.motion-toggle { position: absolute; z-index: 3; top: 20px; right: max(20px, calc((100% - 1240px) / 2)); display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgb(255 255 255 / 90%); color: var(--muted); transition: color 160ms ease, border-color 160ms ease; }
-.motion-toggle:hover { color: var(--ink); border-color: var(--line-strong); }
-.motion-toggle svg { width: 13px; height: 13px; }
-@media (max-width: 767px) { .motion-toggle { top: 12px; right: 12px; } }
 
 /* Section signal grids sit behind content inside these isolated containers. */
 .centered-intro { position: relative; isolation: isolate; padding-block: 48px; margin-top: -48px; }
 .waitlist-layout { position: relative; isolation: isolate; overflow: hidden; }
+
+/* Page end: the footer grid sits behind the signup section and footer, adding no height. */
+.page-frame { position: relative; isolation: isolate; }

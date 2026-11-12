@@ -2,14 +2,12 @@ import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { marketingCopy } from "@/content/marketing";
 import { HeroShowcase } from "./HeroShowcase";
-import { MotionToggle } from "./MotionToggle";
 import { SignalGrid } from "./SignalGrid";
 
 export function Hero() {
   return (
     <section className="hero" id="top">
       <SignalGrid variant="hero" interactive />
-      <MotionToggle />
       <div className="hero-copy shell">
         <a className="hero-offer" href="#waitlist"><span className="caption-dot" />{marketingCopy.offer.badge}<ArrowRight aria-hidden="true" /></a>
         <h1>Your next product move.<br />{" "}<span>Backed by evidence.</span></h1>

@@ -1,9 +1,7 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import { Hero } from "@/components/marketing/Hero";
-import { setBackgroundMotionPaused } from "@/components/marketing/backgroundMotion";
-
-afterEach(() => act(() => setBackgroundMotionPaused(false)));
+import HomePage from "@/app/page";
 
 describe("decorative background motion", () => {
   it("keeps the signal grid out of the accessibility tree", () => {
@@ -13,15 +11,17 @@ describe("decorative background motion", () => {
     expect(canvas?.closest("[aria-hidden='true']")).not.toBeNull();
   });
 
-  it("offers one control that pauses and resumes background animation", () => {
+  it("has no pause control: motion stops only for reduced-motion users", () => {
     render(<Hero />);
-    const toggle = screen.getByRole("button", { name: "Pause background animation" });
-    expect(toggle).toHaveAttribute("aria-pressed", "false");
-    fireEvent.click(toggle);
-    expect(toggle).toHaveAttribute("aria-pressed", "true");
-    expect(toggle).toHaveAccessibleName("Pause background animation");
-    fireEvent.click(toggle);
-    expect(toggle).toHaveAttribute("aria-pressed", "false");
+    expect(screen.queryByRole("button", { name: /background animation/i })).not.toBeInTheDocument();
+  });
+
+  it("ends the page with a rising grid layered behind the signup section and footer", () => {
+    const { container } = render(<HomePage />);
+    const grid = container.querySelector("[data-variant='footer']");
+    expect(grid).toHaveAttribute("aria-hidden", "true");
+    expect(grid?.parentElement).toBe(container.querySelector("footer")?.parentElement);
+    expect(grid?.parentElement).toContainElement(container.querySelector("#waitlist") as HTMLElement);
   });
 
   it("hides the evidence callouts from assistive technology because the image alt carries them", () => {
