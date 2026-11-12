@@ -540,3 +540,12 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
   .hero-showcase .hero-frame .product-window { border-radius: 9px !important; }
   .frame-mark { display: none; }
 }
+
+/* Review fixes (pre-merge):
+   - Scenes stack in one grid cell, so the stage is as tall as its tallest scene: nothing clips at
+     tablet/mobile widths and switching steps never changes the stage height.
+   - A legacy max-width:420px rule narrowed .delivery-layout; keep it on the shared shell width. */
+.delivery-scenes { display: grid; height: auto; }
+.delivery-scene { position: relative; inset: auto; grid-area: 1 / 1; }
+.delivery-layout { width: var(--shell); }
+@media (max-width: 767px) { .delivery-scenes { height: auto; } }
