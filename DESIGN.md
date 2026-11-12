@@ -197,7 +197,7 @@ Middle sections share one rhythm and vocabulary, after a Linear-style review:
 - **Delivery:** three numbered approval gates (title plus one-line explanation) sit beside the framed PRD, top-aligned.
 - **Context:** sources sit in a wide 6-column grid (4 at tablet, 3 on mobile, 2 at (420px)) of large tiles with (30px) icons.
 - **Signup card:** solid soft coral; no background animation inside it.
-- **Audience cards:** feature tiles. A pearl stage with a static hairline grid shows the illustrative input window, a dashed coral connector and the output brief; the audience pill, title, copy and link sit below. Subgrid keeps both cards' stages and copy on shared rows, and the connector stretches so both outputs align. Hover lifts the input window and turns the border coral.
+- **Audience cards:** feature tiles. A pearl stage with a static hairline grid shows the illustrative input window, a dashed coral connector and the output brief; the audience pill, title, copy and link sit below. Subgrid keeps both cards' stages and copy on shared rows, and the connector stretches so both outputs align. Hover only turns the card border coral; nothing inside moves.
 
 ### Buttons and links
 

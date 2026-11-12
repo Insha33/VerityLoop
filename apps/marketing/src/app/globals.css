@@ -390,12 +390,13 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 /* Audience cards as feature tiles: illustration stage on top (input -> output), copy below.
    Subgrid keeps both cards' stages and copy blocks on the same rows. */
 .audience-grid { grid-template-rows: auto auto; }
-.journey-card { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; min-width: 0; overflow: hidden; scroll-margin-top: 100px; background: #fff; border: 1px solid var(--line); border-radius: 20px; transition: border-color 200ms ease, box-shadow 200ms ease; }
+.journey-card { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; min-width: 0; overflow: hidden; scroll-margin-top: 100px; background: #fff; border: 1px solid var(--line); border-radius: 20px; transition: border-color 200ms ease; }
 .journey-card:focus-within { border-color: #ffc9c3; }
-@media (hover: hover) { .journey-card:hover { border-color: #ffc9c3; box-shadow: 0 30px 60px -42px rgb(32 45 67 / 32%); } .journey-card:hover .journey-window { transform: translateY(-3px); box-shadow: 0 24px 40px -24px rgb(32 45 67 / 30%); } }
+/* Hover only recolours the border; nothing inside the card moves. */
+@media (hover: hover) { .journey-card:hover { border-color: #ffc9c3; } }
 .journey-stage { position: relative; isolation: isolate; display: flex; flex-direction: column; padding: 32px 32px 18px; background: var(--pearl); border-bottom: 1px solid var(--line); }
 .journey-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(to right, rgb(16 22 35 / 5%) 1px, transparent 1px), linear-gradient(to bottom, rgb(16 22 35 / 5%) 1px, transparent 1px); background-size: 24px 24px; background-position: center; -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 40%, #000 30%, transparent 90%); mask-image: radial-gradient(ellipse 80% 75% at 50% 40%, #000 30%, transparent 90%); }
-.journey-window { padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 16px 32px -24px rgb(32 45 67 / 26%), 0 1px 2px rgb(16 22 35 / 4%); transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms ease; }
+.journey-window { padding: 18px 20px 20px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 16px 32px -24px rgb(32 45 67 / 26%), 0 1px 2px rgb(16 22 35 / 4%); }
 .journey-bar { display: flex; align-items: center; gap: 8px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); color: var(--ink); font-size: 13px; font-weight: 600; }
 .journey-bar svg { width: 16px; height: 16px; color: var(--coral-dark); }
 .journey-tag { margin-left: auto; padding: 3px 8px; border-radius: 999px; background: var(--pearl); color: var(--muted); font-size: 11px; font-weight: 600; }
