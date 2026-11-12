@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { BadgeCheck, Check, FileText, Link2, LockKeyhole, Send, Ticket } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { ArrowUpRight, BadgeCheck, Check, FileText, Link2, LoaderCircle, LockKeyhole, RotateCcw, Send, Ticket } from "lucide-react";
 
 const steps = [
   { title: "PRD drafting after a human decision", copy: "Nothing is written until the decision owner approves a direction." },
@@ -31,12 +31,13 @@ function DraftScene() {
   );
 }
 
+const tickets = [
+  { title: "Interview five customers about approval bottlenecks", tag: "Research" },
+  { title: "Review audit-history prerequisites", tag: "Engineering" },
+  { title: "Scope a shared approval queue pilot", tag: "Product" },
+];
+
 function TicketScene() {
-  const tickets = [
-    { title: "Interview five customers about approval bottlenecks", tag: "Research" },
-    { title: "Review audit-history prerequisites", tag: "Engineering" },
-    { title: "Scope a shared approval queue pilot", tag: "Product" },
-  ];
   return (
     <>
       <div className="scene-bar"><Ticket aria-hidden="true" /><span>Ticket drafts</span><span className="scene-status">From PRD-014</span></div>
@@ -56,38 +57,95 @@ function TicketScene() {
   );
 }
 
-function PublishScene() {
+const destinations = {
+  linear: { name: "Linear", logo: "/integrations/linear.png", prefix: "VER" },
+  jira: { name: "Jira", logo: "/integrations/jira.png", prefix: "VL" },
+} as const;
+type Destination = keyof typeof destinations;
+type PublishStatus = "ready" | "publishing" | "published";
+
+/** A small working demo: choose a destination, publish, see the (illustrative) tickets it would create. */
+function PublishScene({ active }: { active: boolean }) {
   const checks = ["Engineering reviewed scope and prerequisites", "Decision owner confirmed priority", "Drafts match the approved PRD"];
+  const [destination, setDestination] = useState<Destination>("linear");
+  const [status, setStatus] = useState<PublishStatus>("ready");
+  const timer = useRef<number | undefined>(undefined);
+  const target = destinations[destination];
+
+  // Leaving the step resets the demo so it replays from the review state next time.
+  useEffect(() => {
+    if (active) return;
+    window.clearTimeout(timer.current);
+    setStatus("ready");
+  }, [active]);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  function choose(next: Destination) {
+    window.clearTimeout(timer.current);
+    setDestination(next);
+    setStatus("ready");
+  }
+
+  function publish() {
+    if (status !== "ready") return;
+    setStatus("publishing");
+    timer.current = window.setTimeout(() => setStatus("published"), 700);
+  }
+
   return (
     <>
-      <div className="scene-bar"><Send aria-hidden="true" /><span>Publish to delivery tools</span><span className="scene-status">Separate review</span></div>
+      <div className="scene-bar"><Send aria-hidden="true" /><span>Publish to delivery tools</span><span className="scene-status" data-tone={status === "published" ? "done" : undefined}>{status === "published" ? "Published" : "Separate review"}</span></div>
       <div className="scene-body">
-        <span className="scene-subhead scene-in" style={at(60)}>Destination</span>
-        <div className="scene-destinations scene-in" style={at(140)}>
-          <span data-selected="true"><img src="/integrations/linear.png" alt="" width="20" height="20" />Linear</span>
-          <span><img src="/integrations/jira.png" alt="" width="20" height="20" />Jira</span>
+        <span className="scene-subhead scene-in" style={at(60)} id="publish-destination">Destination</span>
+        <div className="scene-destinations scene-in" style={at(140)} role="group" aria-labelledby="publish-destination">
+          {(Object.keys(destinations) as Destination[]).map((key) => (
+            <button type="button" key={key} aria-pressed={destination === key} data-selected={destination === key} onClick={() => choose(key)} disabled={status === "publishing"}>
+              <img src={destinations[key].logo} alt="" width="20" height="20" />{destinations[key].name}
+            </button>
+          ))}
         </div>
-        <span className="scene-subhead scene-in" style={at(260)}>Publishing review</span>
-        {checks.map((item, index) => (
-          <div className="scene-check scene-in" style={at(340 + index * 220)} key={item}>
-            <span className="check-mark" style={at(520 + index * 220)}><Check aria-hidden="true" /></span>{item}
+        {status === "published" ? (
+          <div className="publish-result" role="status">
+            <span className="scene-subhead">Created in {target.name}</span>
+            {tickets.map((ticket, index) => (
+              <div className="publish-created" style={at(index * 90)} key={ticket.title}>
+                <span className="ticket-id">{target.prefix}-{142 + index}</span>
+                <strong>{ticket.title}</strong>
+                <ArrowUpRight aria-hidden="true" />
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <>
+            <span className="scene-subhead scene-in" style={at(260)}>Publishing review</span>
+            {checks.map((item, index) => (
+              <div className="scene-check scene-in" style={at(340 + index * 220)} key={item}>
+                <span className="check-mark" style={at(520 + index * 220)}><Check aria-hidden="true" /></span>{item}
+              </div>
+            ))}
+          </>
+        )}
         <div className="scene-publish scene-in" style={at(1100)}>
-          <span>3 ticket drafts ready</span>
-          <span className="publish-button"><Send aria-hidden="true" />Publish 3 drafts</span>
+          {status === "published" ? (
+            <button type="button" className="publish-reset" onClick={() => setStatus("ready")}><RotateCcw aria-hidden="true" />Reset demo</button>
+          ) : (
+            <span>3 ticket drafts ready</span>
+          )}
+          <button type="button" className="publish-button" data-state={status} onClick={publish} disabled={status !== "ready"}>
+            {status === "publishing" ? <LoaderCircle className="publish-spinner" aria-hidden="true" /> : status === "published" ? <Check aria-hidden="true" /> : <Send aria-hidden="true" />}
+            {status === "publishing" ? "Publishing…" : status === "published" ? `Published to ${target.name}` : "Publish 3 drafts"}
+          </button>
         </div>
       </div>
     </>
   );
 }
 
-const scenes = [DraftScene, TicketScene, PublishScene];
 
 /**
  * Delivery gates as an interactive list: hovering, focusing or tapping a step highlights it
- * and swaps in an illustrative scene that plays that step. Scenes are decorative (the step
- * text carries the meaning), so they are hidden from assistive technology.
+ * and swaps in an illustrative scene that plays that step. The publish scene is a small
+ * working demo (choose Linear or Jira, then publish); nothing leaves the page.
  */
 export function DeliverySteps() {
   const [active, setActive] = useState(0);
@@ -127,9 +185,10 @@ export function DeliverySteps() {
         <span className="quiet-label">Agent-ready outputs. Human-owned decisions.</span>
       </div>
       <div className="delivery-stage product-frame">
-        <div className="delivery-scenes" aria-hidden="true">
-          {scenes.map((Scene, index) => (
-            <div className="delivery-scene" data-active={active === index} key={index}><Scene /></div>
+        {/* Only the visible scene is exposed; the others are hidden and unfocusable. */}
+        <div className="delivery-scenes" role="region" aria-label="Illustrative delivery workflow">
+          {[<DraftScene key="draft" />, <TicketScene key="tickets" />, <PublishScene key="publish" active={active === 2} />].map((scene, index) => (
+            <div className="delivery-scene" data-active={active === index} aria-hidden={active !== index} inert={active !== index} key={index}>{scene}</div>
           ))}
         </div>
         <small>Illustrative workflow · Demo data</small>
