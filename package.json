@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "npm run dev:marketing",
     "dev:marketing": "npm run dev --workspace=@verityloop/marketing",
+    "dev:marketing:3100": "PORT=3100 npm run dev --workspace=@verityloop/marketing",
     "build": "npm run build --workspaces --if-present",
     "build:marketing": "npm run build --workspace=@verityloop/marketing",
     "test": "npm run test --workspaces --if-present",
