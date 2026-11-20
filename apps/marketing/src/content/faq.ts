@@ -5,6 +5,11 @@ export type FAQItem = {
 
 export const faqs: FAQItem[] = [
   {
+    question: "What do I get for joining the waitlist now?",
+    answer:
+      "Everyone who joins before public launch gets early access: the first 2 months free on one workspace’s first paid plan, priority invites as we open access in batches, and a direct line to the founders. No card is required to join.",
+  },
+  {
     question: "Is VerityLoop an autonomous product manager?",
     answer:
       "No. VerityLoop uses evidence agents to recommend and draft. A human owns priorities, approval, and every external commitment.",

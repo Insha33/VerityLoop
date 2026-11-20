@@ -4,6 +4,7 @@ import { Header } from "@/components/marketing/Header";
 import { Hero } from "@/components/marketing/Hero";
 import { ProductStory } from "@/components/marketing/ProductStory";
 import { ProductDetails } from "@/components/marketing/ProductDetails";
+import { SignalGrid } from "@/components/marketing/SignalGrid";
 import { Waitlist } from "@/components/marketing/Waitlist";
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
     <>
       <a className="skip-link" href="#main">Skip to content</a>
       <Header />
+      <div className="page-frame">
       <main id="main">
         <Hero />
         <ProductStory />
@@ -19,6 +21,8 @@ export default function HomePage() {
         <Waitlist />
       </main>
       <Footer />
+      <SignalGrid variant="footer" density={0.8} />
+      </div>
     </>
   );
 }

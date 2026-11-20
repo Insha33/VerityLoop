@@ -3,10 +3,10 @@ import { describe, expect, it } from "vitest";
 import HomePage from "@/app/page";
 
 describe("VerityLoop marketing page", () => {
-  it("explains the product and makes illustrative imagery explicit", () => {
+  it("explains the product with an accessible product preview", () => {
     render(<HomePage />);
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Your next product move. Backed by evidence.");
-    expect(screen.getByText("Illustrative product preview")).toBeInTheDocument();
+    expect(screen.queryByText(/^Illustrative/)).not.toBeInTheDocument();
     expect(screen.getByRole("img", { name: /VerityLoop signal inbox/ })).toBeInTheDocument();
     expect(screen.getByText("MCP-ready context")).toBeInTheDocument();
   });

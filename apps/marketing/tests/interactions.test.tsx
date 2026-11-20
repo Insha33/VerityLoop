@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import HomePage from "@/app/page";
 import { ContextOrbit } from "@/components/marketing/ContextOrbit";
 import { FAQ } from "@/components/marketing/FAQ";
+import { faqs } from "@/content/faq";
 import { ProductWalkthrough } from "@/components/marketing/ProductWalkthrough";
 import { Waitlist, WaitlistForm } from "@/components/marketing/Waitlist";
 import { Workflow } from "@/components/marketing/Workflow";
@@ -184,7 +185,7 @@ describe("supporting interactions", () => {
     const items = container.querySelectorAll<HTMLElement>('[data-slot="accordion-item"]');
 
     expect(getComputedStyle(heading.parentElement as HTMLElement).opacity).toBe("1");
-    expect(items).toHaveLength(6);
+    expect(items).toHaveLength(faqs.length);
     for (const item of items) {
       expect(getComputedStyle(item).opacity).toBe("1");
     }
@@ -267,7 +268,7 @@ describe("supporting interactions", () => {
   it("keeps the complete waitlist form embedded in the section", () => {
     const { container } = render(<Waitlist />);
     const heading = screen.getByRole("heading", {
-      name: "Make your next product decision with evidence.",
+      name: "Get early access. 2 months free at launch.",
     });
 
     expect(getComputedStyle(heading.parentElement as HTMLElement).opacity).toBe("1");
@@ -345,6 +346,32 @@ describe("supporting interactions", () => {
     );
     expect(await screen.findByText("You’re on the list. We’ll be in touch soon.")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Waitlist joined" }).querySelector("span")).toBeNull();
+  });
+
+  it("attributes a waitlist request to the campaign in the page URL", async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, "", "/?utm_source=x");
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      Response.json({ ok: true, duplicate: false, message: "You’re in." }),
+    );
+    render(<WaitlistForm />);
+
+    await user.type(screen.getByLabelText("Name"), "Insha Aqib");
+    await user.type(screen.getByLabelText("Work email"), "insha@example.com");
+    await user.click(screen.getByRole("button", { name: "Join the waitlist" }));
+
+    expect(globalThis.fetch).toHaveBeenCalledWith(
+      "/api/waitlist",
+      expect.objectContaining({
+        body: JSON.stringify({
+          name: "Insha Aqib",
+          email: "insha@example.com",
+          audience: "founder",
+          source: "x",
+        }),
+      }),
+    );
+    window.history.replaceState(null, "", "/");
   });
 
   it("changes the evidence narrative and animated scene together", async () => {

@@ -24,7 +24,8 @@ Run commands from the repository root. Use npm 11.16.0 (recorded in `packageMana
 
 ```bash
 npm ci
-npm run dev:marketing    # http://localhost:3000
+npm run dev:marketing    # http://localhost:3000 (or PORT=3100 npm run dev:marketing)
+npm run dev:marketing:3100  # http://localhost:3100, when port 3000 is taken
 ```
 
 In another terminal:

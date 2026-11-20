@@ -1,148 +1,80 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-05T17:08:56.552567+00:00",
+  "generatedAt": "2026-11-13T00:00:00Z",
   "title": "Design System: VerityLoop",
   "extensions": {
     "colorMeta": {
       "ink": {
-        "role": "primary",
-        "displayName": "Ink",
-        "tonalRamp": [
-          "oklch(15% 0.0137 267.06)",
-          "oklch(26% 0.0137 267.06)",
-          "oklch(38% 0.0137 267.06)",
-          "oklch(49% 0.0137 267.06)",
-          "oklch(61% 0.0137 267.06)",
-          "oklch(72% 0.0137 267.06)",
-          "oklch(84% 0.0137 267.06)",
-          "oklch(95% 0.0137 267.06)"
-        ]
+        "role": "neutral",
+        "displayName": "Ink"
       },
       "muted": {
         "role": "neutral",
-        "displayName": "Muted",
-        "tonalRamp": [
-          "oklch(15% 0.0193 259.42)",
-          "oklch(26% 0.0193 259.42)",
-          "oklch(38% 0.0193 259.42)",
-          "oklch(49% 0.0193 259.42)",
-          "oklch(61% 0.0193 259.42)",
-          "oklch(72% 0.0193 259.42)",
-          "oklch(84% 0.0193 259.42)",
-          "oklch(95% 0.0193 259.42)"
-        ]
+        "displayName": "Muted gray"
       },
       "paper": {
         "role": "neutral",
-        "displayName": "Paper",
-        "tonalRamp": [
-          "oklch(15% 0.0000 89.88)",
-          "oklch(26% 0.0000 89.88)",
-          "oklch(38% 0.0000 89.88)",
-          "oklch(49% 0.0000 89.88)",
-          "oklch(61% 0.0000 89.88)",
-          "oklch(72% 0.0000 89.88)",
-          "oklch(84% 0.0000 89.88)",
-          "oklch(95% 0.0000 89.88)"
-        ]
+        "displayName": "Pure white"
       },
       "line": {
         "role": "neutral",
-        "displayName": "Line",
-        "tonalRamp": [
-          "oklch(15% 0.0058 264.53)",
-          "oklch(26% 0.0058 264.53)",
-          "oklch(38% 0.0058 264.53)",
-          "oklch(49% 0.0058 264.53)",
-          "oklch(61% 0.0058 264.53)",
-          "oklch(72% 0.0058 264.53)",
-          "oklch(84% 0.0058 264.53)",
-          "oklch(95% 0.0058 264.53)"
-        ]
+        "displayName": "Line"
       },
       "line-strong": {
         "role": "neutral",
-        "displayName": "Line Strong",
-        "tonalRamp": [
-          "oklch(15% 0.0118 264.51)",
-          "oklch(26% 0.0118 264.51)",
-          "oklch(38% 0.0118 264.51)",
-          "oklch(49% 0.0118 264.51)",
-          "oklch(61% 0.0118 264.51)",
-          "oklch(72% 0.0118 264.51)",
-          "oklch(84% 0.0118 264.51)",
-          "oklch(95% 0.0118 264.51)"
-        ]
+        "displayName": "Strong line"
       },
       "cobalt": {
-        "role": "primary",
-        "displayName": "Cobalt",
-        "tonalRamp": [
-          "oklch(15% 0.1614 271.57)",
-          "oklch(26% 0.1614 271.57)",
-          "oklch(38% 0.1614 271.57)",
-          "oklch(49% 0.1614 271.57)",
-          "oklch(61% 0.1614 271.57)",
-          "oklch(72% 0.1614 271.57)",
-          "oklch(84% 0.1614 271.57)",
-          "oklch(95% 0.1614 271.57)"
-        ]
+        "role": "secondary",
+        "displayName": "Cobalt"
       },
       "coral": {
-        "role": "secondary",
-        "displayName": "Coral",
-        "tonalRamp": [
-          "oklch(15% 0.1240 28.98)",
-          "oklch(26% 0.1240 28.98)",
-          "oklch(38% 0.1240 28.98)",
-          "oklch(49% 0.1240 28.98)",
-          "oklch(61% 0.1240 28.98)",
-          "oklch(72% 0.1240 28.98)",
-          "oklch(84% 0.1240 28.98)",
-          "oklch(95% 0.1240 28.98)"
-        ]
+        "role": "primary",
+        "displayName": "Coral"
       },
       "blue-soft": {
         "role": "neutral",
-        "displayName": "Blue Soft",
-        "tonalRamp": [
-          "oklch(15% 0.0138 272.69)",
-          "oklch(26% 0.0138 272.69)",
-          "oklch(38% 0.0138 272.69)",
-          "oklch(49% 0.0138 272.69)",
-          "oklch(61% 0.0138 272.69)",
-          "oklch(72% 0.0138 272.69)",
-          "oklch(84% 0.0138 272.69)",
-          "oklch(95% 0.0138 272.69)"
-        ]
+        "displayName": "Soft blue"
       },
       "success": {
         "role": "secondary",
-        "displayName": "Success",
-        "tonalRamp": [
-          "oklch(15% 0.0896 166.17)",
-          "oklch(26% 0.0896 166.17)",
-          "oklch(38% 0.0896 166.17)",
-          "oklch(49% 0.0896 166.17)",
-          "oklch(61% 0.0896 166.17)",
-          "oklch(72% 0.0896 166.17)",
-          "oklch(84% 0.0896 166.17)",
-          "oklch(95% 0.0896 166.17)"
-        ]
+        "displayName": "Success green"
       },
       "coral-dark": {
+        "role": "primary",
+        "displayName": "Deep coral"
+      },
+      "coral-hover": {
+        "role": "primary",
+        "displayName": "Coral hover"
+      },
+      "coral-soft": {
         "role": "secondary",
-        "displayName": "Coral Dark",
-        "tonalRamp": [
-          "oklch(15% 0.1205 28.73)",
-          "oklch(26% 0.1205 28.73)",
-          "oklch(38% 0.1205 28.73)",
-          "oklch(49% 0.1205 28.73)",
-          "oklch(61% 0.1205 28.73)",
-          "oklch(72% 0.1205 28.73)",
-          "oklch(84% 0.1205 28.73)",
-          "oklch(95% 0.1205 28.73)"
-        ]
+        "displayName": "Soft coral"
+      },
+      "stage-blue": {
+        "role": "secondary",
+        "displayName": "Stage blue"
+      },
+      "stage-mint": {
+        "role": "secondary",
+        "displayName": "Stage mint"
+      },
+      "stage-peach": {
+        "role": "secondary",
+        "displayName": "Stage peach"
+      },
+      "delivery-frame": {
+        "role": "neutral",
+        "displayName": "Delivery frame"
+      },
+      "audience-surface": {
+        "role": "neutral",
+        "displayName": "Audience surface"
+      },
+      "audience-hover": {
+        "role": "neutral",
+        "displayName": "Audience hover"
       }
     },
     "typographyMeta": {
@@ -158,18 +90,23 @@
     "shadows": [
       {
         "name": "product",
-        "value": "0 18px 55px -20px rgb(40 52 85 / 25%)",
-        "purpose": "Hero product window and delivery preview."
+        "value": "0 24px 64px -24px rgb(32 45 67 / 18%)",
+        "purpose": "Hero product window, delivery preview, and signup form."
       },
       {
-        "name": "detail",
-        "value": "0 10px 35px -17px rgb(25 40 72 / 30%)",
-        "purpose": "Focused story preview image."
+        "name": "story-window",
+        "value": "0 18px 38px -22px #263e6d47, 0 2px 5px #223b5e05",
+        "purpose": "White walkthrough concept windows."
       },
       {
-        "name": "selector",
+        "name": "waitlist-selector",
         "value": "0 2px 4px rgb(20 25 40 / 8%)",
-        "purpose": "Selected white audience segment."
+        "purpose": "Selected coral waitlist segment; walkthrough segment has no shadow."
+      },
+      {
+        "name": "source-tooltip",
+        "value": "0 8px 24px -8px rgb(24 30 45 / 25%)",
+        "purpose": "Context-source tooltip."
       }
     ],
     "motion": [
@@ -192,6 +129,16 @@
         "name": "reduced-motion",
         "value": "animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important",
         "purpose": "Global prefers-reduced-motion override."
+      },
+      {
+        "name": "story-easing",
+        "value": "cubic-bezier(.22, 1, .36, 1)",
+        "purpose": "Story selection, expansion, and finite scene reveals."
+      },
+      {
+        "name": "hero-tile-wave",
+        "value": "12s ease-in-out infinite; opacity .2 to .85; translateY(0) to translateY(-3px); group delays 0s, -3s, -6s, -9s",
+        "purpose": "Decorative edge tiles only. Runs only when visible, page visible, reduced motion off, and not paused. Reduced motion is static at opacity .45."
       }
     ],
     "breakpoints": [
@@ -210,6 +157,22 @@
       {
         "name": "stacked-mobile-max",
         "value": "600px"
+      },
+      {
+        "name": "journey-sticky-min-width",
+        "value": "900px"
+      },
+      {
+        "name": "journey-sticky-min-height",
+        "value": "800px"
+      },
+      {
+        "name": "narrow-mobile-max",
+        "value": "420px"
+      },
+      {
+        "name": "small-phone-max",
+        "value": "360px"
       }
     ]
   },
@@ -220,7 +183,7 @@
       "refersTo": "button-primary",
       "description": "Primary waitlist action.",
       "html": "<button class=\"ds-button\">Join the waitlist <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
-      "css": ".ds-button{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:46px;padding:12px 21px;border:1px solid var(--ink,#24272e);border-radius:var(--radius-control,7px);background:var(--ink,#24272e);color:white;font-size:13px;font-weight:600;line-height:1.4;cursor:pointer;transition:background-color 160ms ease,transform 160ms ease}.ds-button:hover{background:#40434a}.ds-button:active{transform:translateY(1px)}.ds-button:focus-visible{outline:2px solid var(--cobalt,#5267cf);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-button{transition-duration:.01ms}}"
+      "css": ".ds-button{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:46px;padding:12px 21px;border:1px solid var(--coral,#ff5a4f);border-radius:var(--radius-control,7px);background:var(--coral,#ff5a4f);color:white;font-size:13px;font-weight:600;line-height:1.4;cursor:pointer;transition:background-color 160ms ease,transform 160ms ease}.ds-button:hover{background:#ed4c42;border-color:#ed4c42}.ds-button:active{transform:translateY(1px)}.ds-button:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-button{transition-duration:.01ms}}"
     },
     {
       "name": "Small navigation button",
@@ -228,7 +191,7 @@
       "refersTo": "button-small",
       "description": "Compact header action.",
       "html": "<button class=\"ds-button ds-small\">Join the waitlist</button>",
-      "css": ".ds-button{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:46px;padding:12px 21px;border:1px solid var(--ink,#24272e);border-radius:var(--radius-control,7px);background:var(--ink,#24272e);color:white;font-size:13px;font-weight:600;line-height:1.4;cursor:pointer;transition:background-color 160ms ease,transform 160ms ease}.ds-button:hover{background:#40434a}.ds-button:active{transform:translateY(1px)}.ds-button:focus-visible{outline:2px solid var(--cobalt,#5267cf);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-button{transition-duration:.01ms}}.ds-button.ds-small{min-height:36px;padding:8px 14px;font-size:11px}"
+      "css": ".ds-button{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:46px;padding:12px 21px;border:1px solid var(--coral,#ff5a4f);border-radius:var(--radius-control,7px);background:var(--coral,#ff5a4f);color:white;font-size:13px;font-weight:600;line-height:1.4;cursor:pointer;transition:background-color 160ms ease,transform 160ms ease}.ds-button:hover{background:#ed4c42;border-color:#ed4c42}.ds-button:active{transform:translateY(1px)}.ds-button:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px;}@media(prefers-reduced-motion:reduce){.ds-button{transition-duration:.01ms}}.ds-button.ds-small{min-height:40px;padding:10px 16px;font-size:12px}"
     },
     {
       "name": "Text link",
@@ -236,7 +199,7 @@
       "refersTo": "text-link",
       "description": "Unboxed secondary exploration action.",
       "html": "<a class=\"ds-text-link\" href=\"#product\">Explore the product <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
-      "css": ".ds-text-link{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;gap:10px;padding:10px 0;color:var(--ink,#24272e);font-size:12px;font-weight:600;text-decoration:none}.ds-text-link:hover{color:var(--cobalt,#5267cf)}.ds-text-link:focus-visible{outline:2px solid var(--cobalt,#5267cf);outline-offset:4px;}"
+      "css": ".ds-text-link{font-family:var(--font-manrope, Manrope),sans-serif;display:inline-flex;align-items:center;gap:10px;padding:10px 0;color:var(--ink,#101623);font-size:13px;font-weight:600;text-decoration:none}.ds-text-link:hover{color:var(--cobalt,#2768ff)}.ds-text-link:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px;}"
     },
     {
       "name": "Email field",
@@ -244,14 +207,14 @@
       "refersTo": "input",
       "description": "Explicit label, reserved leading-icon space, and visible keyboard focus.",
       "html": "<label class=\"ds-field\">Work email<span class=\"ds-input-wrap\"><svg class=\"ds-field-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/></svg><input class=\"ds-input\" type=\"email\" placeholder=\"you@company.com\" /></span></label>",
-      "css": ".ds-field{font-family:var(--font-manrope, Manrope),sans-serif;display:grid;gap:8px;font-size:11px;font-weight:550;color:var(--ink,#24272e)}.ds-input-wrap{position:relative;display:flex;align-items:center}.ds-field-icon{position:absolute;left:12px;width:15px;height:15px;color:var(--muted,#646b76);pointer-events:none}.ds-input{font-family:var(--font-manrope, Manrope),sans-serif;width:100%;height:44px;padding:10px 12px 10px 36px;border:1px solid var(--line-strong,#d3d7df);border-radius:6px;background:white;color:var(--ink,#24272e);font-size:12px}.ds-input::placeholder{color:var(--muted,#646b76)}.ds-input:focus-visible{border-color:var(--cobalt,#5267cf);outline:2px solid var(--blue-soft,#edf0fa);outline-offset:1px}.ds-input[aria-invalid=true]{border-color:var(--coral-dark,#ab5146)}"
+      "css": ".ds-field{font-family:var(--font-manrope, Manrope),sans-serif;display:grid;gap:8px;font-size:13px;font-weight:550;color:var(--ink,#101623)}.ds-input-wrap{position:relative;display:flex;align-items:center}.ds-field-icon{position:absolute;left:12px;width:15px;height:15px;color:var(--muted,#646b76);pointer-events:none}.ds-input{font-family:var(--font-manrope, Manrope),sans-serif;width:100%;height:48px;padding:10px 12px 10px 36px;border:1px solid var(--line-strong,#d3d7df);border-radius:6px;background:white;color:var(--ink,#101623);font-size:16px}.ds-input::placeholder{color:var(--muted,#646b76)}.ds-input:focus-visible{border-color:var(--cobalt,#2768ff);outline:2px solid var(--blue-soft,#edf0fa);outline-offset:1px}.ds-input[aria-invalid=true]{border-color:var(--coral-dark,#bd3c33)}"
     },
     {
       "name": "Navigation links",
       "kind": "nav",
       "description": "Quiet secondary links with clear hover and focus states.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Example\"><a href=\"#product\">Product</a><a href=\"#how-it-works\">How it works</a><a href=\"#faq\">FAQs</a></nav>",
-      "css": ".ds-nav{font-family:var(--font-manrope, Manrope),sans-serif;display:flex;gap:28px;align-items:center;font-size:12px;font-weight:550}.ds-nav a{color:var(--muted,#646b76);text-decoration:none;transition:color 160ms ease}.ds-nav a:hover{color:var(--ink,#24272e)}.ds-nav a:focus-visible{outline:2px solid var(--cobalt,#5267cf);outline-offset:4px;}"
+      "css": ".ds-nav{font-family:var(--font-manrope, Manrope),sans-serif;display:flex;gap:28px;align-items:center;font-size:14px;font-weight:550}.ds-nav a{color:var(--muted,#646b76);text-decoration:none;transition:color 160ms ease}.ds-nav a:hover{color:var(--ink,#101623)}.ds-nav a:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px;}"
     },
     {
       "name": "Roadmap status",
@@ -264,39 +227,47 @@
       "name": "Audience card",
       "kind": "card",
       "description": "Pale framing and equal audience prominence; synthetic preview content is illustrative.",
-      "html": "<article class=\"ds-card\"><span>For founders</span><h3>Find the opportunity<br>worth pursuing.</h3><p>Start with a problem, an idea, or a market curiosity. Build a cited view of the opportunity before committing to a product.</p></article>",
-      "css": ".ds-card{font-family:var(--font-manrope, Manrope),sans-serif;padding:32px;background:#f7f8fb;border-radius:var(--radius-panel,12px);color:var(--ink,#24272e)}.ds-card>span{font-size:11px;color:var(--muted,#646b76)}.ds-card h3{margin:24px 0 0;font-size:29px;font-weight:500;line-height:1.15;letter-spacing:-.035em}.ds-card p{max-width:405px;margin:18px 0 0;font-size:13px;line-height:1.65;color:var(--muted,#646b76)}"
+      "html": "<article class=\"ds-card\"><span>For founders</span><h3>Find the opportunity<br>worth pursuing.</h3><p>Start with a problem, an idea, or a market curiosity. Build a cited view of the opportunity before committing to a product.</p><a href=\"#product\">Explore Opportunity Discovery</a></article>",
+      "css": ".ds-card{font-family:var(--font-manrope, Manrope),sans-serif;padding:32px;background:#f7f9fb;border:1px solid var(--line,#e7eaee);transition:background-color 200ms ease,border-color 200ms ease;border-radius:var(--radius-panel,12px);color:var(--ink,#101623)}.ds-card>span{font-size:12px;color:var(--coral-dark,#bd3c33)}.ds-card h3{margin:24px 0 0;font-size:29px;font-weight:500;line-height:1.15;letter-spacing:-.035em}.ds-card p{max-width:405px;margin:18px 0 0;font-size:15px;line-height:1.65;color:var(--muted,#646b76)}@media(hover:hover){.ds-card:hover{background:#eef3f7;border-color:#d4dde6}}.ds-card:focus-within{background:#eef3f7;border-color:#d4dde6}.ds-card a{display:inline-flex;align-items:center;min-height:44px;margin-top:24px;font-size:13px;font-weight:600;color:var(--ink,#101623);text-decoration:none}.ds-card a:hover{color:var(--cobalt,#2768ff)}.ds-card a:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}}"
     },
     {
       "name": "Product story step",
       "kind": "custom",
       "description": "Selected vertical product step. Four steps per audience, with an expanding description and linked motion scene.",
       "html": "<div class=\"ds-story-step\"><button role=\"tab\" aria-selected=\"true\"><span>01</span>Start with an idea</button><p>Describe a problem, a workflow, or something you keep noticing.</p></div>",
-      "css": ".ds-story-step{font-family:Manrope,sans-serif;max-width:300px;border-bottom:1px solid #e6e8ec}.ds-story-step button{display:flex;gap:16px;padding:21px 0;border:0;background:transparent;font:inherit;font-size:17px;color:#24272e}.ds-story-step button span{font-size:10px;color:#4359bc}.ds-story-step p{padding-left:30px;font-size:13px;line-height:1.8;color:#646b76}"
+      "css": ".ds-story-step{font-family:Manrope,sans-serif;max-width:300px;border-bottom:1px solid var(--line,#e7eaee)}.ds-story-step button{display:flex;gap:16px;padding:21px 0;border:0;background:transparent;font:inherit;font-size:17px;color:var(--ink,#101623)}.ds-story-step button span{font-size:10px;color:var(--coral,#ff5a4f)}.ds-story-step p{padding-left:30px;font-size:14px;line-height:1.8;color:#646b76}.ds-story-step button:hover{color:var(--ink,#101623)}.ds-story-step button:focus-visible{outline:2px solid var(--cobalt,#2768ff);outline-offset:4px}"
+    },
+    {
+      "name": "Hero tile field",
+      "kind": "custom",
+      "description": "Static specimen of decorative edge tiles. Live animation, visibility tracking, and pause control are implemented in BackgroundPattern.tsx.",
+      "html": "<svg class=\"ds-tiles\" viewBox=\"0 0 120 92\" aria-hidden=\"true\"><g><rect x=\"8\" y=\"8\" width=\"8\" height=\"8\" rx=\"2\"/><rect x=\"36\" y=\"36\" width=\"8\" height=\"8\" rx=\"2\"/><rect x=\"64\" y=\"64\" width=\"8\" height=\"8\" rx=\"2\"/><rect x=\"92\" y=\"8\" width=\"8\" height=\"8\" rx=\"2\"/></g><g class=\"ds-coral-tiles\"><rect x=\"36\" y=\"8\" width=\"8\" height=\"8\" rx=\"2\"/><rect x=\"64\" y=\"36\" width=\"8\" height=\"8\" rx=\"2\"/></g></svg>",
+      "css": ".ds-tiles{width:200px;fill:#dfe4eb;opacity:.6;mask-image:radial-gradient(ellipse,black 15%,transparent 72%)}.ds-coral-tiles{fill:#ffc5be}"
     }
   ],
   "narrative": {
     "northStar": "Clean contemporary SaaS",
-    "overview": "A clean contemporary SaaS system: light surfaces, calm sans-serif typography, near-black controls, and substantive product imagery. It follows the user\u2019s Dance, Maze, Console, and Lightfield reference direction while retaining the VerityLoop name and cobalt/coral logo.\n\nThe marketing layer stays spacious; illustrative product workspaces carry the information density. Pale blue, gray-green, and warm sand stages frame white interfaces. Product concepts use synthetic examples and remain visibly labeled as illustrative.",
+    "overview": "The established VerityLoop identity is refined into a pure-white, modern marketing surface with vibrant coral actions, calm Manrope typography, and substantive product concepts. The November 13, 2026 direction draws on Firecrawl and Dovetail for lightness and minimal background motion while preserving the approved Rhythm logo and the existing product story.\n\nThe marketing layer stays spacious; white illustrative workspaces carry the information density within light blue, mint, and peach stages. Small tile fields fade slowly around the hero edges, leaving the central message clear. Delivery sits on white within a light-blue frame; signup uses a light-coral panel with a white form.\n\nThis current specification replaces the September ivory page and navy walkthrough/delivery treatment. Historical design plans and older product notes are not authority for restoring those surface colors. The brand asset generator retains its own paper color; the marketing page uses the white `paper` token below.",
     "keyCharacteristics": [
-      "Light Manrope typography with restrained headline weight.",
-      "Near-black primary controls and sparse cobalt accents.",
-      "Thin neutral dividers, modest corners, and selective product-window shadows.",
-      "Authored SVG interfaces with readable detail crops and explicit illustration labels."
+      "Pure-white page, navigation, and walkthrough with light cool framing.",
+      "Coral primary actions and selected journey controls; cobalt keyboard focus and secondary accents.",
+      "Readable marketing controls, thin neutral dividers, modest corners, and selective shadows.",
+      "The approved Rhythm mark, restrained hero tile motion, and clearly labeled illustrative product concepts."
     ],
     "rules": [],
     "dos": [
-      "Do use Manrope for marketing typography and compact system sans typography inside authored product concepts.",
-      "Do preserve the cobalt/coral brand mark and near-black primary actions.",
-      "Do show both founders and product teams with equal visual prominence on the landing page.",
-      "Do retain visible focus treatments, explicit form labels, and reduced-motion behavior.",
-      "Do label product concepts and synthetic data as illustrative."
+      "Do preserve pure-white page, navigation, and walkthrough surfaces with light blue, mint, peach, and coral framing.",
+      "Do preserve the approved Rhythm mark, exact hero headline, coral primary actions, and equal founder/team journeys.",
+      "Do keep marketing controls readable independently of compact illustrative product UI.",
+      "Do retain native scrolling, keyboard focus, explicit form labels, validation, and reduced-motion behavior.",
+      "Do label product concepts and synthetic data as illustrative and preserve human approval boundaries."
     ],
     "donts": [
-      "Don\u2019t bring back giant italic headlines, dark section alternation, or orbit imagery from the previous styling.",
-      "Don\u2019t present authored previews as shipped application screenshots, customer proof, or measured outcomes.",
-      "Don\u2019t auto-cycle the product story or trap page scrolling.",
-      "Don\u2019t stretch a complete desktop workspace into an unreadable mobile thumbnail; use the authored detail crop."
+      "Don't restore the historical ivory page, navy section treatment, or four-bar logo as the current direction.",
+      "Don't add line-based evidence trails behind the hero or let decorative motion compete with its copy.",
+      "Don't present authored previews as shipped application screenshots, customer proof, or measured outcomes.",
+      "Don't change walkthrough steps on a timer or intercept page scrolling.",
+      "Don't shrink an entire desktop workspace into an unreadable mobile thumbnail; use the authored detail crop."
     ]
   }
 }
