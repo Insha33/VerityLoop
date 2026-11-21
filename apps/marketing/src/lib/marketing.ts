@@ -1,19 +1,5 @@
-import {
-  decisionContent,
-  journeyContent,
-  type Audience,
-  type DecisionKey,
-  type JourneyKey,
-} from "@/content/marketing";
+import type { Audience } from "@/content/marketing";
 import { validateEmailSyntax } from "@/lib/email";
-
-export function getJourneyContent(journey: JourneyKey) {
-  return journeyContent[journey];
-}
-
-export function getDecisionContent(decision: DecisionKey) {
-  return decisionContent[decision];
-}
 
 export function validateEmail(value: string) {
   return validateEmailSyntax(value);

@@ -10,8 +10,6 @@ import robots from "@/app/robots";
 import { faqs } from "@/content/faq";
 import { marketingCopy } from "@/content/marketing";
 import {
-  getDecisionContent,
-  getJourneyContent,
   getVisibleSection,
   validateAudience,
   validateEmail,
@@ -56,24 +54,6 @@ describe("marketing content", () => {
       url: "https://runverityloop.com/",
       logo: "https://runverityloop.com/verityloop-logo.svg",
     });
-  });
-
-  it("keeps founders and product teams as distinct, equally represented journeys", () => {
-    const opportunity = getJourneyContent("opportunity");
-    const roadmap = getJourneyContent("roadmap");
-
-    expect(opportunity.audience).toBe("For founders");
-    expect(roadmap.audience).toBe("For product teams");
-    expect(opportunity.signals).toHaveLength(3);
-    expect(roadmap.signals).toHaveLength(3);
-    expect(opportunity.signals).not.toEqual(roadmap.signals);
-  });
-
-  it("returns distinct decision guidance for every supported outcome", () => {
-    expect(getDecisionContent("validate").title).toMatch(/Validate/i);
-    expect(getDecisionContent("watch").title).toMatch(/Watch/i);
-    expect(getDecisionContent("ignore").title).toMatch(/Ignore/i);
-    expect(getDecisionContent("validate").copy).not.toBe(getDecisionContent("watch").copy);
   });
 
   it("validates all waitlist fields at their public boundary", () => {
