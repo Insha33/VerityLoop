@@ -47,7 +47,7 @@ The dashboard uses [Astryx](https://astryx.atmeta.com/) (`@astryxdesign/*` 0.7.1
 - **Dark mode:** `<Theme mode="system">` follows the system setting; tokens are `light-dark()` pairs. There is no toggle.
 - **CSS layers:** `layers.css` declares `reset, astryx-base, astryx-theme, app`. Page layout lives in `globals.css` inside `@layer app`, with element rules scoped to the page containers so they never restyle Astryx components.
 - **Names the tests use:** the dialog close button is named "Close dialog" through the Astryx i18n override in `providers.tsx`. Field errors are checked through each field's accessible description.
-- **Sign-up stage:** concept E from the November 2026 review: the form takes 42% of the width and a product stage 58%, with the marketing hero headline, a dimmed sample workspace, one sample decision brief, and the marketing signal grid at a smaller 18px pitch with square cells. The stage runs the full height of the page. The sample content is labelled as an example, hidden from assistive technology and inert.
+- **Sign-up stage:** concept E from the November 2026 review: the form takes 42% of the width and a product stage 58%, with the marketing hero headline, a dimmed sample workspace, one sample decision brief, and the marketing signal grid at a smaller 18px pitch with square cells. The stage runs the full height of the page, and the workspace screen is cropped by its bottom edge. The sample content is hidden from assistive technology and inert; the header's "Product preview" label is the page's preview disclosure.
 
 ## Gaps against the UI rules
 

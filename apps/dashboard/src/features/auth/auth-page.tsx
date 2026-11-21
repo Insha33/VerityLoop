@@ -67,7 +67,6 @@ function ProductStage() {
         <div className="stage-brief-actions"><Button variant="primary" size="sm" label="Approve" /><Button size="sm" label="Request changes" /></div>
       </div>
     </div>
-    <p className="auth-stage-caption">An example workspace with sample briefs.</p>
   </div>;
 }
 

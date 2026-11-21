@@ -10,9 +10,9 @@ Every screen was captured with Playwright against the dev server at 1440×1000 a
 
 - Layouts, spacing and copy match the previous build; only the controls (buttons, fields, select, checkboxes, dialogs, menus, badges, avatars, spinner) changed, to Astryx.
 - Every corner is square (theme radius 0); avatars stay round. Primary buttons use the exact logo orange `#ff5a4f` with white labels, matching marketing; contrast is 3.08:1 light and 2.79:1 dark, below WCAG AA (recorded in the README). The orange also marks the logo, the active navigation icon, the setup-step underline, the sign-up headline and the signal cells. Errors and destructive actions stay red.
-- The sign-up page splits 42% form to 58% stage, and the stage runs the full height of the page. The stage shows the marketing headline, a dimmed sample workspace, one sample decision brief, and the signal grid with 18px square cells. The grid stops above the product picture and clears the headline and the sign-in link. With reduced motion it is static.
+- The sign-up page splits 42% form to 58% stage, and the stage runs the full height of the page, with the workspace screen cropped by its bottom edge. The stage shows the marketing headline, a dimmed sample workspace, one sample decision brief, and the signal grid with 18px square cells. The grid stops above the product picture and clears the headline and the sign-in link. With reduced motion it is static.
 
-Fixed during review: the signal grid showed through the dimmed workspace (now only its contents are dimmed); the stage caption overlapped the picture; on phones the header account menu crowded the breadcrumbs (it now shows the avatar only, as the original header did); a missing React key in the sample rows; the light page background was Astryx neutral's grey instead of DESIGN.md's white.
+Fixed during review: the signal grid showed through the dimmed workspace (now only its contents are dimmed); on phones the header account menu crowded the breadcrumbs (it now shows the avatar only, as the original header did); a missing React key in the sample rows; the light page background was Astryx neutral's grey instead of DESIGN.md's white.
 
 ## Checks
 

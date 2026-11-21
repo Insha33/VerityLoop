@@ -47,10 +47,9 @@
   .auth-stage .auth-stage-heading { position: absolute; z-index: 1; left: 64px; top: 128px; max-width: 560px; font-size: 2.75rem; line-height: 1.1; font-weight: 550; letter-spacing: -1.4px; text-wrap: balance; }
   /* Large text: the logo orange passes the 3:1 large-text minimum (3.08:1 on white). */
   .auth-stage-heading span { display: block; color: var(--vl-brand); }
-  .auth-stage-caption { position: absolute; z-index: 3; left: 64px; bottom: 24px; font-size: 0.8125rem; color: var(--color-text-secondary); }
 
   /* The product picture inside the stage: a workspace list, dimmed, with one decision brief in front. */
-  .stage-app { position: absolute; z-index: 1; left: 64px; top: 300px; bottom: 64px; width: 980px; display: grid; grid-template-columns: 56px minmax(0, 1fr); background: var(--color-background-card); border: 1px solid var(--color-border); font-size: 0.8125rem; overflow: hidden; }
+  .stage-app { position: absolute; z-index: 1; left: 64px; top: 300px; bottom: 0; width: 980px; display: grid; grid-template-columns: 56px minmax(0, 1fr); background: var(--color-background-card); border: 1px solid var(--color-border); border-bottom: 0; font-size: 0.8125rem; overflow: hidden; }
   /* Dim the list's contents, not the frame, so the signal grid never shows through it. */
   .stage-app > * { opacity: 0.5; }
   .stage-rail { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 8px; border-right: 1px solid var(--color-border); background: var(--vl-paper); color: var(--color-icon-secondary); }
