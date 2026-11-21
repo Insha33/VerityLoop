@@ -40,10 +40,10 @@
   .auth-form .helper { margin-top: 10px; }
   .auth-terms { margin-top: 36px; font-size: 0.8125rem; color: var(--color-text-secondary); line-height: 1.375rem; }
   .auth-submit { margin-top: 24px; }
-  .auth-preview-panel { padding: 0 16px; }
+  .auth-preview-panel { padding: 0 0 0 16px; }
 
   /* The stage: square corners like the marketing site, a stage-peach wash and the signal grid. */
-  .auth-stage { position: relative; isolation: isolate; height: 100%; min-height: 640px; overflow: hidden; border-inline: 1px solid var(--color-border); background: linear-gradient(160deg, var(--vl-stage), var(--vl-paper) 72%); }
+  .auth-stage { position: relative; isolation: isolate; height: 100%; min-height: 640px; overflow: hidden; border-left: 1px solid var(--color-border); background: linear-gradient(160deg, var(--vl-stage), var(--vl-paper) 72%); }
   .auth-stage .auth-stage-heading { position: absolute; z-index: 1; left: 64px; top: 128px; max-width: 560px; font-size: 2.75rem; line-height: 1.1; font-weight: 550; letter-spacing: -1.4px; text-wrap: balance; }
   /* Large text: the logo orange passes the 3:1 large-text minimum (3.08:1 on white). */
   .auth-stage-heading span { display: block; color: var(--vl-brand); }
