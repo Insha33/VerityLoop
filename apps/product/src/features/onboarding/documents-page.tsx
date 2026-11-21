@@ -6,7 +6,7 @@ import { useRef, useState, type DragEvent } from "react";
 import { ArrowLeft, Check, FileText, LockKeyhole, Upload } from "lucide-react";
 import { Arrow } from "@/components/ui";
 import { PageHeading } from "./app-shell";
-import { formatSize, hasScopedConnection, workspacePath, type ProductDocument } from "./model";
+import { advanceStage, formatSize, hasScopedConnection, workspacePath, type ProductDocument } from "./model";
 import { SetupNav, useWorkspace, WorkspaceGuard } from "./workspace-frame";
 
 const ALLOWED = new Set(["pdf", "docx", "pptx", "md", "markdown", "txt"]);
@@ -51,6 +51,6 @@ export function DocumentsPage() {
     {notice && <p className="helper upload-status" role="status">{notice}</p>}
     <ul className="file-list" aria-label="Product documents">{current.documents.map((file) => <li key={file.id}><FileText size={24} aria-hidden="true" /><div className="file-name"><strong title={file.name}>{file.name}</strong><span>{file.type} · {formatSize(file.size)}</span></div><span className="file-state"><Check size={15} />Added locally</span><button className="inline-link" aria-label={`Remove ${file.name}`} onClick={() => { updateWorkspace(current.id, (item) => ({ ...item, documents: item.documents.filter((entry) => entry.id !== file.id) })); setNotice(`${file.name} removed from this workspace preview.`); }}>Remove</button></li>)}</ul>
     <div className="document-notes"><p>You can add more documents later.</p><p><LockKeyhole size={18} aria-hidden="true" />Files belong to {current.name} and follow its access permissions.</p><p className="helper">This preview keeps file names and sizes in this browser tab. Files are not uploaded or analyzed.</p></div>
-    <div className="action-bar setup-actions"><Link className="text-button" href={workspacePath(current.id, "connections")}><ArrowLeft size={18} />Back</Link><button className="button primary" onClick={() => { updateWorkspace(current.id, (item) => ({ ...item, stage: "complete" })); router.push(workspacePath(current.id)); }}>Finish workspace setup<Arrow /></button></div>
+    <div className="action-bar setup-actions"><Link className="text-button" href={workspacePath(current.id, "connections")}><ArrowLeft size={18} />Back</Link><button className="button primary" onClick={() => { updateWorkspace(current.id, (item) => ({ ...item, stage: advanceStage(item.stage, "complete") })); router.push(workspacePath(current.id)); }}>Finish workspace setup<Arrow /></button></div>
   </WorkspaceGuard>;
 }
