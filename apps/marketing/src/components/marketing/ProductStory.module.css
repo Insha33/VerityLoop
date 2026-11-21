@@ -160,5 +160,8 @@ section.section { width: 100%; background: var(--paper); color: var(--ink); padd
    rule: those use the `animation` shorthand, which resets play-state to running, and they have the
    same specificity as this rule, so a later one would win and scenes would keep animating offscreen. */
 .stage[data-visible=false] .reveal, .stage[data-visible=false] .connection > span { animation-play-state: paused; }
+/* Dots and avatars stay round against the page-wide `border-radius: 0 !important` in globals.css.
+   One class plus !important beats the universal selector, whatever the bundler names the class. */
+.liveDot, .avatar { border-radius: 50% !important; }
 .mobileScene { filter: none; transform: none; }
 @media (prefers-reduced-motion: reduce) { .scene, .scene[data-active=true] { filter: none; transform: none; } }

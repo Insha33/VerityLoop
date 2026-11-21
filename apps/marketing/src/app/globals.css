@@ -517,9 +517,11 @@ button.source-item { border: 0; text-align: left; font-family: inherit; line-hei
 
 /* Sharp corners everywhere (Nov 2026): buttons, cards, inputs, chips, frames, tooltips and the
    shadcn/Radix primitives. !important is deliberate: radii come from many component files and
-   utility classes, and this is one page-wide rule. Only true dots and avatars stay round. */
+   utility classes, and this is one page-wide rule. Only true dots and avatars stay round.
+   CSS-module dots and avatars set their own `border-radius: 50% !important` in their module: hashed
+   class names differ between `next dev` and `next build --webpack`, so don't match them here. */
 *, *::before, *::after { border-radius: 0 !important; }
-.caption-dot, .callout-avatar, .journey-connector::after, [class*="__liveDot"], [class*="__avatar"] { border-radius: 50% !important; }
+.caption-dot, .callout-avatar, .journey-connector::after { border-radius: 50% !important; }
 
 /* Exception to the sharp rule: the hero product showcase keeps its rounded frame, cards and
    coral "+" marks at the frame's top corners (Nov 2026 request). */

@@ -2,13 +2,15 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-// jsdom doesn't expand the `animation` shorthand or resolve the full cascade, so this check reads
-// the stylesheet source. It guards a bug where a later `animation` shorthand reset
-// `animation-play-state`, so offscreen scenes kept animating.
+// jsdom doesn't expand the `animation` shorthand or resolve the full cascade, so these checks read
+// the stylesheet source. They guard two production-only bugs:
+// 1. a later `animation` shorthand reset `animation-play-state`, so offscreen scenes kept animating;
+// 2. `[class*="__liveDot"]` matched dev class names but not webpack's `ProductStory_liveDot__hash`.
 const moduleCss = readFileSync(
   join(process.cwd(), "src/components/marketing/ProductStory.module.css"),
   "utf8",
 );
+const globalCss = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
 
 function topLevelRules(css: string) {
   const withoutComments = css.replace(/\/\*[\s\S]*?\*\//g, "");
@@ -45,5 +47,10 @@ describe("product story styles", () => {
         pause!.index,
       );
     }
+  });
+
+  it("keeps module dots and avatars round without matching hashed class names", () => {
+    expect(moduleCss).toMatch(/\.liveDot,\s*\.avatar\s*\{\s*border-radius:\s*50%\s*!important;/);
+    expect(globalCss).not.toMatch(/\[class\*=["']__/);
   });
 });
