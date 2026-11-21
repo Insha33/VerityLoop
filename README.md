@@ -48,7 +48,11 @@ Run one app with `npm run dev:marketing` (or `dev:marketing:3100`) or `npm run d
 | `npm run start:dashboard` | Serve a production product build on port 3001 |
 | `npm run preview:marketing` | Build and serve marketing plus the waitlist Worker locally |
 | `npm run deploy:check` | Build marketing and validate the Worker bundle without deploying |
+| `npm run deploy:check:dashboard` | Build the dashboard Worker (OpenNext) and validate it without deploying |
 | `npm run deploy` | Deploy only marketing and its waitlist Worker |
+| `npm run deploy:dashboard` | Deploy only the dashboard Worker |
+
+GitHub Actions runs CI on every pull request, with preview deploys for the apps a PR changes. Production deploys are started by hand from the **Deploy marketing** and **Deploy dashboard** workflows on `main`; deploys from a laptop are for emergencies.
 
 `build`, `typecheck`, `test` and `test:e2e` run through Turborepo. It runs workspaces in parallel, and a task whose inputs haven't changed replays its saved result instead of running again (cache in `.turbo/`, ignored by Git). Use `--filter` to target one workspace. Deploys skip the cache.
 
@@ -56,4 +60,4 @@ Install app dependencies into their owning workspace, for example `npm install <
 
 Next.js environment files belong inside the app that consumes them, such as `apps/dashboard/.env.local`. Marketing Worker local credentials stay in root `.dev.vars` (copy `.dev.vars.example`), because its Wrangler config is at the root. Don't put product credentials there.
 
-See [the monorepo guide](docs/monorepo.md) for the layout decisions and deployment settings, and [marketing setup](apps/marketing/README.md) for waitlist configuration.
+See [the monorepo guide](docs/monorepo.md) for the layout decisions, CI/CD and rollback, and [marketing setup](apps/marketing/README.md) for waitlist configuration.

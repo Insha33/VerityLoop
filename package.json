@@ -25,11 +25,13 @@
     "start": "npm run preview:marketing",
     "deploy": "npm run deploy:marketing",
     "deploy:marketing": "wrangler deploy",
+    "deploy:dashboard": "npm run deploy --workspace=@verityloop/dashboard",
     "deploy:check": "wrangler deploy --dry-run",
+    "deploy:check:dashboard": "npm run deploy:check --workspace=@verityloop/dashboard",
     "brand:assets": "npm run brand:assets --workspace=@verityloop/marketing"
   },
   "devDependencies": {
     "turbo": "^2.11.13",
-    "wrangler": "^4.123.0"
+    "wrangler": "^4.166.0"
   }
 }

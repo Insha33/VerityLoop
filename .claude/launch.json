@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev:dashboard"],
       "port": 3001
+    },
+    {
+      "name": "dashboard-worker",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["exec", "--workspace=@verityloop/dashboard", "--", "opennextjs-cloudflare", "preview", "--port", "8788"],
+      "port": 8788
     }
   ]
 }

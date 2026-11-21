@@ -13,3 +13,4 @@ out/
 .dev.vars.*
 !.dev.vars.example
 .turbo/
+.open-next/

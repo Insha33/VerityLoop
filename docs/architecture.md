@@ -49,9 +49,9 @@ Solid boxes in **Built** run today. Everything in **Planned** is unbuilt, and `a
 
 | Component | Path | Status | Owns | Deploys to |
 | --- | --- | --- | --- | --- |
-| Marketing site | `apps/marketing/src` | Built | Landing page, SEO, brand assets, illustrative product scenes | Cloudflare Workers static assets (root `wrangler.jsonc`) |
+| Marketing site | `apps/marketing/src` | Built | Landing page, SEO, brand assets, illustrative product scenes | Cloudflare Workers static assets (root `wrangler.jsonc`), `runverityloop.com` |
 | Waitlist API | `apps/marketing/worker/index.ts` | Built | Validates signups, inserts into Supabase `waitlist` (`on_conflict=email`), sends team notification and welcome emails through Resend | Same Worker as the site, `/api/*` routed to the Worker first |
-| Dashboard (product UI) | `apps/dashboard` | Built, as a **frontend preview** | Sign-up, account dashboard, workspace directory, create workspace, invites, connections, documents | Not deployed; no host chosen |
+| Dashboard (product UI) | `apps/dashboard` | Built, as a **frontend preview** | Sign-up, account dashboard, workspace directory, create workspace, invites, connections, documents | Cloudflare Workers through OpenNext (`apps/dashboard/wrangler.jsonc`), `platform.runverityloop.com` |
 | API | `apps/api` | Planned | Identity, org/domain ownership, server-side membership, invites, OAuth connectors, storage, briefs, decisions | Undecided (plan D2) |
 | Worker | `apps/worker` | Planned | Durable evidence jobs and brief drafting | Undecided (plan: Inngest) |
 | Shared packages | `packages/` | None yet | Future contracts, UI, config shared by more than one consumer | n/a |
@@ -83,7 +83,7 @@ Solid boxes in **Built** run today. Everything in **Planned** is unbuilt, and `a
 
 | Question | Document |
 | --- | --- |
-| Why apps and packages are split this way, Turborepo tasks, Cloudflare build settings | [monorepo.md](monorepo.md) |
+| Why apps and packages are split this way, Turborepo tasks, CI, deploys and rollback | [monorepo.md](monorepo.md) |
 | Proposed v1 scope, stack decisions D1–D5, P0 list | `docs/plans/v1-onboarding-and-first-brief.md` on branch `docs/v1-onboarding-plan` |
 | Full requirements (PRD v0.4, written under the earlier Groundtruth name) | Google Doc linked from [PRODUCT.md](../PRODUCT.md) |
 | Marketing visual system | [DESIGN.md](../DESIGN.md) |
