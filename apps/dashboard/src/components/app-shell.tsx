@@ -3,8 +3,13 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { ChevronDown, ChevronRight, Home, Layers, LogOut, Menu, Settings, X } from "lucide-react";
-import { Avatar, Brand, Loading } from "@/components/ui";
+import { ChevronRight, Home, Layers, LogOut, Menu, Settings, X } from "lucide-react";
+import { Avatar } from "@astryxdesign/core/Avatar";
+import { DropdownMenu, DropdownMenuItem } from "@astryxdesign/core/DropdownMenu";
+import { Icon } from "@astryxdesign/core/Icon";
+import { IconButton } from "@astryxdesign/core/IconButton";
+import { Spinner } from "@astryxdesign/core/Spinner";
+import { Brand } from "@/components/brand";
 import { useDemo } from "@/lib/preview-store";
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -12,19 +17,17 @@ export function AppShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
   useEffect(() => { if (ready && !state.profile) router.replace("/sign-up"); }, [ready, state.profile, router]);
   useEffect(() => {
     setMobileOpen(false);
-    setAccountOpen(false);
     document.getElementById("page-heading")?.focus();
   }, [pathname]);
   useEffect(() => {
-    function close(event: KeyboardEvent) { if (event.key === "Escape") { setMobileOpen(false); setAccountOpen(false); } }
+    function close(event: KeyboardEvent) { if (event.key === "Escape") setMobileOpen(false); }
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
   }, []);
-  if (!ready || !state.profile) return <Loading />;
+  if (!ready || !state.profile) return <div className="loading"><Spinner size="lg" label="Loading your workspace…" /></div>;
   const profile = state.profile;
   const workspaceId = pathname.split("/")[2];
   const workspace = state.workspaces.find((item) => item.id === workspaceId);
@@ -34,18 +37,23 @@ export function AppShell({ children }: { children: ReactNode }) {
   function leave() { signOut(); router.push("/sign-up"); }
   return <div className="app-shell">
     <a className="skip-link" href="#main-content">Skip to content</a>
-    {mobileOpen && <button className="nav-scrim" aria-label="Close navigation" onClick={() => setMobileOpen(false)} />}
+    {mobileOpen && <button type="button" className="nav-scrim" aria-label="Close navigation" onClick={() => setMobileOpen(false)} />}
     <aside id="app-navigation" className={`app-sidebar${mobileOpen ? " is-open" : ""}`} aria-label="Account navigation">
-      <div className="sidebar-brand"><Link href="/" aria-label="VerityLoop dashboard"><Brand /></Link><button className="icon-button mobile-only" aria-label="Close navigation" onClick={() => setMobileOpen(false)}><X size={20} /></button></div>
-      <nav>{links.map(({ href, label, icon: Icon }) => {
+      <div className="sidebar-brand"><Link href="/" aria-label="VerityLoop dashboard"><Brand height={35} /></Link><span className="mobile-only"><IconButton variant="ghost" label="Close navigation" icon={<Icon icon={X} />} onClick={() => setMobileOpen(false)} /></span></div>
+      <nav>{links.map(({ href, label, icon: NavIcon }) => {
         const active = href === "/" ? pathname === href : pathname.startsWith(href);
-        return <Link key={href} href={href} aria-current={active ? "page" : undefined} className={`nav-item${active ? " active" : ""}`}><Icon size={21} aria-hidden="true" />{label}</Link>;
+        return <Link key={href} href={href} aria-current={active ? "page" : undefined} className={`nav-item${active ? " active" : ""}`}><NavIcon size={21} aria-hidden="true" />{label}</Link>;
       })}</nav>
-      <div className="sidebar-account"><Avatar name={profile.name} /><div><strong>{profile.name}</strong><span title={profile.email}>{profile.email}</span></div><button className="icon-button" onClick={leave} aria-label="Sign out"><LogOut size={17} /></button></div>
+      <div className="sidebar-account"><Avatar name={profile.name} size="md" tooltip={false} /><div className="sidebar-account-text"><strong>{profile.name}</strong><span title={profile.email}>{profile.email}</span></div><IconButton variant="ghost" size="sm" label="Sign out" icon={<Icon icon={LogOut} />} onClick={leave} /></div>
     </aside>
-    <div className="app-body"><header className="app-header"><button className="icon-button mobile-only" aria-expanded={mobileOpen} aria-controls="app-navigation" aria-label="Open navigation" onClick={() => setMobileOpen(!mobileOpen)}><Menu size={21} /></button>
+    <div className="app-body"><header className="app-header"><span className="mobile-only"><IconButton variant="ghost" label="Open navigation" aria-expanded={mobileOpen} aria-controls="app-navigation" icon={<Icon icon={Menu} />} onClick={() => setMobileOpen(!mobileOpen)} /></span>
       <nav className="breadcrumbs" aria-label="Breadcrumb">{crumbs.map((crumb, index) => <span key={`${crumb}-${index}`}>{index > 0 && <ChevronRight size={13} aria-hidden="true" />}{index === 0 && crumbs.length > 1 ? <Link href="/workspaces">{crumb}</Link> : <span aria-current={index === crumbs.length - 1 ? "page" : undefined}>{crumb}</span>}</span>)}</nav>
-      <div className="header-account"><button className="account-trigger" aria-expanded={accountOpen} aria-controls="account-menu" onClick={() => setAccountOpen(!accountOpen)}><Avatar name={profile.name} small /><span>{profile.email}</span><ChevronDown size={14} /></button>{accountOpen && <div className="account-menu" id="account-menu"><Link href="/settings">Account settings</Link><button onClick={leave}>Sign out</button></div>}</div>
+      <div className="header-account">{[false, true].map((compact) => <span key={String(compact)} className={compact ? "mobile-only" : "desktop-only"}>
+        <DropdownMenu alignment="end" hasChevron={!compact} button={{ label: compact ? `Account menu for ${profile.email}` : profile.email, isIconOnly: compact, variant: "ghost", icon: <Avatar name={profile.name} size="sm" tooltip={false} /> }}>
+          <DropdownMenuItem icon={Settings} label="Account settings" href="/settings" />
+          <DropdownMenuItem icon={LogOut} label="Sign out" onClick={leave} />
+        </DropdownMenu>
+      </span>)}</div>
     </header>
     <div className="demo-notice"><span className="demo-dot" />Interactive preview<span className="notice-description">Sample workspaces. Invites, connections, and uploads are simulated.</span></div>
     <main id="main-content" className="app-main">{children}</main></div>

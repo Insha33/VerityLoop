@@ -1,41 +1,28 @@
 # Onboarding implementation QA
 
-Date: 10 November 2026
+Date: 21 November 2026. Result: passed.
 
-final result: passed
-
-Scope: the seven approved PM onboarding screens, implemented as an interactive frontend preview. References: `../../docs/design/pm-onboarding/v8/`, `account-first-v7.md`, and `refinement-v8.md` in the same design directory. Local Playwright was used with explicit user approval because this session has no connected browser tool.
+Scope: the seven PM onboarding screens after moving the controls to Astryx, moving every color onto theme tokens, adding dark mode, and rebuilding the sign-up stage (concept E). The page layouts and copy are the ones from the 10 November build; that record is in Git history.
 
 ## Rendered review
 
-Compared the reference images and actual browser captures for the split signup, authenticated sidebar, workspace list/form, invitation flow, connections and documents. Retained warm surfaces, ink primary actions, restrained coral accents, Manrope, simple rows, and the global-versus-workspace navigation distinction. Applied the specified 28/36px heading, 16px input/body and 14px label/helper scale using relative font units. Mobile invitation fields stack to preserve email input space. The sidebar becomes a toggleable navigation drawer on phones.
+Every screen was captured with Playwright against the dev server at 1440×1000 and 375×812, in light and dark: sign-up, dashboard, workspace directory and its request dialog, invitation with a validation error, connections before and after connecting (and the connect dialog), documents with a rejected and an added file, workspace overview, settings, and the mobile navigation drawer.
 
-This is a responsive interpretation of image-generated references, not a pixel-difference certification. Intentional differences: consistent 232px desktop sidebar; sample data and preview disclosures; actual Jira/Linear assets and a generic book icon for Confluence; local file status rather than claiming an upload or analysis occurred. Terms and additional integrations open informative dialogs until their services are configured.
+- Layouts, spacing and copy match the previous build; only the controls (buttons, fields, select, checkboxes, dialogs, menus, badges, avatars, spinner) changed, to Astryx.
+- Every corner is square (theme radius 0); avatars stay round. Primary buttons use the exact logo orange `#ff5a4f` with white labels, matching marketing; contrast is 3.08:1 light and 2.79:1 dark, below WCAG AA (recorded in the README). The orange also marks the logo, the active navigation icon, the setup-step underline, the sign-up headline and the signal cells. Errors and destructive actions stay red.
+- The sign-up page splits 42% form to 58% stage, and the stage runs the full height of the page, with the workspace screen cropped by its bottom edge. The stage shows the marketing headline, a dimmed sample workspace, one sample decision brief, and the signal grid with 18px square cells. The grid stops above the product picture and clears the headline and the sign-in link. With reduced motion it is static.
+
+Fixed during review: the signal grid showed through the dimmed workspace (now only its contents are dimmed); on phones the header account menu crowded the breadcrumbs (it now shows the avatar only, as the original header did); a missing React key in the sample rows; the light page background was Astryx neutral's grey instead of DESIGN.md's white.
 
 ## Checks
 
-- Production build and TypeScript check passed.
-- Eight Playwright journeys passed: company and personal flows at 1440×1024, 768×1024, 375×812, and 320×740. (This record predates 2026-11-21; the suite now runs at 1440×1024 and 375×812 only.)
-- All seven screens captured at each viewport with a horizontal-overflow assertion.
-- Checked email validation, owner request/pending states, restricted direct URLs, Reviewer management restrictions, workspace naming, invitation validation, generated link revocation, optional invite skipping, required scoped connection, invalid file recovery, document metadata, reload persistence, completion and separate state in a second workspace.
-- Browser page errors were collected during company journeys; none occurred.
-- Native dialogs support Escape and modal focus behavior; navigation has current-page semantics, labelled inputs, error/status announcements, a skip link and focus indicators. Closed mobile navigation is hidden from keyboard interaction. Reduced-motion styles are provided. These checks are not a formal accessibility certification or a substitute for assistive-technology testing.
-
-Fixed during review: hidden file input causing desktop overflow; cramped mobile email fields; an early workspace-directory screenshot captured before route completion; primary action color mismatch; development overlay in captures. No unresolved blocking visual or interaction issue was observed in the tested flows.
+- `npm run typecheck` (including the check that the built theme matches its source), `npm test` (22 unit tests) and `npm run build` passed.
+- Eight Playwright journeys passed at 1440×1024 and 375×812, with the horizontal-overflow assertion on each captured screen and no page errors.
+- Dialogs, menus and fields are Astryx components: Escape closes dialogs, focus is managed, inputs are labelled and errors are part of each field's accessible description. These checks are not a formal accessibility certification.
 
 ## Captures
 
-Generated locally by `npm run test:e2e`. Artifacts are ignored by Git and can be regenerated.
-
-| Screen | Desktop | Phone |
-| --- | --- | --- |
-| Signup | [Capture](artifacts/onboarding/desktop/01-signup.png) | [Capture](artifacts/onboarding/mobile/01-signup.png) |
-| Dashboard | [Capture](artifacts/onboarding/desktop/02-dashboard.png) | [Capture](artifacts/onboarding/mobile/02-dashboard.png) |
-| Workspaces | [Capture](artifacts/onboarding/desktop/03-workspaces.png) | [Capture](artifacts/onboarding/mobile/03-workspaces.png) |
-| Create workspace | [Capture](artifacts/onboarding/desktop/04-create-workspace.png) | [Capture](artifacts/onboarding/mobile/04-create-workspace.png) |
-| Invite | [Capture](artifacts/onboarding/desktop/05-invite.png) | [Capture](artifacts/onboarding/mobile/05-invite.png) |
-| Connections | [Capture](artifacts/onboarding/desktop/06-connections.png) | [Capture](artifacts/onboarding/mobile/06-connections.png) |
-| Documents | [Capture](artifacts/onboarding/desktop/07-documents.png) | [Capture](artifacts/onboarding/mobile/07-documents.png) |
+`npm run test:e2e` saves the seven screens under `artifacts/onboarding/<viewport>/` (ignored by Git) in the light theme. Run Playwright with `colorScheme: "dark"` for dark captures.
 
 ## Service boundary
 

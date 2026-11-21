@@ -20,30 +20,43 @@ Try `alex@acme.com` for a sample company directory, or `alex@gmail.com` for an e
 
 ## Implementation
 
-- `src/app/`: thin App Router entry points, shared layout and visual styles. Two route groups, whose names never appear in URLs:
+- `src/app/`: thin App Router entry points, shared layout, `globals.css` (page layout), `layers.css` (cascade layer order, imported first) and `providers.tsx` (Astryx `Theme`, `LinkProvider` with Next.js `Link`, the i18n override, and the preview store). Two route groups, whose names never appear in URLs:
   - `(auth)/`: `/sign-up` and `/sign-in`.
   - `(dashboard)/`: everything behind sign-in, wrapped in the app shell: `/`, `/workspaces`, `/workspaces/new`, `/workspaces/:id`, `/workspaces/:id/{invite,connections,documents}`, `/settings`. Signed-out visitors are sent to `/sign-up`.
 - `src/features/`, one folder per product domain:
   - `auth/`: the sign-up and sign-in page, and `profile.ts` (organization from the email domain).
   - `workspaces/`: directory, create, overview and guards, plus `model.ts` (roles, setup stages, invitations). `setup/` holds the three setup steps: invite, connections, documents.
   - `account/`: the dashboard home and settings.
-- `src/components/`: `app-shell.tsx` (sidebar, header, breadcrumbs, sign-in guard) and `ui.tsx` (brand, controls, avatars, loading state, native dialog).
+- `src/components/`: `app-shell.tsx` (sidebar, header, breadcrumbs, sign-in guard), `brand.tsx` (the logo inlined so it follows the theme) and `signal-grid.tsx` (the sign-up stage background, ported from marketing).
+- `src/themes/`: `verityloop-theme.ts` (the theme source) and the files `npm run theme:build` generates from it (`verityloop.css`, `.js`, `.d.ts`).
 - `src/lib/`: `preview-store.tsx` (session state every feature reads) and `email.ts`.
 - `public/`: existing VerityLoop brand assets, provider icons, and self-hosted Manrope with its license.
 - `tests/unit/`: Vitest tests for the plain logic (setup stages, roles, invitation rules, email-to-organization, sample state, paths). Fast, no browser; `npm test` runs them.
 - `tests/e2e/`: Playwright journeys covering corporate/personal email, access requests, invites, scoped connections, document validation, session persistence, and separate workspace state.
 
-Screens use the v8 references in `docs/design/pm-onboarding/v8/` with responsive layouts and the specified type scale. See [design-qa.md](design-qa.md) for rendered QA.
+Screens keep the layouts of the v8 references in `docs/design/pm-onboarding/v8/`, rebuilt on Astryx components. See [design-qa.md](design-qa.md) for rendered QA.
+
+## UI system
+
+The dashboard uses [Astryx](https://astryx.atmeta.com/) (`@astryxdesign/*` 0.7.17, pinned to one release). Marketing uses shadcn/ui; never mix the two in one app.
+
+- **Components:** every control is an Astryx component, imported from its own entry (`@astryxdesign/core/Button`, `/TextInput`, `/Dialog` and so on). `next.config.ts` sets `optimizePackageImports` for `@astryxdesign/core`, because builds use webpack. Look components up with `npx astryx component <Name>` and docs with `npx astryx docs <topic>`.
+- **Never run `npx astryx init`.** It writes an Astryx block into `AGENTS.md` and creates `CLAUDE.md` and `GEMINI.md`; a `CLAUDE.md` makes Claude Code ignore the repo's `AGENTS.md`.
+- **Theme:** `src/themes/verityloop-theme.ts` extends Astryx neutral with `defineTheme`: square corners everywhere (radius 0; avatars stay round), the exact logo orange `#ff5a4f` for every accent, and pure-white pages in light mode, as DESIGN.md asks. Filled accents carry white labels, as on the marketing site. That measures 3.08:1 in light mode and 2.79:1 in dark mode, below WCAG AA's 4.5:1 for normal-size text (dark ink would be 5.9:1); the product owner chose white on 2026-11-21. Small accent text is ink in light mode, with the orange on indicators (active nav icon, setup-step underline). Large text, such as the sign-up headline, uses the orange directly (3.08:1 passes the large-text minimum). Errors and destructive actions stay red, so they never read as brand. Theme-local `--vl-*` tokens hold the brand surfaces and signal-cell colors. After editing the theme, run `npm run theme:build` and commit the generated files; `npm run typecheck` fails if they are stale.
+- **Colors:** layout CSS and components use only Astryx tokens (`--color-text-secondary`, `--color-border` and so on) or the theme's `--vl-*` tokens. The only literal colors are the token values in the theme source and the provider logos in `public/`.
+- **Dark mode:** `<Theme mode="system">` follows the system setting; tokens are `light-dark()` pairs. There is no toggle.
+- **CSS layers:** `layers.css` declares `reset, astryx-base, astryx-theme, app`. Page layout lives in `globals.css` inside `@layer app`, with element rules scoped to the page containers so they never restyle Astryx components.
+- **Hydration:** `<html>` and `<body>` set `suppressHydrationWarning`, because browser extensions such as LanguageTool add attributes there before React hydrates. It covers only those two elements' own attributes.
+- **Names the tests use:** the dialog close button is named "Close dialog" through the Astryx i18n override in `providers.tsx`. Field errors are checked through each field's accessible description.
+- **Sign-up stage:** concept E from the November 2026 review: the form takes 42% of the width and a product stage 58%, with the marketing hero headline, a dimmed sample workspace, one sample decision brief, and the marketing signal grid at a smaller 18px pitch with square cells. The stage runs the full height of the page, and the workspace screen is cropped by its bottom edge. The sample content is hidden from assistive technology and inert; the header's "Product preview" label is the page's preview disclosure.
 
 ## Gaps against the UI rules
 
-As of 2026-11-21 the dashboard doesn't yet meet the [UI rules in AGENTS.md](../../AGENTS.md#ui-design):
-- It isn't on Astryx yet; `src/components/ui.tsx` holds hand-made controls. Replace them with Astryx components and delete the file.
-- `src/app/globals.css` defines a few color variables but still uses about 45 hard-coded color values; move them onto Astryx theme tokens.
-- There's no dark mode.
-- Several screens carry helper lines and subtitles.
-
-Close these when the screens are next changed, starting with tokens and dark mode.
+As of 2026-11-21:
+- Page subtitles, helper lines and secondary labels are kept on purpose: the product owner asked to restore the original copy while the design system changed. This departs from the [cut-the-helper-text rule in AGENTS.md](../../AGENTS.md#ui-design); revisit it screen by screen.
+- The sign-up stage headline is a tagline, approved for this page.
+- White button labels on the logo orange are below the AA contrast minimum (see Theme above). Making labels large and bold (19px, weight 700) would meet the 3:1 large-text minimum without changing either color.
+- `src/components/signal-grid.tsx` duplicates the marketing grid's logic, because apps can't import each other. Move it into a shared package if a third copy is needed.
 
 ## Preview boundaries
 
