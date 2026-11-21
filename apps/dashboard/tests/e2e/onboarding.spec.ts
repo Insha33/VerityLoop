@@ -5,6 +5,10 @@ async function screenshot(page: Page, name: string, project: string) {
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: `artifacts/onboarding/${project}/${name}.png`, fullPage: true });
 }
+// The dropzone names its browse button and its file input the same; files go to the input.
+function fileInput(page: Page) {
+  return page.getByLabel('Choose supporting product documents', { exact: true }).and(page.locator('input[type="file"]'));
+}
 async function signup(page: Page, email = 'alex@acme.com') {
   await page.goto('/sign-up');
   await page.getByLabel('Work email', { exact: true }).fill(email);
@@ -24,7 +28,7 @@ test('complete company onboarding and workspace isolation', async ({ page }, inf
   await page.goto('/sign-up');
   await screenshot(page, '01-signup', info.project.name);
   await page.getByRole('button', { name: 'Continue with email' }).click();
-  await expect(page.locator('#email-error')).toContainText('valid email');
+  await expect(page.getByLabel('Work email', { exact: true })).toHaveAccessibleDescription(/valid email/);
   await signup(page);
   await screenshot(page, '02-dashboard', info.project.name);
   await page.getByRole('link', { name: 'Go to workspaces' }).click();
@@ -48,7 +52,7 @@ test('complete company onboarding and workspace isolation', async ({ page }, inf
   await screenshot(page, '05-invite', info.project.name);
   await page.getByLabel('Work email', { exact: true }).fill('alex@acme.com');
   await page.getByRole('button', { name: 'Send invite & continue' }).click();
-  await expect(page.locator('#invite-error')).toContainText('already the workspace owner');
+  await expect(page.getByLabel('Work email', { exact: true })).toHaveAccessibleDescription(/already the workspace owner/);
   await page.getByLabel('Work email', { exact: true }).fill('sam@acme.com');
   await page.getByRole('button', { name: 'Generate invite link' }).click();
   await expect(page.getByLabel('Link for Customer Platform')).toHaveValue(/previewInvite=/);
@@ -63,9 +67,9 @@ test('complete company onboarding and workspace isolation', async ({ page }, inf
   await page.getByLabel('Core Platform', { exact: true }).check();
   await page.getByRole('button', { name: 'Add preview connection' }).click();
   await page.getByRole('link', { name: 'Continue to documents' }).click();
-  await page.getByLabel('Choose supporting product documents').setInputFiles({ name: 'bad.exe', mimeType: 'application/octet-stream', buffer: Buffer.from('bad') });
+  await fileInput(page).setInputFiles({ name: 'bad.exe', mimeType: 'application/octet-stream', buffer: Buffer.from('bad') });
   await expect(page.locator('.file-errors')).toContainText('choose PDF');
-  await page.getByLabel('Choose supporting product documents').setInputFiles({ name: 'Product requirements.md', mimeType: 'text/markdown', buffer: Buffer.from('# Customer Platform PRD') });
+  await fileInput(page).setInputFiles({ name: 'Product requirements.md', mimeType: 'text/markdown', buffer: Buffer.from('# Customer Platform PRD') });
   await expect(page.getByText('Added locally', { exact: true })).toBeVisible();
   await screenshot(page, '07-documents', info.project.name);
   await page.reload();

@@ -7,17 +7,22 @@
     "dev": "next dev --port 3001",
     "build": "next build --webpack",
     "start": "next start --port 3001",
-    "typecheck": "next typegen && tsc --noEmit --incremental false",
+    "typecheck": "astryx theme build src/themes/verityloop-theme.ts --check && next typegen && tsc --noEmit --incremental false",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "theme:build": "astryx theme build src/themes/verityloop-theme.ts"
   },
   "dependencies": {
+    "@astryxdesign/core": "0.7.17",
+    "@astryxdesign/theme-neutral": "0.7.17",
+    "@stylexjs/stylex": "^0.19.2",
     "lucide-react": "1.31.0",
     "next": "^16.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@astryxdesign/cli": "0.7.17",
     "@playwright/test": "^1.65.0",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",

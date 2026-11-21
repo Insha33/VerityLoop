@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import "./layers.css";
 import "./globals.css";
-import { DemoProvider } from "@/lib/preview-store";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "VerityLoop | Product",
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html lang="en"><body><DemoProvider>{children}</DemoProvider></body></html>;
+  return <html lang="en"><body><Providers>{children}</Providers></body></html>;
 }

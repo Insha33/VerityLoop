@@ -1,0 +1,3 @@
+/* Cascade layer order, declared once before any other CSS (Next.js hoists @import above inline rules).
+   Astryx owns reset, astryx-base and astryx-theme; the app's own rules go in app, last. */
+@layer reset, astryx-base, astryx-theme, app;

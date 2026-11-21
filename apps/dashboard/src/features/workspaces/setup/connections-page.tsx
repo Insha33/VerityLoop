@@ -1,10 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
-import { ArrowLeft, BookOpen, Check, CircleHelp, Info, LockKeyhole, Unplug } from "lucide-react";
-import { Arrow, Badge, Modal } from "@/components/ui";
+import { ArrowLeft, ArrowRight, BookOpen, Check, CircleHelp, Info, LockKeyhole, Unplug } from "lucide-react";
+import { Badge } from "@astryxdesign/core/Badge";
+import { Button } from "@astryxdesign/core/Button";
+import { CheckboxList, CheckboxListItem } from "@astryxdesign/core/CheckboxList";
+import { Dialog, DialogHeader } from "@astryxdesign/core/Dialog";
+import { HStack } from "@astryxdesign/core/HStack";
+import { Icon } from "@astryxdesign/core/Icon";
+import { IconButton } from "@astryxdesign/core/IconButton";
+import { Text } from "@astryxdesign/core/Text";
+import { VStack } from "@astryxdesign/core/VStack";
 import { PageHeading } from "@/components/app-shell";
 import { advanceStage, hasScopedConnection, workspacePath, type Provider } from "@/features/workspaces/model";
 import { SetupNav, useWorkspace, WorkspaceGuard } from "@/features/workspaces/workspace-frame";
@@ -35,17 +42,42 @@ export function ConnectionsPage() {
   return <WorkspaceGuard workspace={current} manage>
     <SetupNav workspace={current} active="connections" />
     <PageHeading title="Connect your product tools" subtitle="Link at least one tool to continue to product documents." />
-    <p className="read-only-note"><LockKeyhole size={19} /><strong>Read-only access.</strong><span>Select the projects or spaces to include.</span></p>
+    <p className="read-only-note"><LockKeyhole size={19} aria-hidden="true" /><strong>Read-only access.</strong><span>Select the projects or spaces to include.</span></p>
     {notice && <p className="success-notice" role="status">{notice}</p>}
     <div className="provider-list">{PROVIDERS.map((item) => {
       const connection = current.connections.find((entry) => entry.provider === item.name);
-      return <div className="provider-row" key={item.name}><span className="provider-icon">{item.image ? <Image src={item.image} width={28} height={28} alt="" /> : <BookOpen size={25} aria-hidden="true" />}</span><div className="provider-description"><h2>{item.name}</h2><p>{item.description}</p>{connection && <p className="provider-scope">{connection.sources.join(", ")}</p>}</div><div className="provider-actions">{connection && <Badge success>Preview connected</Badge>}<button className="button secondary" onClick={() => open(item.name)}>{connection ? "Manage" : "Connect"}</button>{connection && <button className="icon-button" aria-label={`Disconnect ${item.name}`} onClick={() => setDisconnect(item.name)}><Unplug size={17} /></button>}</div></div>;
+      return <div className="provider-row" key={item.name}><span className="provider-icon">{item.image ? <Image src={item.image} width={28} height={28} alt="" /> : <BookOpen size={25} aria-hidden="true" />}</span><div className="provider-description"><h2>{item.name}</h2><p>{item.description}</p>{connection && <p className="provider-scope">{connection.sources.join(", ")}</p>}</div><div className="provider-actions">{connection && <Badge variant="success" icon={<Icon icon={Check} size="xsm" />} label="Preview connected" />}<Button size="lg" label={connection ? "Manage" : "Connect"} onClick={() => open(item.name)} />{connection && <IconButton variant="ghost" label={`Disconnect ${item.name}`} icon={<Icon icon={Unplug} />} onClick={() => setDisconnect(item.name)} />}</div></div>;
     })}</div>
-    <button className="inline-link browse-more" onClick={() => setMore(true)}>Browse more integrations<Arrow /></button>
-    <div className="connection-notes"><p><Info size={18} />Connections belong to {current.name}. Other workspaces cannot use them automatically.</p><p><CircleHelp size={18} />Need an administrator? You can return to your dashboard and finish later.</p></div>
-    <div className="action-bar setup-actions"><Link className="text-button" href={workspacePath(current.id, "invite")}><ArrowLeft size={18} />Back</Link><div><Link className="text-button" href="/">Return to dashboard</Link><div className="action-with-note">{hasScopedConnection(current) ? <Link className="button primary" href={workspacePath(current.id, "documents")} onClick={() => updateWorkspace(current.id, (item) => ({ ...item, stage: advanceStage(item.stage, "documents") }))}>Continue to documents<Arrow /></Link> : <button className="button primary" disabled aria-describedby="connection-needed">Continue to documents</button>}{!hasScopedConnection(current) && <p id="connection-needed" className="helper">Connect at least one tool to continue.</p>}</div></div></div>
-    {provider && <Modal title={`Connect ${provider.name}`} onClose={() => setSelected(null)}><p>This preview simulates a read-only connection. It does not sign in to {provider.name} or read external data.</p><fieldset className="source-options"><legend>Choose sample {provider.name === "Confluence" ? "spaces" : "projects"} for {current.name}</legend>{provider.options.map((source) => <label key={source}><input type="checkbox" checked={sources.includes(source)} onChange={(event) => setSources((items) => event.target.checked ? [...items, source] : items.filter((item) => item !== source))} /><span>{source}</span></label>)}</fieldset><p className="helper">Only selected sources belong to this workspace. A production connection will require provider authorization and source access checks.</p><div className="dialog-actions"><button className="text-button" onClick={() => setSelected(null)}>Cancel</button><button className="button primary" disabled={!sources.length} onClick={connect}><Check size={17} />Add preview connection</button></div></Modal>}
-    {disconnect && <Modal title={`Disconnect ${disconnect}?`} onClose={() => setDisconnect(null)}><p>This removes the preview connection and selected sources from {current.name} only.</p><div className="dialog-actions"><button className="text-button" onClick={() => setDisconnect(null)}>Cancel</button><button className="button primary" onClick={() => { updateWorkspace(current.id, (item) => ({ ...item, connections: item.connections.filter((entry) => entry.provider !== disconnect) })); setDisconnect(null); }}>Disconnect</button></div></Modal>}
-    {more && <Modal title="More integrations" onClose={() => setMore(false)}><p>Jira, Confluence, and Linear are available as interactive previews. Additional providers will appear here when they are supported.</p><p className="helper">Need context from another tool? Export its product documents and add them on the Documents page after connecting a supported preview tool.</p><div className="dialog-actions"><button className="button primary" onClick={() => setMore(false)}>Back to connections</button></div></Modal>}
+    <div className="browse-more"><Button variant="ghost" label="Browse more integrations" endContent={<Icon icon={ArrowRight} />} onClick={() => setMore(true)} /></div>
+    <div className="connection-notes"><p><Info size={18} aria-hidden="true" />Connections belong to {current.name}. Other workspaces cannot use them automatically.</p><p><CircleHelp size={18} aria-hidden="true" />Need an administrator? You can return to your dashboard and finish later.</p></div>
+    <div className="action-bar setup-actions"><Button variant="ghost" href={workspacePath(current.id, "invite")} label="Back" icon={<Icon icon={ArrowLeft} />} /><div><Button variant="ghost" size="lg" href="/" label="Return to dashboard" /><div className="action-with-note">{hasScopedConnection(current) ? <Button variant="primary" size="lg" href={workspacePath(current.id, "documents")} onClick={() => updateWorkspace(current.id, (item) => ({ ...item, stage: advanceStage(item.stage, "documents") }))} label="Continue to documents" endContent={<Icon icon={ArrowRight} />} /> : <Button variant="primary" size="lg" isDisabled label="Continue to documents" aria-describedby="connection-needed" />}{!hasScopedConnection(current) && <p id="connection-needed" className="helper">Connect at least one tool to continue.</p>}</div></div></div>
+    <Dialog isOpen={provider !== undefined} onOpenChange={(isOpen) => { if (!isOpen) setSelected(null); }} width={560}>
+      {provider && <>
+        <DialogHeader title={`Connect ${provider.name}`} onOpenChange={() => setSelected(null)} />
+        <VStack gap={4} padding={4}>
+          <Text>This preview simulates a read-only connection. It does not sign in to {provider.name} or read external data.</Text>
+          <CheckboxList label={`Choose sample ${provider.name === "Confluence" ? "spaces" : "projects"} for ${current.name}`} value={sources} onChange={setSources} hasDividers>
+            {provider.options.map((source) => <CheckboxListItem key={source} value={source} label={source} />)}
+          </CheckboxList>
+          <Text type="supporting" color="secondary">Only selected sources belong to this workspace. A production connection will require provider authorization and source access checks.</Text>
+          <HStack gap={2} justify="end"><Button variant="ghost" label="Cancel" onClick={() => setSelected(null)} /><Button variant="primary" isDisabled={!sources.length} label="Add preview connection" icon={<Icon icon={Check} />} onClick={connect} /></HStack>
+        </VStack>
+      </>}
+    </Dialog>
+    <Dialog isOpen={disconnect !== null} onOpenChange={(isOpen) => { if (!isOpen) setDisconnect(null); }}>
+      <DialogHeader title={`Disconnect ${disconnect ?? ""}?`} onOpenChange={() => setDisconnect(null)} />
+      <VStack gap={6} padding={4}>
+        <Text>This removes the preview connection and selected sources from {current.name} only.</Text>
+        <HStack gap={2} justify="end"><Button variant="ghost" label="Cancel" onClick={() => setDisconnect(null)} /><Button variant="destructive" label="Disconnect" onClick={() => { updateWorkspace(current.id, (item) => ({ ...item, connections: item.connections.filter((entry) => entry.provider !== disconnect) })); setDisconnect(null); }} /></HStack>
+      </VStack>
+    </Dialog>
+    <Dialog isOpen={more} onOpenChange={setMore} width={560}>
+      <DialogHeader title="More integrations" onOpenChange={setMore} />
+      <VStack gap={4} padding={4}>
+        <Text>Jira, Confluence, and Linear are available as interactive previews. Additional providers will appear here when they are supported.</Text>
+        <Text type="supporting" color="secondary">Need context from another tool? Export its product documents and add them on the Documents page after connecting a supported preview tool.</Text>
+        <HStack justify="end"><Button variant="primary" label="Back to connections" onClick={() => setMore(false)} /></HStack>
+      </VStack>
+    </Dialog>
   </WorkspaceGuard>;
 }
