@@ -24,7 +24,7 @@ User requested a complete landing-page redesign on 2026-09-05, explicitly refere
 
 ## Evidence on Hand
 
-Product copy: src/content/marketing.ts, src/content/decisionJourney.ts, src/content/faq.ts. Existing connector artwork: public/integrations. No supplied real internal-app screenshots or commercial proof.
+Product copy: src/content/marketing.ts, src/content/faq.ts. Existing connector artwork: public/integrations. No supplied real internal-app screenshots or commercial proof.
 
 ## Draft PRD reference (2026-09-05)
 
