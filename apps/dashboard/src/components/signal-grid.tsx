@@ -2,11 +2,6 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
-// A port of apps/marketing/src/components/marketing/SignalGrid.tsx for the sign-up stage.
-// Differences: smaller cells by default, colors read from theme tokens (so light and dark both work),
-// and one variant. Apps can't import each other's code; move both copies to a package if a third use appears.
-
-/** Coral family only, weighted like marketing: brand coral, pale coral, deep coral, peach. */
 const TINTS = [
   { token: "--vl-brand", max: 0.55, weight: 0.44 },
   { token: "--vl-brand-pale", max: 0.42, weight: 0.26 },
@@ -39,11 +34,6 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-/**
- * Decorative hairline grid whose cells light up like signals arriving: short drops fall a few cells
- * and fade. Square cells, no rounding. Runs only while on screen, the tab is visible and motion is
- * allowed; with reduced motion it shows the static grid and a few still cells.
- */
 export function SignalGrid({ cell = 18, density = 0.8 }: { cell?: number; density?: number }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -72,8 +62,6 @@ export function SignalGrid({ cell = 18, density = 0.8 }: { cell?: number; densit
     let last = 0;
     let spawnDebt = 0;
     let onScreen = false;
-
-    // Resolve each token to a concrete color through a hidden probe, so light-dark() values work.
     const readColors = () => {
       colors = TINTS.map(({ token }) => {
         probe.style.color = `var(${token})`;
