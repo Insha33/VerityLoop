@@ -65,7 +65,7 @@ The Cloudflare asset directory is `./apps/marketing/out`, so dependencies and so
 npm run deploy
 ```
 
-Production deploys run from GitHub Actions when started by hand (**Actions → Deploy marketing → Run workflow** on `main`), after CI passes; pull requests that change marketing get an automatic preview version; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment). Workers Builds (Cloudflare's own Git integration) must be disconnected, or every push to `main` still deploys marketing automatically.
+Production deploys run from GitHub Actions when started by hand (**Actions → Deploy marketing → Run workflow** on `main`); CI runs on the pull request before merge; pull requests that change marketing get an automatic preview version; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment). Workers Builds (Cloudflare's own Git integration) must be disconnected, or every push to `main` still deploys marketing automatically.
 
 The Worker's runtime secrets live in Cloudflare, not GitHub. Open **Workers & Pages → verityloop → Settings → Variables and Secrets** and add these encrypted secrets:
 

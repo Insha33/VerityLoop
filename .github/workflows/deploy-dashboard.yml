@@ -20,11 +20,6 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  ci:
-    # Pull requests already run ci.yml on their own.
-    if: github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/ci.yml
-
   preview:
     # Fork and Dependabot PRs can't read secrets, so they get CI only.
     if: >-
@@ -62,9 +57,8 @@ jobs:
           echo "Preview: ${url:-not printed, check the upload step}" >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
-    needs: ci
-    # Only main ships to production; a run started from another branch stops after CI.
-    if: github.ref == 'refs/heads/main'
+    # CI ran on the pull request; only main ships to production.
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:
