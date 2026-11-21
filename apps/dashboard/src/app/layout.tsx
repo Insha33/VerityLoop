@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   icons: { icon: "/brand/favicon.svg" },
 };
 
+// suppressHydrationWarning covers only the attributes of <html> and <body> themselves (not their children):
+// browser extensions such as LanguageTool and Grammarly add attributes there before React hydrates,
+// and the Astryx Theme updates <html> attributes after hydration.
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  return <html lang="en"><body><Providers>{children}</Providers></body></html>;
+  return <html lang="en" suppressHydrationWarning><body suppressHydrationWarning><Providers>{children}</Providers></body></html>;
 }
