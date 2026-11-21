@@ -25,7 +25,7 @@ Fixed during review: hidden file input causing desktop overflow; cramped mobile 
 
 ## Captures
 
-Generated locally by `npm test --workspace=@verityloop/product`. Artifacts are ignored by Git and can be regenerated.
+Generated locally by `npm test --workspace=@verityloop/platform-fe`. Artifacts are ignored by Git and can be regenerated.
 
 | Screen | Desktop | Phone |
 | --- | --- | --- |

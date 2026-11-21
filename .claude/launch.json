@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev:marketing:3100"],
       "port": 3100
+    },
+    {
+      "name": "platform-fe",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:platform-fe"],
+      "port": 3001
     }
   ]
 }

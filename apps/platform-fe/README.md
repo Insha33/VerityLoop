@@ -1,13 +1,13 @@
-# VerityLoop product
+# VerityLoop platform frontend (`apps/platform-fe`)
 
 Interactive implementation of the approved account-first PM onboarding screens. The app retains `noindex` metadata.
 
 From the repository root:
 
 ```bash
-npm run dev:product
-npm run build:product
-npm run start:product
+npm run dev:platform-fe
+npm run build:platform-fe
+npm run start:platform-fe
 ```
 
 Development and production preview use port 3001. Marketing uses port 3000.
@@ -37,13 +37,13 @@ Production requires verified authentication, organization/domain ownership, serv
 ## Verification
 
 ```bash
-npm run typecheck --workspace=@verityloop/product
-npm run build:product
+npm run typecheck --workspace=@verityloop/platform-fe
+npm run build:platform-fe
 # Run the app in a separate terminal, then:
 npx playwright install chromium
-npm test --workspace=@verityloop/product
+npm test --workspace=@verityloop/platform-fe
 ```
 
-Browser tests cover 1440px, 768px, 375px and 320px viewports. They save all seven screens under `apps/product/artifacts/onboarding/<viewport>/` (ignored by Git). Set `PLAYWRIGHT_BROWSERS_PATH` consistently for install and tests when using a custom browser cache. Typechecking bypasses the incremental cache so prior Next build diagnostics cannot mask source changes.
+Browser tests cover 1440px, 768px, 375px and 320px viewports. They save all seven screens under `apps/platform-fe/artifacts/onboarding/<viewport>/` (ignored by Git). Set `PLAYWRIGHT_BROWSERS_PATH` consistently for install and tests when using a custom browser cache. Typechecking bypasses the incremental cache so prior Next build diagnostics cannot mask source changes.
 
 This app has its own Next.js config and does not use marketing's static-export setting. It can grow to include server-rendered routes and API handlers. No production hosting provider, domain, database, authentication system, or deployment pipeline is configured yet. Root `npm run deploy` deploys only marketing.

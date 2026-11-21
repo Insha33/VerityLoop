@@ -22,9 +22,13 @@
     "deploy": "npm run deploy:marketing",
     "deploy:marketing": "wrangler deploy",
     "deploy:check": "wrangler deploy --dry-run",
-    "dev:product": "npm run dev --workspace=@verityloop/product",
-    "build:product": "npm run build --workspace=@verityloop/product",
-    "start:product": "npm run start --workspace=@verityloop/product",
+    "dev:platform-fe": "npm run dev --workspace=@verityloop/platform-fe",
+    "build:platform-fe": "npm run build --workspace=@verityloop/platform-fe",
+    "start:platform-fe": "npm run start --workspace=@verityloop/platform-fe",
+    "test:platform-fe": "npm run test --workspace=@verityloop/platform-fe",
+    "dev:product": "npm run dev:platform-fe",
+    "build:product": "npm run build:platform-fe",
+    "start:product": "npm run start:platform-fe",
     "brand:assets": "npm run brand:assets --workspace=@verityloop/marketing"
   },
   "devDependencies": {

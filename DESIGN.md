@@ -9,7 +9,6 @@ colors:
   line-strong: "#d3d7df"
   cobalt: "#2768ff"
   coral: "#ff5a4f"
-  blue-soft: "#edf0fa"
   success: "#28785c"
   coral-dark: "#bd3c33"
   coral-hover: "#ed4c42"
@@ -17,9 +16,6 @@ colors:
   stage-blue: "#f1f5fa"
   stage-mint: "#eff7f3"
   stage-peach: "#fff3ee"
-  delivery-frame: "#f5f8fb"
-  audience-surface: "#f7f9fb"
-  audience-hover: "#eef3f7"
 typography:
   display:
     fontFamily: "Manrope, sans-serif"
@@ -29,13 +25,13 @@ typography:
     letterSpacing: "-.04em"
   headline:
     fontFamily: "Manrope, sans-serif"
-    fontSize: "clamp(33px, 3.6vw, 44px)"
+    fontSize: "clamp(36px, 4vw, 52px)"
     fontWeight: 500
     lineHeight: 1.15
     letterSpacing: "-.035em"
   title:
     fontFamily: "Manrope, sans-serif"
-    fontSize: "29px"
+    fontSize: "clamp(24px, 2.2vw, 30px)"
     fontWeight: 500
     lineHeight: 1.15
     letterSpacing: "-.035em"
@@ -54,16 +50,15 @@ rounded:
   control: "0px"
   panel: "0px"
   field: "0px"
-  window: "0px"
-  form: "0px"
   frame: "0px"
+  hero-frame: "18px"
 spacing:
   compact: "8px"
   small: "12px"
   medium: "20px"
   large: "28px"
   panel: "32px"
-  section: "100px"
+  section: "72px"
 components:
   button-primary:
     backgroundColor: "{colors.coral}"
@@ -89,150 +84,143 @@ components:
     padding: "10px 12px 10px 36px"
   waitlist-form:
     backgroundColor: "{colors.paper}"
-    rounded: "{rounded.form}"
+    rounded: "{rounded.control}"
     padding: "28px"
 ---
 
-# Design System: VerityLoop
+# Design System: VerityLoop marketing site
+
+Scope: the public site in `apps/marketing`. The product UI (`apps/platform-fe`) follows [docs/design/pm-onboarding.md](docs/design/pm-onboarding.md), its `v8/` references, and [apps/platform-fe/design-qa.md](apps/platform-fe/design-qa.md). Last synced with the code on 2026-11-21. This file replaces `DESIGN_PLAN.md` and `DESIGN_MEMORY.md`, which described the retired September navy/Newsreader theme and components that are no longer rendered.
 
 ## Overview
 
-**Creative North Star: "Clean contemporary SaaS"**
+**Creative North Star: "Clean contemporary SaaS."** A pure-white marketing surface with vibrant coral actions, calm Manrope typography, a restrained signal-grid background, and substantive illustrative product scenes. The November 2026 direction draws on Firecrawl and Dovetail for lightness and quiet motion, and preserves the approved Rhythm logo and the product story.
 
-The established VerityLoop identity is refined into a pure-white, modern marketing surface with vibrant coral actions, calm Manrope typography, and substantive product concepts. The November 13, 2026 direction draws on Firecrawl and Dovetail for lightness and minimal background motion while preserving the approved Rhythm logo and the existing product story.
+The marketing layer stays spacious. White illustrative workspaces carry the information density, inside light blue, mint and peach stages. Do not restore the historical ivory page, navy sections, or four-bar logo.
 
-The marketing layer stays spacious; white illustrative workspaces carry the information density within light blue, mint, and peach stages. A hairline signal grid lights coral cells in the white space around the hero headline, the Solutions heading and the signup form, and rises above the footer, leaving copy clear. Delivery sits on white within a light-blue frame; signup uses a light-coral panel with a white form.
+Implementation sources: `apps/marketing/src/app/globals.css` (tokens, layout, page-wide rules), `src/components/marketing/ProductStory.module.css`, `SignalGrid.{tsx,module.css}`, `HeroShowcase.tsx`, `backgroundMotion.ts` and `DeliverySteps.tsx`. The page is composed in `src/app/page.tsx`: Header, Hero, ProductStory, ProductDetails (Solutions, Delivery, Context), FAQ, Waitlist, Footer, and the footer SignalGrid.
 
-This current specification replaces the September ivory page and navy walkthrough/delivery treatment. Historical design plans and older product notes are not authority for restoring those surface colors. The brand asset generator retains its own paper color; the marketing page uses the white `paper` token below.
+`globals.css` still starts with an older compact layer: everything above the `Mid-page system (Nov 2026 audit)` banner comment. The rules after that banner override it. Read values from the rendered selectors, not from the compact layer.
 
-**Key Characteristics:**
+## Principles
 
-- Pure-white page, navigation, and walkthrough with light cool framing.
-- Coral primary actions, selected controls, link hover and keyboard focus; cobalt survives only as a faint decorative tint in frame rings.
-- Readable marketing controls, thin neutral dividers, modest corners, and selective shadows.
-- The approved Rhythm mark, a restrained signal-grid background, a prominent framed hero product with evidence callouts, and clearly labeled illustrative product concepts.
+These hold across every section and outlive any single component.
 
-Implementation sources are `apps/marketing/src/app/globals.css`, `apps/marketing/src/components/marketing/ProductStory.module.css`, `apps/marketing/src/components/marketing/SignalGrid.{tsx,module.css}`, `HeroShowcase.tsx`, and `backgroundMotion.ts`; the footer grid is placed in `apps/marketing/src/app/page.tsx`. The route composes these surfaces in `apps/marketing/src/app/page.tsx`. This records the built implementation; the visual review was scoped to the supplied screenshots, not every possible viewport or browser.
+- **Motion explains behavior, never decorates.** A shared animation has one source of truth; never run independent delayed loops that can drift apart.
+- **Native scroll is in control.** Never intercept the wheel, snap, force programmatic scrolling, or add an inner scrollbar. Scroll-driven stories derive the step rail, copy and product surface from one shared progress value.
+- **Reserve geometry before transitions** so text and scenes never cause layout shift.
+- **Hover recolors; it doesn't float.** Hover changes color, border or shadow. The only rendered lift is the context-source icon.
+- **Keyboard focus exposes everything hover does**, with a visible `:focus-visible` style. Targets are at least 44px.
+- **Reduced motion gets finished, static states**: stop continuous animation, swap states immediately, and keep all information visible.
+- **Honest illustrations.** Product scenes use synthetic examples, are not shipped screenshots, customer proof or measured outcomes, and keep the separate human approvals for decisions, PRDs, ticket drafts and publishing.
 
 ## Colors
 
-White and dark ink establish readable structure. Coral draws attention to actions; pale color stages support the product narrative without replacing the page background. Frontmatter records implemented values, including named local fills; it does not imply that every local fill has a CSS custom property.
+White and dark ink give the structure. Coral draws attention to actions, and pale stage colors support the product narrative without replacing the page background.
 
-### Primary
+- **Coral:** primary buttons, the Rhythm mark, the second hero line, selected journey and audience controls, small emphasis details.
+- **Coral hover / deep coral:** the darker fill for primary-action hover. Deep coral is used for readable accent text, link hover, the active nav item, validation errors, and focus borders.
+- **Soft coral:** signup panel, hero offer chip, context-tile and context-source hover, field-focus outline, delivery-gate highlight. The primary-source callout quote uses the close tint `#fff6f4`.
+- **Cobalt:** decorative only, in the coral-to-cobalt frame rings and the hero glow. No interaction state is blue (Nov 2026 request). `--blue-soft` is still defined in CSS but unused.
+- **Success green:** reviewed and on-track examples, and successful waitlist submission.
+- **Stage blue / mint / peach:** walkthrough stages. The first and final steps share blue.
+- **Neutrals:** paper (page, nav, walkthrough, form and product interiors), ink (headings, main text), muted (supporting copy, nav, captions), line and line-strong (dividers, field borders).
 
-- **Coral:** primary buttons, the Rhythm mark, the second hero line, selected journey/audience controls, and small emphasis details.
-- **Coral hover:** the darker hover fill and border for primary actions.
-- **Deep coral:** readable accent text, validation errors, and form error borders.
-
-### Secondary
-
-- **Cobalt:** decorative only, in the frame rings and hero glow (not in the signal grid). Link hover, keyboard focus, field focus and text selection use deep coral and soft coral (Nov 2026 request: no blue interaction states).
-- **Success green:** reviewed/on-track examples and successful waitlist submission.
-- **Light blue / mint / peach:** walkthrough stages; the first and final steps share the blue stage.
-- **Soft coral:** signup panel, hero offer chip, primary-source callout quote, and context tile accent.
-
-### Neutral
-
-- **Paper:** pure-white page, navigation, walkthrough, and form/product interiors.
-- **Ink:** headings, main text, and structural emphasis.
-- **Muted gray:** supporting copy, navigation, captions, and metadata.
-- **Line / Strong line:** thin dividers and stronger field borders.
-- **Soft blue:** field-focus support and context-source hover/focus states.
-- **Delivery frame:** pale blue framing around delivery copy and the white document preview.
-- **Audience surface / hover:** matching cool backgrounds for both audience cards, including focus-within feedback.
-
-The signal grid draws ink hairlines at (5.5%) and lights cells only in coral shades: coral (up to 55%), pale coral (42%), deep coral (30%) and peach (50%). No blue or grey cells. The hero frame ring runs coral to cobalt; a blurred coral/cobalt glow sits behind it. These are decorative colors, not new semantic product states.
+The signal grid draws ink hairlines at 5.5% and lights cells only in coral shades: coral up to 55%, pale coral 42%, deep coral 30%, peach 50%. It never uses blue or grey cells.
 
 ## Typography
 
-Manrope is loaded through Next.js for marketing typography. Moderate heading weight and tight tracking give the page its clean character; body text uses open line spacing. Authored SVG and React product concepts specify Inter with system sans fallbacks, without bundling a separate Inter font.
+Manrope is loaded through Next.js. Authored SVG and React product concepts specify Inter with system fallbacks; Inter is not bundled.
 
-Frontmatter records the hero display, general section headline, audience-card title, page body, and form-label defaults. The hero uses weight (550); section headings generally use (500). At the wide breakpoint the hero is (72px); mobile uses `clamp(34px, 6.6vw, 48px)`, then `clamp(31px, 7.8vw, 43px)` at (600px).
-
-Marketing and illustration text have different density needs. Desktop navigation is (14px), FAQ questions and answers are (14px), form labels are (13px), and form inputs are (16px) at every size. Hero supporting copy is (16px), becoming (14px) below (768px), with a (560px) maximum width. Audience, delivery, and context copy uses (15px), becoming (14px) on mobile. Compact product examples retain smaller labels; do not apply their scale to marketing controls.
+- **Hero:** weight 550, 72px at the wide breakpoint. On mobile it is `clamp(34px, 6.6vw, 48px)`, then `clamp(31px, 7.8vw, 43px)` at 600px. Supporting copy is 16px (14px below 768px), with a 560px max width.
+- **Section heads:** `clamp(36px, 4vw, 52px)`, weight 500, used by Solutions, Delivery, Context and FAQ. Supporting copy is 17px.
+- **Journey-card titles:** `clamp(24px, 2.2vw, 30px)`. Card copy is 16px (15px on mobile).
+- **Context copy:** 17px (15px on mobile). **FAQ:** questions 17px, answers 16px, both 15px on mobile.
+- **Controls:** desktop nav 14px, form labels 13px, form inputs 16px at every size.
+- **Small text:** the floor is 11px for the hero offer chip, form status and small print, and waitlist options at 420px and below. Footer text is 9px (8px at 600px and below), which is below a readable floor and is a known gap. Only text inside product illustrations should go smaller.
 
 ## Layout
 
-The desktop shell is capped at (1160px), with (40px) side gutters. At (1450px) and above it becomes (1240px) with (60px) gutters. At (1024px) and below the gutters become (24px), then (20px) at (767px). General section padding steps from (100px) to (76px) to (65px); the walkthrough has its own (80px) vertical padding.
+- **Shell:** 1160px max with 40px gutters; at 1450px and above, 1240px with 60px gutters. Gutters are 24px at 1024px and below, and 20px at 767px.
+- **Section rhythm:** 72px vertical padding, 64px at 1024px and below, 52px at 767px. Solutions trims its top to 24px because the walkthrough ends with its own padding. There are no divider lines between sections. The walkthrough has its own 80px vertical padding.
+- **Navigation:** sticky, white, 72px tall (64px below 768px), with a right-side menu sheet on mobile. Brand on the left, links in the center (How it works, Solutions, FAQ, all plain anchors), waitlist action on the right. Section links use native smooth scrolling with a 100px header offset, and jump immediately under reduced motion.
+- **Section header:** `.section-head` puts the title on the left and supporting copy on the right, both top-aligned. Solutions uses a centered head over its signal band.
+- **Walkthrough (ProductStory):** a 300px step column and a flexible stage, 60px apart. On viewports at least 900px wide and 800px tall, the panel sticks 90px below the top. A measured scroll track adds three intervals of 0.8 viewport heights, and page scrolling advances or reverses the four steps. Clicks and keyboard selection still work, and the next scroll boundary resumes automatic selection. The desktop stage height is `clamp(440px, calc(100svh - 310px), 528px)`. Smaller or shorter viewports, and reduced motion, get four naturally stacked scenes: 500px tall, 470px at 420px and below, 520px at 360px and below.
+- **Columns:** audience cards and signup are two columns, stacking at 600px. Delivery is two columns, stacking at 767px. Context sources are a 6-column grid, 4 at tablet, 3 on mobile, 2 at 420px.
+- **Hero image:** a purpose-cropped 454 × 543 asset at 600px and below. Never shrink the full desktop workspace into a thumbnail.
 
-Navigation is sticky and white, with a (72px) height. Below (768px), it becomes (64px) and uses a right-side menu sheet. The centered hero leads into a framed white workspace. Audience cards, delivery, context, and signup use two columns, stacking at (600px). Founder and product-team cards have equal prominence, with links anchored to the bottom. Context sources retain a three-column grid.
+## Elevation and shapes
 
-The desktop walkthrough uses a (300px) step column and flexible product stage separated by (60px). On viewports at least (900px) wide and (800px) tall, its panel sticks (90px) below the top. A measured scroll track adds three intervals of (0.8) viewport heights. Page scrolling advances or reverses the four steps; clicks and keyboard selection remain available, and the next scroll boundary resumes automatic selection.
-
-Smaller or shorter viewports and reduced-motion preferences use four naturally stacked scenes. Desktop stage height is `clamp(440px, calc(100svh - 310px), 528px)`; stacked stages are (500px), (470px) at (420px) and below, and (520px) at (360px) and below for wrapping. The hero uses a purpose-cropped (454 × 543) asset at (600px) and below.
-
-## Elevation & Depth
-
-Most surfaces use pale fills and thin borders for separation. Product windows, the delivery preview, and the signup form use the diffuse `--shadow-product` shadow (`0 24px 64px -24px rgb(32 45 67 / 18%)`). Walkthrough windows have their own smaller paired shadow. The selected waitlist segment has a compact shadow; the selected walkthrough segment has none. Exact shadows and motion values are in the sidecar. Keep white interiors visibly distinct from their light-colored frames.
-
-## Shapes
-
-Every corner is sharp (Nov 2026): buttons, inputs, chips, cards, frames, panels, tooltips and the shadcn/Radix primitives all use a (0px) radius, enforced by one page-wide rule at the end of `globals.css`. Only true dots (caption dots, live dots, the journey connector dot) and avatars stay circular. Dividers and field outlines are (1px). One exception: the hero product showcase keeps rounded corners (frame (18px), product window (11px), callout cards (12px)) and its two coral “+” marks at the frame's top corners. The delivery-section “+” marks were removed. Rounded shapes drawn inside the product SVG illustrations are part of those images.
+- Most surfaces separate with pale fills and thin 1px borders. `--shadow-product` is `0 24px 64px -24px rgb(32 45 67 / 18%)`. Walkthrough windows use their own smaller paired shadow. The hero product window has no shadow inside its frame. The selected waitlist segment has a compact shadow; the selected walkthrough segment has none.
+- **Every corner is sharp.** One page-wide rule at the end of `globals.css` sets `border-radius: 0 !important` on everything, including shadcn/Radix primitives. `.product-frame` and the `--radius-*` variables are therefore 0 in practice.
+- **Round exceptions:** caption dots, callout avatars and the journey connector dot (in `globals.css`), plus the walkthrough's live dots and avatars, which set `border-radius: 50% !important` on `.liveDot` and `.avatar` in `ProductStory.module.css`. Keep module exceptions in their own module: hashed class names differ between `next dev` and `next build --webpack`, so a global attribute selector can't match them reliably.
+- **Hero exception:** the hero showcase keeps rounded corners (frame 18px, product window 11px, callout cards 12px, callout icon 7px, quote 8px) and its two coral "+" marks at the frame's top corners. Rounded shapes drawn inside product SVGs are part of those images.
 
 ## Components
 
-### Brand and navigation
+### Brand
 
-Preserve the VerityLoop name and approved Rhythm geometry from `apps/marketing/src/content/brand.json`, rendered by `apps/marketing/src/components/marketing/BrandMark.tsx`. It combines two opposing curved shapes and a centered rounded diamond. The header/footer mark is coral; approved exports live in `apps/marketing/public/brand`. Do not substitute the former four-bar mark or redraw the geometry.
+Preserve the VerityLoop name and the approved Rhythm geometry from `apps/marketing/src/content/brand.json`, rendered by `BrandMark.tsx`: two opposing curved shapes around a centered rounded diamond. The header and footer mark is coral, and approved exports live in `apps/marketing/public/brand`. Never substitute the former four-bar mark or redraw the geometry.
 
-Navigation puts the brand left, links in the center, and the waitlist action right. Links darken on hover; the active destination uses deep coral. The Solutions dropdown has white grouped rows with soft-blue focus. Mobile navigation preserves both audience destinations. Section links use native smooth scrolling and a (100px) header offset, with immediate scrolling under reduced motion.
+### Hero and signal grid
 
-### Hero and background pattern
+Preserve the exact headline: "Your next product move" over "Backed by evidence." The first line has no visible period; a visually hidden one keeps the pause for screen readers. The second line is coral. The offer chip, primary CTA, secondary link and product illustration stay in the foreground.
 
-Preserve the exact headline: “Your next product move” over “Backed by evidence.” The first line has no visible period (a visually hidden one keeps the sentence pause for screen readers); the second line is coral. The hero offer, primary CTA, secondary link, and product illustration remain the foreground.
+**Signal grid** (`SignalGrid.tsx`). A canvas of square cells on a CSS hairline grid, visible without JavaScript. Short coral-shade "drops" fall two to five cells and fade over about 1.5s. Grids render at 30fps, cap device pixel ratio at 2, run only while on screen with the tab visible and reduced motion off, and are hidden from assistive technology. There is no pause control, by product decision (2026-11-13). Three instances are rendered:
+- **Hero:** 28px cells, 720px tall. It clears an ellipse for the headline, fades before the product, and the pointer gently lights nearby cells.
+- **Solutions band:** 24px cells, visible only on either side of the copy.
+- **Footer:** behind the last 620px of the page (420px on mobile), under the signup panel and footer, without adding height. It is dense at the bottom and fades upward, and its drops rise.
 
-**Signal grid.** A canvas of square cells on a CSS hairline grid (visible without JavaScript). Short coral, pale-coral, deep-coral and peach "drops" fall two to five cells and fade over about (1.5s), echoing evidence settling into place. The hero band (28px cells, 720px tall) clears an ellipse for the headline and fades before the product; a mouse pointer gently lights nearby hero cells. The Solutions heading uses a band (24px cells) visible only either side of the copy, the signup panel uses a field that frames the form's right edge, and the page ends the way it begins: a footer grid sits behind the last (620px) of the page (420px on mobile), layered under the signup panel and footer without adding height. It is dense at the bottom, fades upward, softens under the footer text, and its drops rise instead of fall. Grids render at (30fps), cap device pixel ratio at (2), and run only while on screen, the tab is visible, and reduced motion is off; reduced motion leaves a static frame. There is no pause control by product decision (2026-11-13): the motion is slow, low-contrast and confined to white space, and reduced-motion users get a static grid. Grids are hidden from assistive technology and carry no information. Line-based evidence trails were rejected for this background.
+The signup panel itself has no grid. Line-based evidence trails were rejected for this background.
 
-**Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring, and a soft glow. At (768px) and wider it starts slightly tilted (6deg, 95% scale) and settles flat over the first (560px) of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From (1024px), two callout cards overlap the frame's edges: a verified primary source (competitor pricing page) and customer context (discovery call). Both repeat evidence already in the illustrations and are hidden from assistive technology; they fade in with a short stagger and drift gently on scroll. Reduced motion shows the frame flat with static callouts. The walkthrough stage shares the hairline grid (static) and a ring shadow.
+**Hero product.** The signal-inbox illustration sits in a wide frame (up to 1240px) with a white bezel, a coral-to-cobalt hairline ring and a soft glow. From 768px it starts tilted (6deg, 95% scale) and settles flat over the first 560px of scroll via GSAP ScrollTrigger; the CSS sets the same start state so hydration never jumps. From 1024px, two callout cards overlap the frame: a verified primary source (a competitor pricing page) and customer context (a discovery call). They repeat evidence already in the illustration, are hidden from assistive technology, fade in with a short stagger and drift on scroll. Reduced motion shows the frame flat with static callouts.
 
-### Mid-page system (Nov 2026 audit)
+### Walkthrough (ProductStory)
 
-Middle sections share one rhythm and vocabulary, after a Linear-style review:
+Founders and Product teams use native audience buttons with pressed state. Four vertical ARIA tabs support the arrow keys, Home and End. Only the selected desktop panel is exposed to assistive technology. Narrative and preview change together. Scenes cross-fade over 360ms, with outgoing and incoming together so the stage never empties. The main window rises into place, secondary pieces stagger at half length and settle within about 1.3s, and scenes can be replayed. The stage shares the static hairline grid and a ring shadow. Scenes pause while the stage is offscreen. The pause rule in `ProductStory.module.css` must stay after every `.reveal` and `.connection > span` rule, because their `animation` shorthand resets `animation-play-state`.
 
-- **Section rhythm:** (72px) vertical padding, (64px) at (1024px) and below, (52px) at (767px), so sections sit about (144px) apart on desktop; Solutions trims its top to (24px) because the walkthrough already ends with its own padding. No divider lines between sections.
-- **Section header:** a two-column head (`.section-head`) with the title left at `clamp(36px, 4vw, 52px)` and supporting copy right at (17px), both top-aligned. Delivery and Context use it; Solutions keeps a centered head of the same size over its signal band; FAQ keeps its side heading at the same size.
-- **Product frame:** `.product-frame` reuses the hero bezel: (8px) white padding, (18px) radius, a coral-to-cobalt hairline ring and a soft shadow. Used for the PRD preview; the sources grid uses the same ring on a pearl fill.
-- **One nesting level:** audience cards are white with a hairline border and a single pearl inner surface; they lift (2px) and pick up a coral border on hover.
-- **Type floor:** marketing meta text is at least (12px), copy (14–17px); only text inside product illustrations goes smaller.
-- **Delivery:** three numbered approval gates beside a framed scene stage, Linear-style. Hovering (mouse only), focusing or tapping a gate gives it a soft-coral highlight and plays its live HTML scene: an approved decision then the PRD draft; the approved PRD then three ticket drafts; review checks ticking then the publish action unlocking. The outgoing scene fades out in (240–300ms); the incoming one rises from a (6px) blur over about (640ms) and its contents stagger in. Arrow keys move between gates. Only the visible scene is exposed to assistive technology; hidden scenes are `aria-hidden` and `inert`. The publish scene is a small working demo: choose Linear or Jira, press Publish (a short “Publishing…” state), and the review list is replaced, at the same height, by three created tickets with destination-style IDs (VER-142… for Linear, VL-142… for Jira) and a green “Published to …” button; “Reset demo” or leaving the step resets it. Nothing leaves the page. Reduced motion swaps instantly and shows finished states. Implemented in `DeliverySteps.tsx`.
-- **Context:** sources sit in a wide 6-column grid (4 at tablet, 3 on mobile, 2 at (420px)) of large tiles with (30px) icons.
-- **Signup card:** solid soft coral; no background animation inside it.
-- **Audience cards:** feature tiles. A pearl stage with a static hairline grid shows the illustrative input window, a dashed coral connector and the output brief; the audience pill, title, copy and link sit below. Subgrid keeps both cards' stages and copy on shared rows, and the connector stretches so both outputs align. Hover only turns the card border coral; nothing inside moves.
+### Solutions: audience cards
+
+Two white `.journey-card` feature tiles with a hairline border, sharing rows through subgrid. Each has a pearl stage with a static hairline grid showing the input window, a dashed coral connector and the output brief. The audience pill, title, copy and a bottom-anchored link sit below. Hover and focus-within turn only the border coral; nothing moves. The product notes are "No roadmap required" and "Permission-scoped context".
+
+### Delivery (DeliverySteps)
+
+Three numbered approval gates on a transparent background beside a `.product-frame` scene stage (white bezel, coral-to-cobalt ring). Hovering with a mouse, focusing or tapping a gate gives it a soft-coral highlight and plays its live HTML scene:
+- an approved decision, then the PRD draft;
+- the approved PRD, then three ticket drafts;
+- review checks ticking, then the publish action unlocking.
+
+The outgoing scene fades in 240–300ms. The incoming one rises from a 6px blur over about 640ms, and its contents stagger. Arrow keys move between gates. Hidden scenes are `aria-hidden` and `inert`. The publish scene is a working demo: choose Linear or Jira, press Publish (a short "Publishing…" state), and the review list is replaced, at the same height, by three created tickets (VER-142… for Linear, VL-142… for Jira) and a green "Published to …" button. "Reset demo" or leaving the step resets it, and nothing leaves the page. Reduced motion swaps instantly and shows finished states.
+
+### Context sources
+
+Large tiles with 30px icons in the 6/4/3/2-column grid, inside a frame using the coral-to-cobalt ring on a pearl fill. Hover, focus or tap reveals a dark purpose tooltip, a soft-coral background and a subtle icon lift. Escape dismisses the tooltip, and a repeated tap toggles it closed.
 
 ### Buttons and links
 
-Primary actions use coral with white text, a small arrow where appropriate, and (7px) corners. Standard minimum height is (46px), compact navigation actions are (40px), and mobile main actions are (44px). Hover darkens the fill; pressing moves the control down (1px). Unboxed secondary links turn cobalt on hover. Preserve visible keyboard focus.
+Primary actions are coral with white text, a small arrow where it helps, and sharp corners. The standard minimum height is 46px, compact nav actions are 40px, and main actions on mobile are 44px. Hover darkens the fill and pressing moves the control down 1px. Unboxed links turn deep coral on hover. Keyboard focus stays visible.
 
-### Forms and audience controls
+### Waitlist form
 
-The white form sits inside a soft-coral signup panel. Labels are explicit; leading icons receive reserved inset space. Inputs are (48px) high with (16px) text. Focus changes the border to deep coral with a soft-coral outline; invalid fields use deep coral. The three-choice waitlist selector has a pale track and coral sliding segment with white selected text; each choice has a (44px) minimum height. Pending submission dims the action and completion uses green. Preserve the existing validation and submission contract.
+A white form inside a solid soft-coral signup panel, with no animation inside. Labels are explicit, and leading icons get reserved inset space. Inputs are 48px tall with 16px text. Focus turns the border deep coral with a soft-coral outline, and invalid fields use deep coral. The three-choice audience selector has a pale track and a coral sliding segment with white selected text, and each choice is at least 44px tall. A pending submission dims the action, and completion uses green at full opacity with a default cursor. Never reuse the pending dimming for the done state. Preserve the validation and the `/api/waitlist` submission contract.
 
-### Cards, context sources, and product concepts
+### FAQ
 
-Both audience cards use the same cool surface, border, hover/focus background, and bottom-aligned link. Delivery uses a white document preview within a pale-blue frame. Context sources sit in a bordered rounded frame; hover/focus/tap reveals a dark purpose tooltip and a subtle icon lift. Escape dismisses it; repeated tap toggles it closed. Reduced motion removes animated feedback.
+Rows have thin separators, readable text, and restrained plus/minus indicators. The global reduced-motion styles make transitions effectively immediate.
 
-Illustrative product concepts use synthetic examples. The walkthrough and delivery scenes carry no “Illustrative workflow · Demo data” caption (removed by request, Nov 2026); the hero and audience cards no longer show “Illustrative …” captions either (the cards keep only their product notes: “No roadmap required”, “Permission-scoped context”). Screen-reader labels on the illustrations still say they are illustrative examples. Preserve the separate approval boundaries for decisions, PRDs, ticket drafts, and publishing. Authored SVG assets are generated by `apps/marketing/scripts/build-product-assets.py` into `apps/marketing/public/product`; React motion scenes live in `apps/marketing/src/components/marketing/ProductMotionScene.tsx`. These are not evidence of shipped application functionality or commercial results.
+### Accessibility labels
 
-### Product story and FAQ
+The audience-stage and delivery-region labels say the scenes are illustrative. The hero image alt text and the walkthrough scene labels don't yet; add the word when those are next edited.
 
-Founders and Product teams use native audience buttons with pressed state. Four vertical ARIA tabs support arrows, Home, and End; only the selected desktop panel is exposed to assistive technology. Narrative and preview change together. Scenes cross-fade over (360ms) (outgoing and incoming together, so the stage never empties), the main window rises into place, and secondary pieces stagger at half length, settling within about (1.3s), pause offscreen, and can be replayed. Reduced motion shows completed static scenes in the stacked flow. Normal browser scrolling remains in control: no wheel interception, scroll snapping, or forced programmatic scrolling.
+## Do and don't
 
-FAQ rows use thin separators, readable text, and restrained plus/minus indicators. Global reduced-motion styles make transitions effectively immediate.
+**Do:**
+- Keep pure-white page, nav and walkthrough surfaces with blue, mint, peach and coral framing.
+- Keep the Rhythm mark, the exact hero headline, coral primary actions, and equal founder and team journeys.
+- Keep marketing controls readable independently of compact illustration UI.
 
-## Do's and Don'ts
-
-### Do:
-
-- Do preserve pure-white page, navigation, and walkthrough surfaces with light blue, mint, peach, and coral framing.
-- Do preserve the approved Rhythm mark, exact hero headline, coral primary actions, and equal founder/team journeys.
-- Do keep marketing controls readable independently of compact illustrative product UI.
-- Do retain native scrolling, keyboard focus, explicit form labels, validation, and reduced-motion behavior.
-- Do label product concepts and synthetic data as illustrative and preserve human approval boundaries.
-
-### Don't:
-
-- Don't restore the historical ivory page, navy section treatment, or four-bar logo as the current direction.
-- Don't add line-based evidence trails behind the hero or let decorative motion compete with its copy.
-- Don't present authored previews as shipped application screenshots, customer proof, or measured outcomes.
-- Don't change walkthrough steps on a timer or intercept page scrolling.
-- Don't shrink an entire desktop workspace into an unreadable mobile thumbnail; use the authored detail crop.
+**Don't:**
+- Restore the ivory page, navy sections, Newsreader headlines, or the four-bar logo.
+- Add blue interaction states, line-based evidence trails, or decorative motion that competes with copy.
+- Change walkthrough steps on a timer or intercept page scrolling.
+- Present authored previews as shipped screenshots, customer proof or measured outcomes.
