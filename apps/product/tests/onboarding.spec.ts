@@ -84,6 +84,38 @@ test('complete company onboarding and workspace isolation', async ({ page }, inf
   expect(errors).toEqual([]);
 });
 
+test('revisiting setup steps after finishing keeps the workspace ready', async ({ page }) => {
+  await signup(page);
+  await create(page, 'Stage Check');
+  const base = page.url().replace('/invite', '');
+  await page.getByRole('button', { name: 'Skip for now' }).click();
+  await page.getByRole('button', { name: 'Connect', exact: true }).first().click();
+  await page.getByLabel('Core Platform', { exact: true }).check();
+  await page.getByRole('button', { name: 'Add preview connection' }).click();
+  await expect(page.locator('.success-notice')).toContainText('Jira preview connection added');
+  await page.goto('/app');
+  await expect(page.locator('.resume-section')).toContainText('Stage Check');
+  await page.goto(`${base}/connections`);
+  await page.getByRole('link', { name: 'Continue to documents' }).click();
+  await page.getByRole('button', { name: 'Finish workspace setup' }).click();
+  await expect(page.getByRole('heading', { name: 'Your workspace is ready for review' })).toBeVisible();
+
+  await page.goto(`${base}/connections`);
+  await page.getByRole('button', { name: 'Connect', exact: true }).first().click();
+  await page.getByLabel('Product strategy', { exact: true }).check();
+  await page.getByRole('button', { name: 'Add preview connection' }).click();
+  await expect(page.locator('.success-notice')).toContainText('Confluence preview connection added');
+  await page.goto(`${base}/invite`);
+  await page.getByRole('button', { name: 'Skip for now' }).click();
+  await expect(page.getByRole('heading', { name: 'Connect your product tools' })).toBeVisible();
+
+  await page.goto(base);
+  await expect(page.getByRole('heading', { name: 'Your workspace is ready for review' })).toBeVisible();
+  await page.goto('/app');
+  await expect(page.getByRole('heading', { name: 'Welcome, Alex' })).toBeVisible();
+  await expect(page.locator('.resume-section')).toHaveCount(0);
+});
+
 test('personal email skips organization and mobile navigation works', async ({ page }, info) => {
   await signup(page, 'alex@gmail.com');
   await expect(page.getByText('Personal account', { exact: true })).toBeVisible();

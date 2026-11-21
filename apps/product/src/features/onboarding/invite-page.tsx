@@ -6,7 +6,7 @@ import { useState, type FormEvent } from "react";
 import { ArrowLeft, Copy, Link2, Plus, Trash2 } from "lucide-react";
 import { Arrow, Modal } from "@/components/ui";
 import { PageHeading } from "./app-shell";
-import { validateInvitations, workspacePath, type Invitation } from "./model";
+import { advanceStage, validateInvitations, workspacePath, type Invitation } from "./model";
 import { SetupNav, useWorkspace, WorkspaceGuard } from "./workspace-frame";
 
 export function InvitePage() {
@@ -25,7 +25,7 @@ export function InvitePage() {
     event?.preventDefault();
     const problem = !skip && validateInvitations(rows, state.profile?.email ?? "");
     if (problem) { setError(problem); return; }
-    updateWorkspace(current.id, (item) => ({ ...item, stage: "connections", invitations: skip ? item.invitations : [
+    updateWorkspace(current.id, (item) => ({ ...item, stage: advanceStage(item.stage, "connections"), invitations: skip ? item.invitations : [
       ...item.invitations,
       ...rows.filter((row) => row.email.trim() && !item.invitations.some((invite) => invite.email === row.email.trim().toLowerCase())).map((row) => ({ ...row, email: row.email.trim().toLowerCase() })),
     ] }));

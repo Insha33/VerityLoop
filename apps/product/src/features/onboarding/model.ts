@@ -3,6 +3,12 @@ export type Provider = "Jira" | "Confluence" | "Linear";
 export type Connection = { provider: Provider; sources: string[] };
 export type ProductDocument = { id: string; name: string; size: number; type: string };
 export type Invitation = { email: string; role: Exclude<Role, "Owner"> };
+export type Stage = "invite" | "connections" | "documents" | "complete";
+const STAGE_ORDER: readonly Stage[] = ["invite", "connections", "documents", "complete"];
+/** Setup only moves forward: revisiting an earlier step never reopens a later one. */
+export function advanceStage(current: Stage, next: Stage): Stage {
+  return STAGE_ORDER.indexOf(next) > STAGE_ORDER.indexOf(current) ? next : current;
+}
 export type Workspace = {
   id: string;
   name: string;
@@ -13,7 +19,7 @@ export type Workspace = {
   inviteLink: { token: string; expiresAt: number } | null;
   connections: Connection[];
   documents: ProductDocument[];
-  stage: "invite" | "connections" | "documents" | "complete";
+  stage: Stage;
 };
 export type Profile = { email: string; name: string; domain: string; organization: string | null };
 export type DemoState = { profile: Profile | null; workspaces: Workspace[] };
