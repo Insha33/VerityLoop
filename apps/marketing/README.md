@@ -65,9 +65,9 @@ The Cloudflare asset directory is `./apps/marketing/out`, so dependencies and so
 npm run deploy
 ```
 
-In the Cloudflare dashboard, use the repository root as the working directory and `npx wrangler deploy` as the deploy command.
+Production deploys run from GitHub Actions when started by hand (**Actions → Deploy marketing → Run workflow** on `main`), after CI passes; pull requests that change marketing get an automatic preview version; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment). Workers Builds (Cloudflare's own Git integration) must be disconnected, or every push to `main` still deploys marketing automatically.
 
-For a Git-connected deployment, open **Workers & Pages → verityloop → Settings → Variables and Secrets** and add these encrypted secrets:
+The Worker's runtime secrets live in Cloudflare, not GitHub. Open **Workers & Pages → verityloop → Settings → Variables and Secrets** and add these encrypted secrets:
 
 - `SUPABASE_URL`
 - `SUPABASE_SECRET_KEY`

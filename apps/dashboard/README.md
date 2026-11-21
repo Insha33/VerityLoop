@@ -76,4 +76,16 @@ npm run test:e2e
 
 Pass Playwright flags after `--`, for example `npm run test:e2e -- --headed` or `npm run test:e2e -- --project=mobile`. Playwright starts the dev server on port 3001 when nothing is running there, and reuses a running one outside CI. Browser tests run at two viewports: desktop (1440×1024, sidebar navigation) and mobile (375×812, drawer navigation). Put logic checks in `tests/unit/` instead of adding viewports. They save all seven screens under `apps/dashboard/artifacts/onboarding/<viewport>/` (ignored by Git). Set `PLAYWRIGHT_BROWSERS_PATH` consistently for install and tests when using a custom browser cache. Typechecking bypasses the incremental cache so prior Next build diagnostics cannot mask source changes.
 
-This app has its own Next.js config and does not use marketing's static-export setting. It can grow to include server-rendered routes and API handlers. No production hosting provider, domain, database, authentication system, or deployment pipeline is configured yet. Root `npm run deploy` deploys only marketing.
+This app has its own Next.js config and does not use marketing's static-export setting. It can grow to include server-rendered routes and API handlers. No database or authentication system is configured yet.
+
+## Deployment
+
+The dashboard runs on Cloudflare Workers at `platform.runverityloop.com`, through the [OpenNext Cloudflare adapter](https://opennext.js.org/cloudflare). `wrangler.jsonc` here configures the Worker; `open-next.config.ts` uses the defaults, with no incremental cache, so pages render on the Worker. `next/image` resizes through the Worker's `IMAGES` binding.
+
+```bash
+npm run preview:worker   # build and serve the Worker locally in workerd, on http://localhost:8787
+npm run deploy:check     # build and validate the Worker bundle without uploading
+npm run deploy           # build and deploy to production (normally run from the Deploy dashboard workflow)
+```
+
+Run these from this folder, or use root `npm run deploy:check:dashboard` and `npm run deploy:dashboard`. `npm run build` stays a plain `next build`; OpenNext calls it. Production deploys run from GitHub Actions when started by hand (**Actions → Deploy dashboard → Run workflow** on `main`), after CI passes; pull requests that change the dashboard get an automatic preview; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment), including the one-time setup.

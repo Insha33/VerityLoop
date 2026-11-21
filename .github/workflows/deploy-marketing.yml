@@ -1,0 +1,84 @@
+name: Deploy marketing
+
+# Production deploys only when started by hand: Actions → Deploy marketing → Run workflow, on main.
+# Pull requests that change what marketing ships get an automatic preview, which never takes production traffic.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - apps/marketing/**
+      - wrangler.jsonc
+      - package.json
+      - package-lock.json
+      - .github/workflows/deploy-marketing.yml
+
+permissions:
+  contents: read
+
+# One production deploy at a time; a second run waits instead of cancelling a deploy halfway.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci:
+    # Pull requests already run ci.yml on their own.
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/ci.yml
+
+  preview:
+    # Fork and Dependabot PRs can't read secrets, so they get CI only.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: preview-marketing
+      url: ${{ steps.url.outputs.url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Uploads a Worker version that never takes production traffic, with a stable per-PR URL.
+      - id: upload
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: versions upload --preview-alias pr-${{ github.event.pull_request.number }}
+      - id: url
+        env:
+          OUTPUT: ${{ steps.upload.outputs.command-output }}
+          ALIAS: pr-${{ github.event.pull_request.number }}
+        run: |
+          url=$(grep -oE "https://${ALIAS}-[a-z0-9.-]+\.workers\.dev" <<< "$OUTPUT" | tail -n 1 || true)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Preview: ${url:-not printed, check the upload step}" >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    needs: ci
+    # Only main ships to production; a run started from another branch stops after CI.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: production-marketing
+      url: https://runverityloop.com
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Root wrangler.jsonc builds marketing through its build hook, then deploys.
+      - uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

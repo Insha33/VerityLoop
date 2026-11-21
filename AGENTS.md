@@ -29,9 +29,9 @@ Start with [docs/architecture.md](docs/architecture.md) for how the parts fit to
 | `npm test` | Unit tests in every workspace (Vitest; Turborepo, cached) |
 | `npm run test:e2e` | Browser journeys (dashboard Playwright at desktop and mobile; starts its own dev server, never cached). Needs `npx playwright install chromium` once |
 | `npm run build` | Build all workspaces (Turborepo, cached) |
-| `npm run deploy:check` | Validate the marketing Worker bundle without deploying |
+| `npm run deploy:check` / `npm run deploy:check:dashboard` | Validate the marketing or dashboard Worker bundle without deploying |
 
-Turborepo runs `build`, `typecheck`, `test` and `test:e2e` from `turbo.json`. Narrow any of them with `--filter`, for example `npx turbo run build --filter=@verityloop/dashboard`. When a task's inputs, outputs or environment variables change, update `turbo.json` in the same change, or cached results will be stale. Deploys never go through the cache: the Wrangler build hook calls the marketing workspace build directly.
+Turborepo runs `build`, `typecheck`, `test` and `test:e2e` from `turbo.json`. Narrow any of them with `--filter`, for example `npx turbo run build --filter=@verityloop/dashboard`. When a task's inputs, outputs or environment variables change, update `turbo.json` in the same change, or cached results will be stale. Deploys never go through the cache: the Wrangler build hook calls the marketing workspace build directly, and OpenNext calls the dashboard build. GitHub Actions (`.github/workflows/`) runs CI on pull requests; production deploys are manual runs of `deploy-marketing.yml` and `deploy-dashboard.yml` on `main`; see [docs/monorepo.md](docs/monorepo.md#deployment). When you add a check that should gate deploys, add it to `ci.yml`.
 
 Install a dependency into the workspace that uses it: `npm install <pkg> --workspace=@verityloop/<name>`. Never create app-level lockfiles.
 
@@ -67,7 +67,7 @@ Shared skills are committed, so every contributor's agent gets them on clone.
 - `apps/api` and `apps/worker` get code only after their stack decision is approved (see each README). Each then owns its own `package.json`, environment variables, tests and deploy configuration.
 - Code shared by the API and worker (database schema, job payloads, brief types) goes in a package such as `packages/db` or `packages/contracts`, never in either app.
 - Feature folders use the product's domain names (`auth`, `workspaces`, `account`, later `briefs`), and the same name in every app that handles that domain.
-- The marketing waitlist Worker is not the product API. Root `wrangler.jsonc` and `.dev.vars` belong to marketing only.
+- The marketing waitlist Worker is not the product API. Root `wrangler.jsonc` and `.dev.vars` belong to marketing only; the dashboard's Worker config is `apps/dashboard/wrangler.jsonc`.
 - `apps/dashboard` role checks are UI-only and **not a security boundary**. Never describe preview behavior as shipped.
 
 ## UI design
