@@ -28,11 +28,12 @@ Production deploys are manual: **Actions → Deploy marketing** (or **Deploy das
 
 | Workflow | Runs when | Does |
 | --- | --- | --- |
-| `.github/workflows/ci.yml` | Every pull request; called by both deploy workflows before production | `verify`: `npm run typecheck`, `npm test`, `npm run deploy:check`, `npm run deploy:check:dashboard` (each builds its app the way production does and validates the Worker bundle). `e2e`: dashboard Playwright journeys, with traces uploaded on failure |
-| `.github/workflows/deploy-marketing.yml` | Run by hand; and pull requests that change `apps/marketing/**`, root `wrangler.jsonc`, root `package.json` or `package-lock.json`, or the workflow itself | Manual run on `main`: CI, then `wrangler deploy` to `production-marketing`. PR: preview |
-| `.github/workflows/deploy-dashboard.yml` | Run by hand; and pull requests that change `apps/dashboard/**`, root `package.json` or `package-lock.json`, or the workflow itself | Manual run on `main`: CI, then OpenNext build and `wrangler deploy` to `production-dashboard`. PR: preview |
+| `.github/workflows/ci.yml` | Every pull request. Deploys don't rerun it | `verify`: `npm run typecheck`, `npm test`, `npm run deploy:check`, `npm run deploy:check:dashboard` (each builds its app the way production does and validates the Worker bundle). `e2e`: dashboard Playwright journeys, with traces uploaded on failure |
+| `.github/workflows/deploy-marketing.yml` | Run by hand; and pull requests that change `apps/marketing/**`, root `wrangler.jsonc`, root `package.json` or `package-lock.json`, or the workflow itself | Manual run on `main`: `wrangler deploy` to `production-marketing`. PR: preview |
+| `.github/workflows/deploy-dashboard.yml` | Run by hand; and pull requests that change `apps/dashboard/**`, root `package.json` or `package-lock.json`, or the workflow itself | Manual run on `main`: OpenNext build, then `wrangler deploy` to `production-dashboard`. PR: preview |
 
-- **A manual run from any branch other than `main`** runs CI and stops; only `main` reaches production.
+- **CI gates merges, not deploys.** A deploy ships whatever is on `main` without rerunning CI, so `main` must only ever hold commits that passed CI as merged. That needs the branch rule in setup step 2; without it, two PRs that pass separately can break `main` together and the next deploy ships the result. The deploy still builds the app, so a build failure stops it.
+- **A manual run from any branch other than `main`** does nothing; only `main` reaches production.
 - **Preview deploys.** For pull requests from this repository, the deploy workflow uploads a Worker version with the alias `pr-<number>` (`wrangler versions upload --preview-alias`). This happens automatically, filtered by the `paths` lists above. A version never takes production traffic. Its URL (`https://pr-<number>-<worker>.<subdomain>.workers.dev`) appears as the PR's `preview-marketing` or `preview-dashboard` deployment and in the job summary. Fork and Dependabot PRs can't read secrets and get CI only. Preview versions share the Worker's production secrets and bindings, so a waitlist signup on a marketing preview writes to the real Supabase table.
 - **Ordering.** Each deploy workflow has one concurrency group per branch: a second production run waits for the first instead of cancelling it, and a new push to a PR cancels that PR's previous preview run.
 - **Shared code.** When an app starts importing a package from `packages/`, add that package's path to its deploy workflow's `paths` list, or PRs changing it won't get a preview.
@@ -44,12 +45,13 @@ Production rollback is a Cloudflare operation: `npx wrangler rollback` (root, ma
 
 ### One-time setup
 
-Done: the dashboard Worker is `verityloop-platform`, and the `CLOUDFLARE_API_TOKEN` (from the "Edit Cloudflare Workers" template) and `CLOUDFLARE_ACCOUNT_ID` repository secrets are set. Remaining, for someone with access to the Cloudflare account:
+Done: the dashboard Worker is `verityloop-platform`, and the `CLOUDFLARE_API_TOKEN` (from the "Edit Cloudflare Workers" template) and `CLOUDFLARE_ACCOUNT_ID` repository secrets are set. Remaining (step 1 needs Cloudflare access; steps 2 and 3 need a repository admin):
 
 1. **Disconnect Workers Builds from the `verityloop` Worker** (Workers & Pages → verityloop → Settings → Builds → Disconnect). Until then, every push to `main` still deploys marketing automatically, without waiting for CI.
-2. Optionally add required reviewers to the `production-*` environments (Settings → Environments) to approve each production deploy, and require the CI checks in a branch protection rule for `main`.
+2. **Protect `main`** (Settings → Rules → Rulesets, target `main`): require a pull request, require the `Typecheck, unit tests, Worker bundles` and `Dashboard browser journeys` status checks, and turn on "Require branches to be up to date before merging".
+3. Optionally add required reviewers to the `production-*` environments (Settings → Environments) to approve each production deploy.
 
-The first dashboard deploy replaces the hand-deployed build, along with any bindings that build had that `apps/dashboard/wrangler.jsonc` doesn't declare. Run **Actions → Deploy dashboard → Run workflow** on `main` to ship the current dashboard.
+The first dashboard deploy replaces the hand-deployed build, along with any bindings that build had that `apps/dashboard/wrangler.jsonc` doesn't declare. Run **Actions → Deploy dashboard → Run workflow** on `main` to ship the current dashboard. That deploy also turns on `workers.dev` and preview URLs for `verityloop-platform`, which the hand-deployed Worker had off; until then, dashboard previews upload without a link.
 
 Cloudflare documents version uploads and preview URLs in [versions and deployments](https://developers.cloudflare.com/workers/configuration/versions-and-deployments/) and [preview URLs](https://developers.cloudflare.com/workers/configuration/previews/).
 

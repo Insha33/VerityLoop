@@ -88,4 +88,4 @@ npm run deploy:check     # build and validate the Worker bundle without uploadin
 npm run deploy           # build and deploy to production (normally run from the Deploy dashboard workflow)
 ```
 
-Run these from this folder, or use root `npm run deploy:check:dashboard` and `npm run deploy:dashboard`. `npm run build` stays a plain `next build`; OpenNext calls it. Production deploys run from GitHub Actions when started by hand (**Actions → Deploy dashboard → Run workflow** on `main`), after CI passes; pull requests that change the dashboard get an automatic preview; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment), including the one-time setup.
+Run these from this folder, or use root `npm run deploy:check:dashboard` and `npm run deploy:dashboard`. `npm run build` stays a plain `next build`; OpenNext calls it. Production deploys run from GitHub Actions when started by hand (**Actions → Deploy dashboard → Run workflow** on `main`); CI runs on the pull request before merge; pull requests that change the dashboard get an automatic preview; see [deployment in the monorepo guide](../../docs/monorepo.md#deployment), including the one-time setup.

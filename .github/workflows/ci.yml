@@ -1,17 +1,15 @@
 name: CI
 
-# Runs on every pull request, and from deploy-marketing.yml and deploy-dashboard.yml before a production deploy.
+# Runs on every pull request. Deploys don't rerun it, so require it (and up-to-date branches) on main.
 on:
   pull_request:
-  workflow_call:
 
 permissions:
   contents: read
 
 concurrency:
-  # github.workflow is the caller's name when called, so the two deploy workflows never wait on each other.
-  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 env:
   TURBO_TELEMETRY_DISABLED: 1
