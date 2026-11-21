@@ -51,7 +51,7 @@ Done: the dashboard Worker is `verityloop-platform`, and the `CLOUDFLARE_API_TOK
 2. **Protect `main`** (Settings → Rules → Rulesets, target `main`): require a pull request, require the `Typecheck, unit tests, Worker bundles` and `Dashboard browser journeys` status checks, and turn on "Require branches to be up to date before merging".
 3. Optionally add required reviewers to the `production-*` environments (Settings → Environments) to approve each production deploy.
 
-The first dashboard deploy replaces the hand-deployed build, along with any bindings that build had that `apps/dashboard/wrangler.jsonc` doesn't declare. Run **Actions → Deploy dashboard → Run workflow** on `main` to ship the current dashboard.
+The first dashboard deploy replaces the hand-deployed build, along with any bindings that build had that `apps/dashboard/wrangler.jsonc` doesn't declare. Run **Actions → Deploy dashboard → Run workflow** on `main` to ship the current dashboard. That deploy also turns on `workers.dev` and preview URLs for `verityloop-platform`, which the hand-deployed Worker had off; until then, dashboard previews upload without a link.
 
 Cloudflare documents version uploads and preview URLs in [versions and deployments](https://developers.cloudflare.com/workers/configuration/versions-and-deployments/) and [preview URLs](https://developers.cloudflare.com/workers/configuration/previews/).
 
