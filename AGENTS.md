@@ -13,6 +13,7 @@ apps/
 packages/           Shared libraries; none yet
 docs/               Architecture, plans, product direction, design specs
 turbo.json          Turborepo task graph and cache settings
+.agents/skills/     Shared agent skills (see "Agent skills" below)
 ```
 
 Start with [docs/architecture.md](docs/architecture.md) for how the parts fit together and what is real versus planned.
@@ -33,6 +34,32 @@ Start with [docs/architecture.md](docs/architecture.md) for how the parts fit to
 Turborepo runs `build`, `typecheck`, `test` and `test:e2e` from `turbo.json`. Narrow any of them with `--filter`, for example `npx turbo run build --filter=@verityloop/dashboard`. When a task's inputs, outputs or environment variables change, update `turbo.json` in the same change, or cached results will be stale. Deploys never go through the cache: the Wrangler build hook calls the marketing workspace build directly.
 
 Install a dependency into the workspace that uses it: `npm install <pkg> --workspace=@verityloop/<name>`. Never create app-level lockfiles.
+
+## Agent skills
+
+Shared skills are committed, so every contributor's agent gets them on clone.
+
+- Each skill lives once in `.agents/skills/<name>/` with a `SKILL.md`. Codex and other agents read this folder.
+- Claude Code reads `.claude/skills/<name>`, a symlink to `../../.agents/skills/<name>`. On Windows, run `git config --global core.symlinks true` before cloning, or the links check out as plain text files.
+- Invoke a skill by name, for example `/hallmark <prompt>`, `/hallmark redesign <path>` or `/hallmark audit <path>` in Claude Code, or ask your agent to use it.
+- **To add a skill:** copy its folder into `.agents/skills/<name>/` (keep its `LICENSE`), run `ln -s ../../.agents/skills/<name> .claude/skills/<name>`, commit both, and add a row below. Update a skill in place; don't keep two versions.
+
+| Skill | Use it for | In Claude Code |
+| --- | --- | --- |
+| `hallmark` | Designing new pages and sites that don't look generated; `redesign` or `audit` an existing page only when asked | Yes |
+| `web-design-engineer` | Browser-rendered visual work in HTML, CSS or React: pages, dashboards, prototypes, decks | Yes |
+| `gsap-core`, `gsap-react`, `gsap-scrolltrigger`, `gsap-timeline`, `gsap-plugins`, `gsap-utils`, `gsap-performance`, `gsap-frameworks` | Official GSAP animation guidance (the marketing site uses GSAP) | Yes |
+| `motion-showreel` | Animation videos made in code, exported as MP4 with editable source | Yes |
+| `web-video-presentation` | Turning an article or script into a click-through 16:9 web presentation | Yes |
+| `beautiful-article` | Turning source material (URL, PDF, DOCX, Markdown, screenshots) into a designed, offline-readable article | Yes |
+| `gpt-image-2` | Image generation and editing with GPT Image 2 | Yes |
+| `kb-retriever` | Search and Q&A over a local knowledge-base folder | Yes |
+| `impeccable` | Design critique, audit, polish and redesign passes | No link yet |
+| `design-lab` | Design interviews, then five UI variations before building | No link yet |
+| `frontend-ui-engineering` | Accessible, responsive production UI | No link yet |
+| `interaction-design` | Microinteractions, transitions and feedback patterns | No link yet |
+
+"No link yet" skills work in Codex and other agents that read `.agents/skills/`. Add the symlink above to use them in Claude Code.
 
 ## Boundaries
 
@@ -58,6 +85,7 @@ Docs here are working instructions, not history. A doc that disagrees with the c
    | Product onboarding screens and copy | `docs/design/pm-onboarding.md` (+ `v8/` references) |
    | Repo layout decisions and deploy settings | `docs/monorepo.md` |
    | Each workspace's setup and commands | that workspace's `README.md` |
+   | Shared agent skills | `.agents/skills/`, listed in this file |
    | Agent and git rules | this file |
 
 3. **Plans and ledgers carry a status line** (`proposed`, `approved`, `in progress`, `shipped`, or `superseded by <link>`), plus the date it last changed. When work ships, update the status and fix anything the plan now gets wrong. When a plan is replaced, mark it superseded. Don't silently leave it.
