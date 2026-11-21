@@ -25,8 +25,8 @@ Start with [docs/architecture.md](docs/architecture.md) for how the parts fit to
 | `npm run dev` | Run every app's dev server (marketing 3000, dashboard 3001) |
 | `npm run dev:marketing` / `npm run dev:dashboard` | Run one app |
 | `npm run typecheck` | Typecheck all workspaces (Turborepo, cached) |
-| `npm test` | Unit tests in every workspace (Turborepo, cached; marketing Vitest today) |
-| `npm run test:e2e` | Browser journeys (dashboard Playwright; starts its own dev server, never cached) |
+| `npm test` | Unit tests in every workspace (Vitest; Turborepo, cached) |
+| `npm run test:e2e` | Browser journeys (dashboard Playwright at desktop and mobile; starts its own dev server, never cached). Needs `npx playwright install chromium` once |
 | `npm run build` | Build all workspaces (Turborepo, cached) |
 | `npm run deploy:check` | Validate the marketing Worker bundle without deploying |
 

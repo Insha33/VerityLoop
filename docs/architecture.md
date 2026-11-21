@@ -75,7 +75,7 @@ Solid boxes in **Built** run today. Everything in **Planned** is unbuilt, and `a
 
 **Waitlist (built).** Form → `POST /api/waitlist` → normalize name, email, audience and campaign → Supabase insert (a duplicate email returns success with no email sent) → for new rows, a Resend notification to the team (a failure returns 502), then a welcome email to the signup (a failure is logged and does not fail the request) → JSON response. Tests: `apps/marketing/tests/waitlist-worker.test.ts`.
 
-**Onboarding (preview).** Email at `/sign-up` → `profileForEmail` assigns a company or personal organization from the domain → dashboard at `/` → create workspace (you become its Owner) → optional invites → at least one scoped connection → optional documents → `stage: complete`. All of this state lives in `sessionStorage` key `verityloop-product-preview-v1`. Spec: [design/pm-onboarding.md](design/pm-onboarding.md). Tests: `apps/dashboard/tests/onboarding.spec.ts`.
+**Onboarding (preview).** Email at `/sign-up` → `profileForEmail` assigns a company or personal organization from the domain → dashboard at `/` → create workspace (you become its Owner) → optional invites → at least one scoped connection → optional documents → `stage: complete`. All of this state lives in `sessionStorage` key `verityloop-product-preview-v1`. Spec: [design/pm-onboarding.md](design/pm-onboarding.md). Tests: `apps/dashboard/tests/unit/` (logic) and `apps/dashboard/tests/e2e/onboarding.spec.ts` (journeys).
 
 **Brief generation (planned).** See [apps/worker](../apps/worker/README.md).
 

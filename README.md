@@ -12,7 +12,7 @@ apps/
   dashboard/            Product UI: frontend-only onboarding preview
     src/app/            Routes: (auth) for sign-up and sign-in, (dashboard) behind sign-in
     src/features/       One folder per domain: auth, workspaces, account
-    tests/              Playwright journeys
+    tests/              unit/ (Vitest) and e2e/ (Playwright journeys)
   api/                  Product API: auth, workspaces, connectors, briefs (README only)
   worker/               Evidence pipeline and brief-drafting jobs (README only)
 packages/               Reserved for libraries used by multiple workspaces

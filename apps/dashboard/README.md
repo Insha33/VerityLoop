@@ -30,7 +30,8 @@ Try `alex@acme.com` for a sample company directory, or `alex@gmail.com` for an e
 - `src/components/`: `app-shell.tsx` (sidebar, header, breadcrumbs, sign-in guard) and `ui.tsx` (brand, controls, avatars, loading state, native dialog).
 - `src/lib/`: `preview-store.tsx` (session state every feature reads) and `email.ts`.
 - `public/`: existing VerityLoop brand assets, provider icons, and self-hosted Manrope with its license.
-- `tests/`: Playwright journeys covering corporate/personal email, access requests, invites, scoped connections, document validation, session persistence, and separate workspace state.
+- `tests/unit/`: Vitest tests for the plain logic (setup stages, roles, invitation rules, email-to-organization, sample state, paths). Fast, no browser; `npm test` runs them.
+- `tests/e2e/`: Playwright journeys covering corporate/personal email, access requests, invites, scoped connections, document validation, session persistence, and separate workspace state.
 
 Screens use the v8 references in `docs/design/pm-onboarding/v8/` with responsive layouts and the specified type scale. See [design-qa.md](design-qa.md) for rendered QA.
 
@@ -44,11 +45,12 @@ Production requires verified authentication, organization/domain ownership, serv
 
 ```bash
 npx turbo run typecheck --filter=@verityloop/dashboard
+npx turbo run test --filter=@verityloop/dashboard   # unit tests
 npm run build:dashboard
 npx playwright install chromium
 npm run test:e2e
 ```
 
-Pass Playwright flags after `--`, for example `npm run test:e2e -- --headed` or `npm run test:e2e -- --project=mobile`. Playwright starts the dev server on port 3001 when nothing is running there, and reuses a running one outside CI. Browser tests cover 1440px, 768px, 375px and 320px viewports. They save all seven screens under `apps/dashboard/artifacts/onboarding/<viewport>/` (ignored by Git). Set `PLAYWRIGHT_BROWSERS_PATH` consistently for install and tests when using a custom browser cache. Typechecking bypasses the incremental cache so prior Next build diagnostics cannot mask source changes.
+Pass Playwright flags after `--`, for example `npm run test:e2e -- --headed` or `npm run test:e2e -- --project=mobile`. Playwright starts the dev server on port 3001 when nothing is running there, and reuses a running one outside CI. Browser tests run at two viewports: desktop (1440×1024, sidebar navigation) and mobile (375×812, drawer navigation). Put logic checks in `tests/unit/` instead of adding viewports. They save all seven screens under `apps/dashboard/artifacts/onboarding/<viewport>/` (ignored by Git). Set `PLAYWRIGHT_BROWSERS_PATH` consistently for install and tests when using a custom browser cache. Typechecking bypasses the incremental cache so prior Next build diagnostics cannot mask source changes.
 
 This app has its own Next.js config and does not use marketing's static-export setting. It can grow to include server-rendered routes and API handlers. No production hosting provider, domain, database, authentication system, or deployment pipeline is configured yet. Root `npm run deploy` deploys only marketing.

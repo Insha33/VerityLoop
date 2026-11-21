@@ -15,7 +15,7 @@ This is a responsive interpretation of image-generated references, not a pixel-d
 ## Checks
 
 - Production build and TypeScript check passed.
-- Eight Playwright journeys passed: company and personal flows at 1440×1024, 768×1024, 375×812, and 320×740.
+- Eight Playwright journeys passed: company and personal flows at 1440×1024, 768×1024, 375×812, and 320×740. (This record predates 2026-11-21; the suite now runs at 1440×1024 and 375×812 only.)
 - All seven screens captured at each viewport with a horizontal-overflow assertion.
 - Checked email validation, owner request/pending states, restricted direct URLs, Reviewer management restrictions, workspace naming, invitation validation, generated link revocation, optional invite skipping, required scoped connection, invalid file recovery, document metadata, reload persistence, completion and separate state in a second workspace.
 - Browser page errors were collected during company journeys; none occurred.
