@@ -74,8 +74,11 @@ Shared skills are committed, so every contributor's agent gets them on clone.
 
 These rules apply to every app. The bar is Linear's website and Apple Notes: a simple purpose, simple architecture, simple design, simple implementation. Every decision should improve the experience for users, developers and agents at once, without breaking anything.
 
-- **One design system: [shadcn/ui](https://ui.shadcn.com/).** Add components with the shadcn CLI into the app's `src/components/ui/`, and customize them through tokens, not by forking them. Use the standard component and prop names, so people and agents recognize them.
-- **Colors come only from shared tokens.** Define every color as a CSS variable (`--background`, `--foreground`, `--primary`, `--muted`, `--border` and so on), once for light and once for dark. Components and feature CSS never contain hex, `rgb()` or named colors. Brand colors are tokens too.
+- **One design system per app, never two in one app.**
+  - `apps/dashboard` uses [Astryx](https://astryx.atmeta.com/). Import each component from its own entry (`@astryxdesign/core/Button`), and customize through its theme (`defineTheme`), not overrides. Look components and tokens up with `npx @astryxdesign/cli component <Name>` and `npx @astryxdesign/cli docs <topic>`. Don't run `npx @astryxdesign/cli init`: it creates a `CLAUDE.md`, which makes Claude Code ignore this file.
+  - `apps/marketing` uses [shadcn/ui](https://ui.shadcn.com/). Add components with the shadcn CLI into `src/components/ui/`, and customize them through tokens, not by forking them.
+  - The two register the same Tailwind color names (`primary`, `muted`, `border` and others) with different meanings, so mixing them breaks one of them. Use each system's standard component and prop names, so people and agents recognize them.
+- **Colors come only from shared tokens.** Use the app's design-system tokens (Astryx theme tokens in the dashboard, shadcn variables such as `--background` and `--primary` in marketing), each defined for light and dark. Components and feature CSS never contain hex, `rgb()` or named colors. Brand colors are tokens too.
 - **Every screen ships in light and dark mode.** Follow the system setting by default. A change isn't done until both themes are checked in a browser, at desktop and mobile widths.
 - **Minimal by default.** One purpose per screen. No editorial labels or eyebrows, no counts unless the number is the content, no sparkle or "AI" icons, no extra panels or cards around content.
 - **Complexity is earned and disclosed progressively.** Show the primary action. Put secondary options behind a menu, a disclosure or the next screen.

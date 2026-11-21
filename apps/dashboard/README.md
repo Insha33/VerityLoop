@@ -38,8 +38,8 @@ Screens use the v8 references in `docs/design/pm-onboarding/v8/` with responsive
 ## Gaps against the UI rules
 
 As of 2026-11-21 the dashboard doesn't yet meet the [UI rules in AGENTS.md](../../AGENTS.md#ui-design):
-- It isn't on shadcn/ui; `src/components/ui.tsx` holds hand-made controls. Replace it with shadcn components in `src/components/ui/` (a file and a folder with the same name would make `@/components/ui` ambiguous).
-- `src/app/globals.css` defines a few color variables but still uses about 45 hard-coded color values.
+- It isn't on Astryx yet; `src/components/ui.tsx` holds hand-made controls. Replace them with Astryx components and delete the file.
+- `src/app/globals.css` defines a few color variables but still uses about 45 hard-coded color values; move them onto Astryx theme tokens.
 - There's no dark mode.
 - Several screens carry helper lines and subtitles.
 
