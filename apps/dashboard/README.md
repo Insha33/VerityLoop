@@ -35,6 +35,16 @@ Try `alex@acme.com` for a sample company directory, or `alex@gmail.com` for an e
 
 Screens use the v8 references in `docs/design/pm-onboarding/v8/` with responsive layouts and the specified type scale. See [design-qa.md](design-qa.md) for rendered QA.
 
+## Gaps against the UI rules
+
+As of 2026-11-21 the dashboard doesn't yet meet the [UI rules in AGENTS.md](../../AGENTS.md#ui-design):
+- It isn't on shadcn/ui; `src/components/ui.tsx` holds hand-made controls. Replace it with shadcn components in `src/components/ui/` (a file and a folder with the same name would make `@/components/ui` ambiguous).
+- `src/app/globals.css` defines a few color variables but still uses about 45 hard-coded color values.
+- There's no dark mode.
+- Several screens carry helper lines and subtitles.
+
+Close these when the screens are next changed, starting with tokens and dark mode.
+
 ## Preview boundaries
 
 State is isolated to this browser tab using `sessionStorage`, persists through reloads, and is cleared by Sign out or Reset preview. This is a frontend preview: email signup does not authenticate or verify a domain. Invitations and access requests do not send messages. Generated links are previews, not redeemable credentials. Connections simulate selected sources; no OAuth or provider API runs. Uploads retain filename/size/type only; file contents are never read or sent. Separate workspace state and UI role guards demonstrate the intended behavior, **not a production security boundary**.

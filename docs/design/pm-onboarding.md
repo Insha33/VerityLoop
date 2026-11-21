@@ -2,6 +2,8 @@
 
 Date: 7 November 2026. Status: research-backed design proposal; not implemented or usability-tested.
 
+The [UI rules in AGENTS.md](../../AGENTS.md#ui-design) (added 21 November 2026) take precedence over the layouts and copy here. Where this spec calls for taglines, helper text, secondary labels or extra panels, follow AGENTS.md.
+
 **Authoritative workflow, 10 November 2026:** [Account-first onboarding](pm-onboarding/account-first-v7.md). Signup opens the account dashboard; Workspaces is an application-sidebar destination. Workspace creation and optional invitations lead to a dedicated Connections page, followed by a separate Documents page. Personal email is accepted. Earlier journey/order and connection-optional wording below are historical where they conflict with v7.
 
 **Current product model, superseding earlier email/access assumptions:** [Organization discovery and owner-approved workspace access](pm-onboarding/organization-model-v6.md). Verified corporate users discover their organization's workspaces and request access, or create a new linked workspace. Generic-email users create personal workspaces without an organization. Organization discovery reveals limited directory metadata, never workspace content.

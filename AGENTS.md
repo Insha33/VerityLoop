@@ -70,6 +70,21 @@ Shared skills are committed, so every contributor's agent gets them on clone.
 - The marketing waitlist Worker is not the product API. Root `wrangler.jsonc` and `.dev.vars` belong to marketing only.
 - `apps/dashboard` role checks are UI-only and **not a security boundary**. Never describe preview behavior as shipped.
 
+## UI design
+
+These rules apply to every app. The bar is Linear's website and Apple Notes: a simple purpose, simple architecture, simple design, simple implementation. Every decision should improve the experience for users, developers and agents at once, without breaking anything.
+
+- **One design system: [shadcn/ui](https://ui.shadcn.com/).** Add components with the shadcn CLI into the app's `src/components/ui/`, and customize them through tokens, not by forking them. Use the standard component and prop names, so people and agents recognize them.
+- **Colors come only from shared tokens.** Define every color as a CSS variable (`--background`, `--foreground`, `--primary`, `--muted`, `--border` and so on), once for light and once for dark. Components and feature CSS never contain hex, `rgb()` or named colors. Brand colors are tokens too.
+- **Every screen ships in light and dark mode.** Follow the system setting by default. A change isn't done until both themes are checked in a browser, at desktop and mobile widths.
+- **Minimal by default.** One purpose per screen. No editorial labels or eyebrows, no counts unless the number is the content, no sparkle or "AI" icons, no extra panels or cards around content.
+- **Complexity is earned and disclosed progressively.** Show the primary action. Put secondary options behind a menu, a disclosure or the next screen.
+- **Cut taglines, helper text and secondary labels.** If a screen needs them to make sense, fix the layout instead. Error and validation messages aren't helper text: keep them, short and specific. Accessible names stay even when the visible label goes.
+- **Accessible and steady.** Use semantic HTML and labelled controls, so tests and agents can drive the UI by role and name. Keyboard focus exposes everything hover does, with a visible `:focus-visible` style. Targets are at least 44px. Reserve space so content never shifts. With reduced motion, show the finished state immediately.
+- **New pages and screens start from a design skill** in the table above, such as `hallmark`.
+
+Each app's design doc records its tokens and any gap against these rules: [DESIGN.md](DESIGN.md) for marketing, [apps/dashboard/README.md](apps/dashboard/README.md) for the dashboard.
+
 ## Keeping docs true to the code
 
 Docs here are working instructions, not history. A doc that disagrees with the code misleads the next agent.
@@ -80,6 +95,7 @@ Docs here are working instructions, not history. A doc that disagrees with the c
    | Topic | Source of truth |
    | --- | --- |
    | System design, components, real vs planned | `docs/architecture.md` |
+   | UI rules for every app | this file ("UI design") |
    | Marketing visual system (tokens, components, motion) | `DESIGN.md` |
    | Product positioning and MVP scope | `docs/verityloop-positioning-and-mvp.md`, `PRODUCT.md` |
    | Product onboarding screens and copy | `docs/design/pm-onboarding.md` (+ `v8/` references) |
