@@ -7,12 +7,12 @@ Instructions for any coding agent (Claude Code, Codex, and others) working in th
 ```text
 apps/
   marketing/        Public site (Next.js static export) + /api/waitlist Cloudflare Worker
-  platform-fe/      Product UI. Currently a frontend-only onboarding preview (sessionStorage)
-services/
-  platform-be/      README only: product API, auth, workspaces, connectors (not built)
-  agent-worker/     README only: evidence pipeline and brief jobs (not built)
+  dashboard/        Product UI. Currently a frontend-only onboarding preview (sessionStorage)
+  api/              README only: product API, auth, workspaces, connectors (not built)
+  worker/           README only: evidence pipeline and brief jobs (not built)
 packages/           Shared libraries; none yet
 docs/               Architecture, plans, product direction, design specs
+turbo.json          Turborepo task graph and cache settings
 ```
 
 Start with [docs/architecture.md](docs/architecture.md) for how the parts fit together and what is real versus planned.
@@ -22,21 +22,26 @@ Start with [docs/architecture.md](docs/architecture.md) for how the parts fit to
 | Command | Purpose |
 | --- | --- |
 | `npm ci` | Install every workspace from the single root lockfile |
-| `npm run dev:marketing` / `npm run dev:platform-fe` | Run the marketing site (3000) or the product UI (3001) |
-| `npm run typecheck` | Typecheck all workspaces |
-| `npm test --workspace=@verityloop/marketing` | Marketing unit tests (Vitest) |
-| `npm run test:platform-fe` | Product Playwright journeys; needs `npm run dev:platform-fe` running |
-| `npm run build` | Build all workspaces |
+| `npm run dev` | Run every app's dev server (marketing 3000, dashboard 3001) |
+| `npm run dev:marketing` / `npm run dev:dashboard` | Run one app |
+| `npm run typecheck` | Typecheck all workspaces (Turborepo, cached) |
+| `npm test` | Unit tests in every workspace (Turborepo, cached; marketing Vitest today) |
+| `npm run test:e2e` | Browser journeys (dashboard Playwright; starts its own dev server, never cached) |
+| `npm run build` | Build all workspaces (Turborepo, cached) |
 | `npm run deploy:check` | Validate the marketing Worker bundle without deploying |
+
+Turborepo runs `build`, `typecheck`, `test` and `test:e2e` from `turbo.json`. Narrow any of them with `--filter`, for example `npx turbo run build --filter=@verityloop/dashboard`. When a task's inputs, outputs or environment variables change, update `turbo.json` in the same change, or cached results will be stale. Deploys never go through the cache: the Wrangler build hook calls the marketing workspace build directly.
 
 Install a dependency into the workspace that uses it: `npm install <pkg> --workspace=@verityloop/<name>`. Never create app-level lockfiles.
 
 ## Boundaries
 
 - Apps never import another app's source. Shared code goes in `packages/*` with explicit exports.
-- `services/*` gets code only after its stack decision is approved (see each service README). When a service gets a `package.json`, add `services/*` to the root `workspaces`.
+- `apps/api` and `apps/worker` get code only after their stack decision is approved (see each README). Each then owns its own `package.json`, environment variables, tests and deploy configuration.
+- Code shared by the API and worker (database schema, job payloads, brief types) goes in a package such as `packages/db` or `packages/contracts`, never in either app.
+- Feature folders use the product's domain names (`auth`, `workspaces`, `account`, later `briefs`), and the same name in every app that handles that domain.
 - The marketing waitlist Worker is not the product API. Root `wrangler.jsonc` and `.dev.vars` belong to marketing only.
-- `apps/platform-fe` role checks are UI-only and **not a security boundary**. Never describe preview behavior as shipped.
+- `apps/dashboard` role checks are UI-only and **not a security boundary**. Never describe preview behavior as shipped.
 
 ## Keeping docs true to the code
 
@@ -64,5 +69,5 @@ Docs here are working instructions, not history. A doc that disagrees with the c
 
 - Name branches `<type>/<short-kebab-description>`, using the same type as the commit: `feat/`, `fix/`, `docs/`, `chore/`, `refactor/`, `test/`. Example: `feat/early-access-waitlist-offer`.
 - Never create branches with a `claude/` prefix. If a session starts on one, rename it before the first push.
-- Write commit messages as Conventional Commits with a scope, e.g. `feat(marketing): ...`, `fix(waitlist): ...`, `refactor(platform-fe): ...`.
+- Write commit messages as Conventional Commits with a scope, e.g. `feat(marketing): ...`, `fix(waitlist): ...`, `refactor(dashboard): ...`.
 - Keep unrelated changes on separate branches.

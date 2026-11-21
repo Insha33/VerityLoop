@@ -110,14 +110,16 @@ Documents are workspace-scoped and inherit defined access rules. After setup, gu
 
 ## Navigation and persistence
 
-Suggested route structure, for a later implementation:
+Routes as implemented in `apps/dashboard` (preview):
 
-- `/app`: account dashboard.
-- `/app/workspaces`: organization directory / personal membership list.
-- `/app/workspaces/new`: workspace naming.
-- `/app/workspaces/:workspaceId/setup/invite`: optional invitations.
-- `/app/workspaces/:workspaceId/connections`: scoped connections.
-- `/app/workspaces/:workspaceId/documents`: supporting product documents.
+- `/sign-up`, `/sign-in`: email entry. Signed-out visits to any other route go to `/sign-up`.
+- `/`: account dashboard.
+- `/workspaces`: organization directory / personal membership list.
+- `/workspaces/new`: workspace naming.
+- `/workspaces/:workspaceId/invite`: optional invitations.
+- `/workspaces/:workspaceId/connections`: scoped connections.
+- `/workspaces/:workspaceId/documents`: supporting product documents.
+- `/settings`: account settings and preview reset.
 
 Global navigation remains stable. Only the selected workspace's content is shown inside workspace routes. A small workspace-local Invite → Connections → Documents indicator may aid setup, but the old pre-dashboard Account/Workspace/Team/Context wizard is removed.
 

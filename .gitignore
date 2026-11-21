@@ -12,3 +12,4 @@ out/
 .dev.vars
 .dev.vars.*
 !.dev.vars.example
+.turbo/

@@ -16,7 +16,7 @@ VerityLoop is an AI product decision system. Evidence agents connect market sign
 
 ## Capabilities and Constraints
 
-This repository holds the marketing site (`apps/marketing`) and a frontend-only product onboarding preview (`apps/platform-fe`); backend services are planned but unbuilt (see `docs/architecture.md`). Marketing product previews are illustrative concepts using synthetic examples. Human approval remains required for priorities and external commitments. Preserve the existing waitlist form validation and Worker submission contract, FAQ content, and audience navigation. Do not invent customers, testimonials, measured outcomes, or availability guarantees.
+This repository holds the marketing site (`apps/marketing`) and a frontend-only product onboarding preview (`apps/dashboard`); the API and agent worker (`apps/api`, `apps/worker`) are planned but unbuilt (see `docs/architecture.md`). Marketing product previews are illustrative concepts using synthetic examples. Human approval remains required for priorities and external commitments. Preserve the existing waitlist form validation and Worker submission contract, FAQ content, and audience navigation. Do not invent customers, testimonials, measured outcomes, or availability guarantees.
 
 ## Brand Commitments
 

@@ -90,7 +90,7 @@ components:
 
 # Design System: VerityLoop marketing site
 
-Scope: the public site in `apps/marketing`. The product UI (`apps/platform-fe`) follows [docs/design/pm-onboarding.md](docs/design/pm-onboarding.md), its `v8/` references, and [apps/platform-fe/design-qa.md](apps/platform-fe/design-qa.md). Last synced with the code on 2026-11-21. This file replaces `DESIGN_PLAN.md` and `DESIGN_MEMORY.md`, which described the retired September navy/Newsreader theme and components that are no longer rendered.
+Scope: the public site in `apps/marketing`. The product UI (`apps/dashboard`) follows [docs/design/pm-onboarding.md](docs/design/pm-onboarding.md), its `v8/` references, and [apps/dashboard/design-qa.md](apps/dashboard/design-qa.md). Last synced with the code on 2026-11-21. This file replaces `DESIGN_PLAN.md` and `DESIGN_MEMORY.md`, which described the retired September navy/Newsreader theme and components that are no longer rendered.
 
 ## Overview
 

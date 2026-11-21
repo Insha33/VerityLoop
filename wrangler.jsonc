@@ -4,7 +4,7 @@
   "compatibility_date": "2026-08-10",
   "main": "./apps/marketing/worker/index.ts",
   "build": {
-    "command": "npm run build:marketing"
+    "command": "npm run build --workspace=@verityloop/marketing"
   },
   "vars": {
     "WAITLIST_NOTIFICATION_EMAIL": "inshaaqib2001@gmail.com"

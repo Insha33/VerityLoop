@@ -8,9 +8,9 @@
       "port": 3100
     },
     {
-      "name": "platform-fe",
+      "name": "dashboard",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev:platform-fe"],
+      "runtimeArgs": ["run", "dev:dashboard"],
       "port": 3001
     }
   ]

@@ -55,11 +55,11 @@ npm run typecheck
 npm run build
 ```
 
-`npm run build:marketing` writes this site to `apps/marketing/out/`. Root `npm run build` builds both apps.
+`npm run build:marketing` writes this site to `apps/marketing/out/`. Root `npm run build` builds every app through Turborepo.
 
 ## Cloudflare deployment
 
-The Cloudflare asset directory is `./apps/marketing/out`, so dependencies and source files are never uploaded as static assets. Wrangler is configured to run `npm run build:marketing` before deployment, which creates `apps/marketing/out/`.
+The Cloudflare asset directory is `./apps/marketing/out`, so dependencies and source files are never uploaded as static assets. Wrangler is configured to run `npm run build --workspace=@verityloop/marketing` before deployment (directly, so a deploy never replays a cached build), which creates `apps/marketing/out/`.
 
 ```bash
 npm run deploy
