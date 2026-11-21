@@ -8,7 +8,6 @@ import { Theme } from "@astryxdesign/core/theme";
 import { verityloopTheme } from "@/themes/verityloop";
 import { DemoProvider } from "@/lib/preview-store";
 
-// "Close dialog" is clearer than the default "Close" and is the name the e2e tests use.
 const OVERRIDES = { en: { "@astryx.dialog.close": "Close dialog" } };
 
 export function Providers({ children }: { children: ReactNode }) {

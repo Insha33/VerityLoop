@@ -48,7 +48,6 @@ export function AppShell({ children }: { children: ReactNode }) {
     </aside>
     <div className="app-body"><header className="app-header"><span className="mobile-only"><IconButton variant="ghost" label="Open navigation" aria-expanded={mobileOpen} aria-controls="app-navigation" icon={<Icon icon={Menu} />} onClick={() => setMobileOpen(!mobileOpen)} /></span>
       <nav className="breadcrumbs" aria-label="Breadcrumb">{crumbs.map((crumb, index) => <span key={`${crumb}-${index}`}>{index > 0 && <ChevronRight size={13} aria-hidden="true" />}{index === 0 && crumbs.length > 1 ? <Link href="/workspaces">{crumb}</Link> : <span aria-current={index === crumbs.length - 1 ? "page" : undefined}>{crumb}</span>}</span>)}</nav>
-      {/* Phones show only the avatar, as the original header did; one of the two menus is always hidden. */}
       <div className="header-account">{[false, true].map((compact) => <span key={String(compact)} className={compact ? "mobile-only" : "desktop-only"}>
         <DropdownMenu alignment="end" hasChevron={!compact} button={{ label: compact ? `Account menu for ${profile.email}` : profile.email, isIconOnly: compact, variant: "ghost", icon: <Avatar name={profile.name} size="sm" tooltip={false} /> }}>
           <DropdownMenuItem icon={Settings} label="Account settings" href="/settings" />

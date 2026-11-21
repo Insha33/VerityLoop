@@ -41,7 +41,6 @@ export function DocumentsPage() {
     <SetupNav workspace={current} active="documents" />
     <PageHeading title="Add context about your product" subtitle="Upload documents that explain what your product does and how it works." />
     <p className="document-examples">PRDs, TDDs, architecture, roadmaps, strategy, or customer research.</p>
-    {/* The list below holds the files; the input only hands new ones to addFiles, so it stays empty. */}
     <FileInput mode="dropzone" isMultiple label="Choose supporting product documents" isLabelHidden placeholder="Drag documents here" value={null} onChange={addFiles} status={errors.length ? { type: "error" } : undefined} aria-describedby="file-formats" />
     <p id="file-formats" className="helper drop-zone-formats">PDF, DOCX, PPTX, Markdown and TXT · Up to 20 MB per file</p>
     {errors.length > 0 && <div className="file-errors" role="alert">{errors.map((error) => <p key={error}>{error}</p>)}</div>}

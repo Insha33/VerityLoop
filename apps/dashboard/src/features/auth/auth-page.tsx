@@ -21,7 +21,6 @@ import { isValidEmail } from "@/lib/email";
 import { useDemo } from "@/lib/preview-store";
 
 const logo = (name: "jira" | "linear") => <Image key={name} className="stage-logo" src={`/integrations/${name}.png`} width={16} height={16} alt="" />;
-// Sample briefs for the illustration only; nothing here is real customer data.
 const SAMPLE_BRIEFS = [
   { title: "Competitor moved to usage-based pricing", sources: [<Icon key="w" icon={Globe} size="sm" />, logo("jira"), <Icon key="b" icon={BookOpen} size="sm" />, <Icon key="p" icon={Phone} size="sm" />], status: <Badge variant="orange" label="Needs review" />, owner: "Maya" },
   { title: "Enterprise SSO requests are rising", sources: [logo("linear"), <Icon key="f" icon={FileText} size="sm" />], status: <Badge label="Drafting" />, owner: "Sam" },
@@ -34,7 +33,6 @@ function ProductStage() {
   return <div className="auth-stage">
     <SignalGrid />
     <h2 className="auth-stage-heading">Your next product move<span>Backed by evidence.</span></h2>
-    {/* A picture of the product: hidden from assistive technology and inert, so nothing in it is focusable. */}
     <div aria-hidden="true" inert>
       <div className="stage-app">
         <div className="stage-rail">

@@ -1,6 +1,5 @@
 @import "@astryxdesign/core/reset.css";
 @import "@astryxdesign/core/astryx.css";
-/* Built from src/themes/verityloop-theme.ts (neutral + brand coral). Light and dark follow the system. */
 @import "../themes/verityloop.css";
 
 @font-face { font-family: Manrope; src: url("/fonts/manrope-400.ttf") format("truetype"); font-weight: 400; font-display: swap; }
@@ -8,12 +7,6 @@
 @font-face { font-family: Manrope; src: url("/fonts/manrope-600.ttf") format("truetype"); font-weight: 600; font-display: swap; }
 @font-face { font-family: Manrope; src: url("/fonts/manrope-700.ttf") format("truetype"); font-weight: 700; font-display: swap; }
 
-/*
-  Page layout for the onboarding screens. Controls (buttons, fields, menus, dialogs, badges, avatars)
-  are Astryx components and are not styled here. Every color is an Astryx theme token or a theme-local
-  --vl-* token from verityloop-theme.ts. Element rules are scoped to the page containers so they never
-  reach inside Astryx components.
-*/
 @layer app {
   :root { --sidebar: 232px; }
   body { background: var(--color-background-body); color: var(--color-text-primary); }
@@ -28,7 +21,6 @@
   .page-subtitle { color: var(--color-text-secondary); margin-top: 10px; font-size: 1rem; line-height: 1.625rem; }
   .loading { display: flex; align-items: center; justify-content: center; min-height: 100svh; }
 
-  /* Sign up and sign in: form on the left, product stage on the right (the larger side). */
   .auth-page { position: relative; min-height: 100svh; display: grid; grid-template-columns: 42% 58%; }
   .auth-header { position: absolute; top: 32px; left: 48px; right: 48px; display: flex; align-items: center; justify-content: space-between; gap: 20px; z-index: 2; }
   .auth-header-end { display: flex; gap: 22px; align-items: center; font-size: 0.875rem; color: var(--color-text-secondary); }
@@ -42,15 +34,11 @@
   .auth-submit { margin-top: 24px; }
   .auth-preview-panel { padding: 0 0 0 16px; }
 
-  /* The stage: square corners like the marketing site, a stage-peach wash and the signal grid. */
   .auth-stage { position: relative; isolation: isolate; height: 100%; min-height: 640px; overflow: hidden; border-left: 1px solid var(--color-border); background: linear-gradient(160deg, var(--vl-stage), var(--vl-paper) 72%); }
   .auth-stage .auth-stage-heading { position: absolute; z-index: 1; left: 64px; top: 128px; max-width: 560px; font-size: 2.75rem; line-height: 1.1; font-weight: 550; letter-spacing: -1.4px; text-wrap: balance; }
-  /* Large text: the logo orange passes the 3:1 large-text minimum (3.08:1 on white). */
   .auth-stage-heading span { display: block; color: var(--vl-brand); }
 
-  /* The product picture inside the stage: a workspace list, dimmed, with one decision brief in front. */
   .stage-app { position: absolute; z-index: 1; left: 64px; top: 300px; bottom: 0; width: 980px; display: grid; grid-template-columns: 56px minmax(0, 1fr); background: var(--color-background-card); border: 1px solid var(--color-border); border-bottom: 0; font-size: 0.8125rem; overflow: hidden; }
-  /* Dim the list's contents, not the frame, so the signal grid never shows through it. */
   .stage-app > * { opacity: 0.5; }
   .stage-rail { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 8px; border-right: 1px solid var(--color-border); background: var(--vl-paper); color: var(--color-icon-secondary); }
   .stage-rail > span { display: grid; place-items: center; width: 40px; height: 40px; }
@@ -74,8 +62,6 @@
   .stage-brief-actions { margin-top: 14px; display: flex; gap: 8px; }
   .stage-logo { width: 16px; height: 16px; }
 
-  /* Signal grid: hairlines in CSS (visible without scripting); lit cells drawn on the canvas share the pitch.
-     The mask clears an ellipse behind the headline and fades out before the product picture. */
   .signal-grid { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
     background-image: linear-gradient(to right, var(--vl-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--vl-grid-line) 1px, transparent 1px);
     background-size: var(--cell) var(--cell); background-position: var(--grid-x, 0) 0;
@@ -85,7 +71,6 @@
   .signal-grid canvas { display: block; width: 100%; height: 100%; }
   .signal-probe { position: absolute; width: 0; height: 0; overflow: hidden; }
 
-  /* App shell */
   .app-sidebar { width: var(--sidebar); position: fixed; inset: 0 auto 0 0; z-index: 30; background: var(--vl-paper); border-right: 1px solid var(--color-border); padding: 26px 18px; display: flex; flex-direction: column; }
   .sidebar-brand { min-height: 64px; display: flex; align-items: flex-start; justify-content: space-between; }
   .app-sidebar nav { display: grid; gap: 5px; margin-top: 20px; }
@@ -118,7 +103,6 @@
   .desktop-only { display: inline-flex; }
   .nav-scrim { position: fixed; inset: 0; z-index: 25; border: 0; padding: 0; background: var(--vl-scrim); cursor: pointer; }
 
-  /* Dashboard */
   .feature-icon { width: 52px; height: 52px; background: var(--vl-coral-soft); color: var(--color-icon-accent); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: var(--radius-element); }
   .feature-icon.small { width: 44px; height: 44px; }
   .dashboard-start { display: flex; align-items: flex-start; gap: 22px; margin-top: 60px; max-width: 720px; }
@@ -135,7 +119,6 @@
   .simple-list > div { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--color-border); }
   .simple-list strong { font-weight: 600; }
 
-  /* Workspace directory */
   .directory-identity { display: flex; align-items: center; gap: 12px; margin: 44px 0 27px; }
   .directory-identity span { font-size: 0.875rem; color: var(--color-text-secondary); }
   .search-field { max-width: 360px; margin-bottom: 24px; }
@@ -166,7 +149,6 @@
   .action-with-note { text-align: right; }
   .action-with-note .helper { font-size: 0.75rem; margin-top: 8px; }
 
-  /* Setup steps */
   .setup-nav { display: flex; gap: 36px; border-bottom: 1px solid var(--color-border); margin-bottom: 36px; font-size: 0.875rem; }
   .setup-nav a, .setup-nav > span { display: flex; align-items: center; gap: 7px; padding: 0 0 17px; border-bottom: 2px solid transparent; margin-bottom: -1px; min-height: 44px; color: var(--color-text-secondary); }
   .setup-nav a:hover { color: var(--color-text-primary); }
@@ -209,7 +191,6 @@
   .document-notes { font-size: 0.875rem; color: var(--color-text-secondary); margin-top: 25px; }
   .document-notes p { display: flex; gap: 8px; align-items: flex-start; margin-top: 11px; }
 
-  /* Workspace overview and settings */
   .workspace-overview { padding: 30px; background: var(--vl-paper); border: 1px solid var(--color-border); border-radius: var(--radius-container); }
   .workspace-overview p { color: var(--color-text-secondary); margin-top: 12px; max-width: 720px; }
   .overview-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 26px; }

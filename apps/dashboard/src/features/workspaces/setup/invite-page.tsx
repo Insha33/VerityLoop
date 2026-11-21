@@ -51,7 +51,6 @@ export function InvitePage() {
     <div className="heading-with-aside"><PageHeading title="Invite your colleagues" subtitle={`Bring your team into ${current.name}. You can do this later.`} /><p className="heading-aside">Invites grant access only to {current.name}.</p></div>
     <form onSubmit={(event) => advance(event)} noValidate>
       <div className="invite-fields">{rows.map((row, index) => <div className="invite-row" key={index}>
-        {/* The validation message sits on the first field; the others show the error state. */}
         <TextInput type="email" label={`Work email${rows.length > 1 ? ` ${index + 1}` : ""}`} placeholder="colleague@company.com" autoComplete="off" size="lg" value={row.email}
           onChange={(value) => change(index, { email: value })} status={error ? (index === 0 ? { type: "error", message: error } : { type: "error" }) : undefined} statusVariant="detached" />
         <Selector label="Access" size="lg" options={["Reviewer", "Editor"]} value={row.role} onChange={(value) => change(index, { role: (value ?? "Reviewer") as Invitation["role"] })} />
