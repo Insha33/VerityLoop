@@ -100,18 +100,18 @@ The marketing layer stays spacious. White illustrative workspaces carry the info
 
 Implementation sources: `apps/marketing/src/app/globals.css` (tokens, layout, page-wide rules), `src/components/marketing/ProductStory.module.css`, `SignalGrid.{tsx,module.css}`, `HeroShowcase.tsx`, `backgroundMotion.ts` and `DeliverySteps.tsx`. The page is composed in `src/app/page.tsx`: Header, Hero, ProductStory, ProductDetails (Solutions, Delivery, Context), FAQ, Waitlist, Footer, and the footer SignalGrid.
 
+**Gaps against the UI rules (as of 2026-11-21).** Dark mode isn't built: `shadcn.css` defines a `.dark` theme, but nothing applies it, and `globals.css` holds about 116 hard-coded color values. Move those into light and dark tokens before adding dark mode. Some sections still carry eyebrow labels and supporting lines; cut them when those sections are next edited.
+
 `globals.css` still starts with an older compact layer: everything above the `Mid-page system (Nov 2026 audit)` banner comment. The rules after that banner override it. Read values from the rendered selectors, not from the compact layer.
 
 ## Principles
 
-These hold across every section and outlive any single component.
+The UI rules in [AGENTS.md](AGENTS.md#ui-design) apply here: shadcn/ui, shared tokens, light and dark mode, minimal copy, focus, 44px targets, no layout shift, reduced motion. These add what is specific to the marketing site.
 
 - **Motion explains behavior, never decorates.** A shared animation has one source of truth; never run independent delayed loops that can drift apart.
 - **Native scroll is in control.** Never intercept the wheel, snap, force programmatic scrolling, or add an inner scrollbar. Scroll-driven stories derive the step rail, copy and product surface from one shared progress value.
-- **Reserve geometry before transitions** so text and scenes never cause layout shift.
 - **Hover recolors; it doesn't float.** Hover changes color, border or shadow. The only rendered lift is the context-source icon.
-- **Keyboard focus exposes everything hover does**, with a visible `:focus-visible` style. Targets are at least 44px.
-- **Reduced motion gets finished, static states**: stop continuous animation, swap states immediately, and keep all information visible.
+- **Reduced motion stops continuous animation** (signal grid, scene loops) and keeps all information visible.
 - **Honest illustrations.** Product scenes use synthetic examples, are not shipped screenshots, customer proof or measured outcomes, and keep the separate human approvals for decisions, PRDs, ticket drafts and publishing.
 
 ## Colors
@@ -215,7 +215,7 @@ The audience-stage and delivery-region labels say the scenes are illustrative. T
 ## Do and don't
 
 **Do:**
-- Keep pure-white page, nav and walkthrough surfaces with blue, mint, peach and coral framing.
+- In light mode, keep pure-white page, nav and walkthrough surfaces with blue, mint, peach and coral framing.
 - Keep the Rhythm mark, the exact hero headline, coral primary actions, and equal founder and team journeys.
 - Keep marketing controls readable independently of compact illustration UI.
 
