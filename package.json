@@ -9,25 +9,27 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev:marketing",
+    "dev": "turbo run dev",
     "dev:marketing": "npm run dev --workspace=@verityloop/marketing",
     "dev:marketing:3100": "PORT=3100 npm run dev --workspace=@verityloop/marketing",
-    "build": "npm run build --workspaces --if-present",
-    "build:marketing": "npm run build --workspace=@verityloop/marketing",
-    "test": "npm run test --workspaces --if-present",
+    "dev:dashboard": "npm run dev --workspace=@verityloop/dashboard",
+    "build": "turbo run build",
+    "build:marketing": "turbo run build --filter=@verityloop/marketing",
+    "build:dashboard": "turbo run build --filter=@verityloop/dashboard",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
     "test:watch": "npm run test:watch --workspace=@verityloop/marketing",
-    "typecheck": "npm run typecheck --workspaces --if-present",
-    "start": "npm run preview:marketing",
+    "test:e2e": "turbo run test:e2e --",
+    "start:dashboard": "npm run start --workspace=@verityloop/dashboard",
     "preview:marketing": "wrangler dev",
+    "start": "npm run preview:marketing",
     "deploy": "npm run deploy:marketing",
     "deploy:marketing": "wrangler deploy",
     "deploy:check": "wrangler deploy --dry-run",
-    "dev:product": "npm run dev --workspace=@verityloop/product",
-    "build:product": "npm run build --workspace=@verityloop/product",
-    "start:product": "npm run start --workspace=@verityloop/product",
     "brand:assets": "npm run brand:assets --workspace=@verityloop/marketing"
   },
   "devDependencies": {
+    "turbo": "^2.11.13",
     "wrangler": "^4.123.0"
   }
 }

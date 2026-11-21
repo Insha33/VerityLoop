@@ -1,14 +1,14 @@
 # Monorepo organization
 
-Research reviewed on September 30, 2026 against current official npm, Turborepo, Next.js, and Cloudflare documentation.
+Research reviewed on September 30, 2026 against current official npm, Turborepo, Next.js, and Cloudflare documentation. Layout last changed 2026-11-21: `apps/product` became `apps/dashboard`, `apps/api` and `apps/worker` were added (README only), and Turborepo now runs the root tasks. The layout follows what popular Next.js and AI-agent monorepos do (cal.com, dub, midday, next-forge, Langfuse, trigger.dev and others). For how the parts connect, see [architecture.md](architecture.md).
 
 ## Decisions and reasons
 
-1. **Separate deployable applications under `apps/`.** `marketing` owns the public site, SEO, assets, and waitlist endpoint. `product` owns the main application. Each has its own manifest, dependencies, Next.js configuration, TypeScript configuration, and output directory. Product server features must not inherit marketing's `output: "export"` constraint. This follows the [apps/packages convention](https://github.com/vercel/turborepo/blob/main/apps/docs/content/docs/crafting-your-repository/structuring-a-repository.mdx).
+1. **Every deployable goes in `apps/`; everything imported goes in `packages/`.** `apps/marketing` owns the public site, SEO, assets, and waitlist endpoint. `apps/dashboard` owns the product UI. `apps/api` (product API) and `apps/worker` (evidence jobs) hold only READMEs that set each app's boundary; they get code and a `package.json` once their stack decision is approved, and the existing `apps/*` workspace glob picks them up. This is the [Turborepo convention](https://turborepo.com/docs/crafting-your-repository/structuring-a-repository) ("`apps/` for applications and services"). Apps are named for what they are, not by front end or back end. Each app has its own manifest, dependencies, framework config, TypeScript config and output directory. Product server features must not inherit marketing's `output: "export"` constraint.
 2. **Keep npm and one root lockfile.** The repo already used npm. [Native workspaces](https://docs.npmjs.com/cli/v11/using-npm/workspaces/) provide package linking and per-app commands without a package-manager migration. Dependencies belong to the app using them; root dependencies are repository tooling. Use [`npm ci`](https://docs.npmjs.com/cli/v11/commands/npm-ci/) for reproducible installs in CI.
-3. **Start with workspace scripts.** Two independent applications do not yet need dependency-ordered builds or shared build caching. npm runs workspace scripts in declared order; it is not a dependency-aware task scheduler. [Turborepo can be adopted incrementally](https://turborepo.dev/docs/getting-started/add-to-existing-repository) when shared compiled packages or CI times justify it. If introduced, declare dependencies, output directories, and environment inputs correctly; do not cache deployment tasks.
+3. **Turborepo runs the root tasks.** `turbo.json` defines `build` (outputs `.next/**` without `.next/cache`, and `out/**`), `typecheck`, `test` (unit tests) and `test:e2e` (Playwright, never cached). Each task hashes its workspace's files, dependencies and declared environment variables; an unchanged task replays from `.turbo/` instead of running. `"dependsOn": ["^build"]` builds packages before the apps that use them. Environment variables are strict by default: a task only sees variables listed in `turbo.json`, so add any new build-time variable there. Turborepo hashes only files Git tracks, so `build` also lists `.env*` in its `inputs`; without that, changing a value in an ignored `.env.local` would replay a build with the old value. Arguments after `--` reach the underlying tool, for example `npm run test:e2e -- --headed`. Deploys bypass the cache: the Wrangler build hook runs the marketing workspace build directly. Remote caching is not configured.
 4. **Share code only when a real consumer exists.** `packages/` currently holds guidance, not an artificial UI or business-logic library. Future packages expose a deliberate API and are declared in consumers' manifests. Do not import across apps. See [internal packages](https://turborepo.dev/docs/core-concepts/internal-packages).
-5. **Keep builds and deployments independent.** Root `build` builds both apps; `build:marketing` and `build:product` target one. Root `deploy` targets marketing only. Product gets its own deployment once its runtime/provider is selected.
+5. **Keep builds and deployments independent.** Root `build` builds every app; `build:marketing` and `build:dashboard` target one (`turbo run build --filter=...`). Root `deploy` targets marketing only. The dashboard gets its own deployment once its runtime/provider is selected.
 6. **Keep secrets and tests near their owner.** Next.js environment files live inside each app. Marketing tests moved with their source. The waitlist Worker stays inside marketing because it is deployed with that site; it is not the main product API. Root `.dev.vars` is the compatibility exception described below.
 
 ## Marketing deployment compatibility
@@ -23,9 +23,9 @@ Expected Cloudflare Workers Builds settings:
 | --- | --- |
 | Root directory | Repository root |
 | Deploy command | `npm run deploy:marketing` (existing `npx wrangler deploy` also works) |
-| Separate build command | May be empty; Wrangler's build hook runs `npm run build:marketing` |
-| Optional explicit build command | `npm run build:marketing` (would duplicate the Wrangler build) |
-| Suggested include watch paths | `apps/marketing/*`, `package.json`, `package-lock.json`, `wrangler.jsonc` |
+| Separate build command | May be empty; Wrangler's build hook runs `npm run build --workspace=@verityloop/marketing` (no Turborepo cache) |
+| Optional explicit build command | `npm run build --workspace=@verityloop/marketing` (would duplicate the Wrangler build) |
+| Suggested include watch paths | `apps/marketing/*`, `package.json`, `package-lock.json`, `wrangler.jsonc`, `turbo.json` |
 
 Cloudflare watch paths match descendants, so `apps/marketing/*` includes files below `src/`. Add shared-package paths when marketing starts consuming them. A root lockfile change should trigger a marketing build because it may change marketing dependencies. These settings are recommendations; this migration does not edit the Cloudflare dashboard.
 
@@ -33,9 +33,9 @@ Cloudflare documents independent Workers and watch paths in [advanced monorepo s
 
 ## Future growth
 
-- Add product features within `apps/product/src/`; do not pre-create services for unimplemented features.
-- Add `apps/api` or `apps/jobs` only if a separately deployed backend or worker is actually needed.
+- Add product UI features within `apps/dashboard/src/features/<domain>/`, named for the product domain. Backend and job code go in `apps/api` and `apps/worker` once their stack is approved. Use the same domain folder names in every app (for example `briefs`), and put the shared schema and job types in `packages/db` and `packages/contracts`. Don't add placeholder code before then.
+- If the API ends up as Next.js route handlers inside `apps/dashboard`, remove `apps/api`, keep the schema in `packages/db`, and update [architecture.md](architecture.md).
 - Add shared packages when both apps have a concrete need, with explicit exports and dependencies.
-- CI should install once with `npm ci`, then run tests, typechecks, and builds. A future product test suite should declare a `test` script so root `npm test` includes it. Currently tests cover marketing and waitlist behavior only.
-- Introduce dependency-aware build/test selection once shared packages make app-only path filters insufficient.
-- Keep generated `.next/`, `out/`, `node_modules/`, environment secrets, and TypeScript build caches ignored at every depth.
+- CI should install once with `npm ci`, then run `npm run typecheck`, `npm test` and `npm run build`, then `npx playwright install chromium` and `npm run test:e2e`. Playwright starts the dashboard dev server itself (`webServer` in `playwright.config.ts`); with `CI` set it never reuses a stray server. Use `npx turbo run <task> --affected` to run only what changed against the base branch.
+- Add Turborepo remote caching only when CI times justify it, and never cache deploy tasks.
+- Keep generated `.next/`, `out/`, `.turbo/`, `node_modules/`, environment secrets, and TypeScript build caches ignored at every depth.

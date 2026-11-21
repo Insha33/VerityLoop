@@ -1,0 +1,73 @@
+# AGENTS.md
+
+Instructions for any coding agent (Claude Code, Codex, and others) working in this repository. Claude Code v2.1.277+ reads this file when no `CLAUDE.md` exists. Don't add a `CLAUDE.md` beside it: by default that would replace this file instead of adding to it. For an older client, use a one-line `CLAUDE.md` containing `@AGENTS.md`.
+
+## Repository map
+
+```text
+apps/
+  marketing/        Public site (Next.js static export) + /api/waitlist Cloudflare Worker
+  dashboard/        Product UI. Currently a frontend-only onboarding preview (sessionStorage)
+  api/              README only: product API, auth, workspaces, connectors (not built)
+  worker/           README only: evidence pipeline and brief jobs (not built)
+packages/           Shared libraries; none yet
+docs/               Architecture, plans, product direction, design specs
+turbo.json          Turborepo task graph and cache settings
+```
+
+Start with [docs/architecture.md](docs/architecture.md) for how the parts fit together and what is real versus planned.
+
+## Commands (run from the repo root)
+
+| Command | Purpose |
+| --- | --- |
+| `npm ci` | Install every workspace from the single root lockfile |
+| `npm run dev` | Run every app's dev server (marketing 3000, dashboard 3001) |
+| `npm run dev:marketing` / `npm run dev:dashboard` | Run one app |
+| `npm run typecheck` | Typecheck all workspaces (Turborepo, cached) |
+| `npm test` | Unit tests in every workspace (Vitest; Turborepo, cached) |
+| `npm run test:e2e` | Browser journeys (dashboard Playwright at desktop and mobile; starts its own dev server, never cached). Needs `npx playwright install chromium` once |
+| `npm run build` | Build all workspaces (Turborepo, cached) |
+| `npm run deploy:check` | Validate the marketing Worker bundle without deploying |
+
+Turborepo runs `build`, `typecheck`, `test` and `test:e2e` from `turbo.json`. Narrow any of them with `--filter`, for example `npx turbo run build --filter=@verityloop/dashboard`. When a task's inputs, outputs or environment variables change, update `turbo.json` in the same change, or cached results will be stale. Deploys never go through the cache: the Wrangler build hook calls the marketing workspace build directly.
+
+Install a dependency into the workspace that uses it: `npm install <pkg> --workspace=@verityloop/<name>`. Never create app-level lockfiles.
+
+## Boundaries
+
+- Apps never import another app's source. Shared code goes in `packages/*` with explicit exports.
+- `apps/api` and `apps/worker` get code only after their stack decision is approved (see each README). Each then owns its own `package.json`, environment variables, tests and deploy configuration.
+- Code shared by the API and worker (database schema, job payloads, brief types) goes in a package such as `packages/db` or `packages/contracts`, never in either app.
+- Feature folders use the product's domain names (`auth`, `workspaces`, `account`, later `briefs`), and the same name in every app that handles that domain.
+- The marketing waitlist Worker is not the product API. Root `wrangler.jsonc` and `.dev.vars` belong to marketing only.
+- `apps/dashboard` role checks are UI-only and **not a security boundary**. Never describe preview behavior as shipped.
+
+## Keeping docs true to the code
+
+Docs here are working instructions, not history. A doc that disagrees with the code misleads the next agent.
+
+1. **Update docs in the same change as the code.** If a change alters behavior, a path, a command, a token, or a decision recorded in any `.md` file (READMEs, `DESIGN.md`, `docs/**`, plans, the decision ledger), edit that file in the same commit.
+2. **One source of truth per topic.** Link to it; don't restate it elsewhere:
+
+   | Topic | Source of truth |
+   | --- | --- |
+   | System design, components, real vs planned | `docs/architecture.md` |
+   | Marketing visual system (tokens, components, motion) | `DESIGN.md` |
+   | Product positioning and MVP scope | `docs/verityloop-positioning-and-mvp.md`, `PRODUCT.md` |
+   | Product onboarding screens and copy | `docs/design/pm-onboarding.md` (+ `v8/` references) |
+   | Repo layout decisions and deploy settings | `docs/monorepo.md` |
+   | Each workspace's setup and commands | that workspace's `README.md` |
+   | Agent and git rules | this file |
+
+3. **Plans and ledgers carry a status line** (`proposed`, `approved`, `in progress`, `shipped`, or `superseded by <link>`), plus the date it last changed. When work ships, update the status and fix anything the plan now gets wrong. When a plan is replaced, mark it superseded. Don't silently leave it.
+4. **Check claims against the code before writing them.** Cite real file paths. Before finishing, confirm every path you mention still exists (`git ls-files <path>`).
+5. **External docs (Google Docs PRD and others) aren't edited from here.** If the code or a repo doc now contradicts one, say so in your summary so a person can update it.
+6. **Delete or fold stale docs** instead of adding a newer one beside them. Removed history stays in git.
+
+## Git
+
+- Name branches `<type>/<short-kebab-description>`, using the same type as the commit: `feat/`, `fix/`, `docs/`, `chore/`, `refactor/`, `test/`. Example: `feat/early-access-waitlist-offer`.
+- Never create branches with a `claude/` prefix. If a session starts on one, rename it before the first push.
+- Write commit messages as Conventional Commits with a scope, e.g. `feat(marketing): ...`, `fix(waitlist): ...`, `refactor(dashboard): ...`.
+- Keep unrelated changes on separate branches.
