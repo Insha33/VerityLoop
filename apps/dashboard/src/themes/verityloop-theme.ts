@@ -15,10 +15,11 @@ export const verityloopTheme = defineTheme({
   // Square corners everywhere, like the marketing site. --radius-full stays round (avatars).
   radius: {base: 4, multiplier: 0},
   tokens: {
-    // Filled accents (primary buttons, checked controls) use the exact logo orange.
-    // Dark ink on it is 5.9:1 (white would be 3.1:1, below WCAG AA for button text).
+    // Filled accents (primary buttons, checked controls) use the exact logo orange with white labels,
+    // matching DESIGN.md and the marketing site. Contrast is 3.08:1 (light) and 2.79:1 (dark), below
+    // WCAG AA's 4.5:1 for normal-size text; dark ink would give 5.9:1. Product owner's choice, 2026-11-21.
     '--color-accent': [logoOrange, logoOrangeDark],
-    '--color-on-accent': [ink, '#1b1b1b'],
+    '--color-on-accent': ['#ffffff', '#ffffff'],
     '--color-accent-muted': ['#ffe1dc', '#4a2420'],
     // Small accent text stays readable: ink in light mode, the logo orange on dark (6.2:1).
     // Large accent text (the sign-up headline) uses --vl-brand directly.

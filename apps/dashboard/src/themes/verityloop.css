@@ -209,7 +209,7 @@
     --color-text-accent: light-dark(#101623, #ff6b61);
     --color-on-dark: #ffffff;
     --color-on-light: #111111;
-    --color-on-accent: light-dark(#101623, #1b1b1b);
+    --color-on-accent: light-dark(#ffffff, #ffffff);
     --color-on-success: light-dark(#ffffff, #111111);
     --color-on-error: light-dark(#ffffff, #111111);
     --color-on-warning: #111111;
