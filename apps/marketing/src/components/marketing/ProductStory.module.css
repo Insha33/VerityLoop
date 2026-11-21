@@ -90,7 +90,6 @@
 .caption svg { width: 11px; height: 11px; }
 .scene[data-active=true] .reveal { animation: materialize 650ms var(--motion-ease) var(--delay, 0ms) both; }
 .scene[data-active=true] .connection > span { animation: travel 650ms ease 400ms both; }
-.stage[data-visible=false] .reveal, .stage[data-visible=false] .connection > span { animation-play-state: paused; }
 @keyframes materialize { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes travel { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(25px); opacity: 0; } }
 @media (max-width: 1024px) { .layout { grid-template-columns: 250px minmax(0,1fr); gap: 35px; }.scene { padding: 23px; }.step button { font-size: 15px; gap: 12px; }.description > div { padding-left: 26px; }.description p { font-size: 12px; }.windowBody { padding: 20px; }.idea { font-size: 21px; }.sourceStrip > span { font-size: 9px; }.evidenceSources { gap: 5px; }.evidenceSources > span { padding: 9px; }.evidenceRow { gap: 8px; }.evidenceRow strong { font-size: 11px; } }
@@ -157,5 +156,9 @@ section.section { width: 100%; background: var(--paper); color: var(--ink); padd
 .scene[data-active=true] .window.reveal, .scene[data-active=true] .reveal .reveal { animation-name: rise; animation-delay: 0ms; }
 @keyframes settle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+/* Pause scenes while the stage is offscreen. Keep this after every `.reveal` and `.connection > span`
+   rule: those use the `animation` shorthand, which resets play-state to running, and they have the
+   same specificity as this rule, so a later one would win and scenes would keep animating offscreen. */
+.stage[data-visible=false] .reveal, .stage[data-visible=false] .connection > span { animation-play-state: paused; }
 .mobileScene { filter: none; transform: none; }
 @media (prefers-reduced-motion: reduce) { .scene, .scene[data-active=true] { filter: none; transform: none; } }
